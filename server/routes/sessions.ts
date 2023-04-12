@@ -30,13 +30,24 @@ router.get('/:code', async (req: Request, res: Response) => {
 
 // Create session
 router.post('/:username', async (req: Request, res: Response) => {
+  // Feedback:
+  // This is the controller, and preferably, things should be validated and serialized etc so that the
+  // controller can do the business logic.
+
+  // Feedback: Can be rewritten to ( see below):
   if (req.params.username == null) {
     res.status(400).json({ message: 'No username provided' })
   }
+
+  // To:
+  // if (!req.params.username) res.status(400).json({ message: 'No username provided' })
+
   const user: User = {
     id: uuid(),
     name: req.params.username,
   }
+  // Feedback: spaces between blocks
+
   const newSession = {
     id: uuid(),
     code: createUniqueCode(),
@@ -44,6 +55,7 @@ router.post('/:username', async (req: Request, res: Response) => {
     users: [user],
     gameStarted: false,
   }
+
   sessions.push(newSession)
   res.json(newSession)
 })
@@ -53,12 +65,14 @@ router.put('/:code/:username', async (req: Request, res: Response) => {
   if (!req.params.code) {
     res.status(400).json({ message: 'No session code provided' })
   }
+
   if (!req.params.username) {
     res.status(400).json({ message: 'No username provided' })
   }
   const sessionIndex = sessions.findIndex((session) => {
     return session.code == req.params.code
   })
+
   if (sessionIndex == -1) {
     res.status(400).json({
       message: `Could not find session with session code ${req.params.code}`,
@@ -76,6 +90,8 @@ router.put('/:code/:username', async (req: Request, res: Response) => {
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 function createCode(): string {
+  console.log('test')
+
   let code = ''
   for (let i = 0; i < 4; i++) {
     const randomIndex = Math.floor(Math.random() * ALPHABET.length)

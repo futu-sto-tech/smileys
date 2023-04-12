@@ -1,0 +1,11 @@
+@import './font-size.scss';
+@import './colors.scss';
+
+html,
+body,
+#root {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}

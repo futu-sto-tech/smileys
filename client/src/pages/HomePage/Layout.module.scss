@@ -1,0 +1,35 @@
+.mainStyle {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navStyle {
+  height: 90px;
+  // background-color: var(--primary-green);
+  color: var(--black);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--background-beige);
+}
+
+.footerStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 90px;
+  color: var(--white);
+  background-color: var(--background-green);
+}
