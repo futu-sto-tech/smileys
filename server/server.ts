@@ -58,7 +58,7 @@ const clients: Socket[] = []
 
 const wss = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(server, {
   cors: {
-    origin: '*',
+    origin: process.env.ORIGIN,
   },
 })
 
