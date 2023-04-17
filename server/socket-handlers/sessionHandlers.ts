@@ -17,18 +17,14 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  const createSession = (data: { name: string }, callback: any) => {
-    const user: User = {
-      id: uuid(),
-      name: data.name,
-    }
-    addUserSocket(ws, user)
+  const createSession = (data: { user: User }, callback: any) => {
+    addUserSocket(ws, data.user)
 
     const session: Session = {
       id: uuid(),
       code: createUniqueCode(),
-      creator: user,
-      users: [user],
+      creator: data.user,
+      users: [data.user],
       gameStarted: false,
     }
     sessions.push(session)
@@ -38,15 +34,11 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  const joinSession = (data: { code: string; name: string }, callback: any) => {
+  const joinSession = (data: { code: string; user: User }, callback: any) => {
     let session = sessions.find((session) => session.code === data.code)
     if (session) {
-      const user: User = {
-        id: uuid(),
-        name: data.name,
-      }
-      addUserSocket(ws, user)
-      addUserToSession(session, user)
+      addUserSocket(ws, data.user)
+      addUserToSession(session, data.user)
       ws.join(session.id)
       ws.to(session.id).emit('sessionUpdated', session)
       if (typeof callback == 'function') {

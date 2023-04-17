@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import WebSocketContext from '../../shared/WebSocketContext'
+import AppContext from '../../shared/AppContext'
 
 function RoomPage() {
-  const { session } = useContext(WebSocketContext)
+  const { session } = useContext(AppContext)
   let { id } = useParams()
   return (
     <div>
