@@ -4,7 +4,7 @@ import AppContext from '../../shared/AppContext'
 import { Button } from '../Button'
 
 export function NameForm() {
-  const { saveUser, user, setUser } = useContext(AppContext)
+  const { handleChangedName, user, setUser } = useContext(AppContext)
   return (
     <div>
       <h2>What's your name?</h2>
@@ -17,7 +17,7 @@ export function NameForm() {
       <Button
         text={'next'}
         onClick={() => {
-          saveUser(user)
+          handleChangedName()
         }}
       />
     </div>

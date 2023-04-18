@@ -20,7 +20,14 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               </Layout>
             }
           />
-          <Route path="/:id" element={<RoomPage />} />
+          <Route
+            path="/:id"
+            element={
+              <Layout>
+                <RoomPage />
+              </Layout>
+            }
+          />
         </Routes>
       </AppProvider>
     </BrowserRouter>

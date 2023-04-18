@@ -4,14 +4,9 @@ import { Session } from '../../@types/types'
 import { NameForm } from '../../components/NameForm'
 import { Button } from '../../components/Button'
 
-interface User {
-  name: string
-  id: string
-}
-
 function HomePage() {
   const [roomCode, setRoomCode] = useState('')
-  const { user, socket, webSocketState, setSession, needName, setNeedName } = useContext(AppContext)
+  const { user, webSocketState, joinSession, createSession, needName, setNeedName } = useContext(AppContext)
 
   return (
     <>
@@ -31,20 +26,14 @@ function HomePage() {
           ></input>
           <Button
             onClick={() => {
-              socket.emit('joinSession', { code: roomCode, user }, (session: Session) => {
-                setSession(session)
-                setNeedName(!user.name)
-              })
+              joinSession(roomCode)
             }}
             text={'join'}
           />
           <h2>Create a New Session:</h2>
           <Button
             onClick={() => {
-              socket.emit('createSession', { user }, (session: Session) => {
-                setSession(session)
-                setNeedName(!user.name)
-              })
+              createSession()
             }}
             text={'create'}
           />
