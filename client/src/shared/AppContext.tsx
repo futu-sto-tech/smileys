@@ -12,7 +12,7 @@ interface socketEvent {
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
-export const AppProvider = ({ children }: { children: JSX.Element }) => {
+export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
   const userName = useRef<string>('')
   userName.current = user ? user.name : ''
@@ -63,7 +63,7 @@ export const AppProvider = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     if (session && session.code && user.name) {
-      navigate('/' + session?.code)
+      navigate('/' + session.code)
     }
   }, [session?.code])
 

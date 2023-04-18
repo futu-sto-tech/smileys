@@ -6,30 +6,30 @@ import HomePage from './pages/HomePage'
 import RoomPage from './pages/RoomPage'
 import { AppProvider } from './shared/AppContext'
 import Layout from './pages/HomePage/Layout'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import SelectGifPage from './pages/SelectGifPage'
+
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AppProvider>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout>
-                <HomePage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/:id"
-            element={
-              <Layout>
-                <RoomPage />
-              </Layout>
-            }
-          />
-        </Routes>
-      </AppProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AppProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <HomePage />
+                </Layout>
+              }
+            />
+            <Route path="/:roomId" element={<RoomPage />} />
+            <Route path="/:roomId/:gifId" element={<SelectGifPage />} />
+          </Routes>
+        </AppProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 )

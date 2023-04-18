@@ -10,3 +10,16 @@ export interface User {
   id: string
   name: string
 }
+
+export interface GifResult {
+  id: string
+  images: {
+    original: {
+      url: string
+    }
+    fixed_width: {
+      url: string
+    }
+  }
+  title: string
+}
