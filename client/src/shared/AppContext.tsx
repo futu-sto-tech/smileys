@@ -110,7 +110,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
 
   function handleChangedName() {
     saveUser(user)
-    console.log(user)
+    console.log({ ...socketEventAfterName.params, user })
     if (socketEventAfterName.event) {
       socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
         console.log(session)
