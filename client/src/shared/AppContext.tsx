@@ -95,11 +95,13 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   function createSession() {
+    console.log(user)
     if (!user.name) {
       setSocketEventAfterName({ event: 'createSession', params: { user } })
       setNeedName(true)
     } else {
       socket.emit('createSession', { user }, (session: Session) => {
+        console.log(session)
         setSession(session)
         navigate('/' + session.code)
       })
@@ -108,8 +110,10 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
 
   function handleChangedName() {
     saveUser(user)
+    console.log(user)
     if (socketEventAfterName.event) {
       socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
+        console.log(session)
         setSession(session)
         setNeedName(false)
         setSocketEventAfterName({ event: '', params: {} })

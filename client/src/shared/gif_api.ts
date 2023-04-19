@@ -6,7 +6,7 @@ export function useTrendingGifs() {
   return useQuery('trendingGifs', async () => {
     const { data } = await axios.get<{ data: GifResult[] }>('https://api.giphy.com/v1/gifs/trending', {
       params: {
-        api_key: 'ZLhReXEYgtn9NA5YUDEBWq7peGLWjHec',
+        api_key: import.meta.env.VITE_GIPHY_API_KEY,
         limit: 100,
         rating: 'g',
       },
