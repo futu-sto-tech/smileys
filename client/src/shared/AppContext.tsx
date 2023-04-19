@@ -11,9 +11,6 @@ interface socketEvent {
 
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
-socket.on('error', (e) => {
-  console.log(e)
-})
 
 export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
@@ -73,7 +70,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   function obtainUser(): User {
     const userJSON = localStorage.getItem('user')
     if (!userJSON) {
-      return { name: '', id: uuid() }
+      return { name: '', id: uuid(), gifId: '' }
     }
     return JSON.parse(userJSON)
   }
@@ -95,25 +92,25 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   function createSession() {
-    console.log(user)
     if (!user.name) {
       setSocketEventAfterName({ event: 'createSession', params: { user } })
       setNeedName(true)
     } else {
       socket.emit('createSession', { user }, (session: Session) => {
-        console.log(session)
         setSession(session)
         navigate('/' + session.code)
       })
     }
   }
 
+  function updateUser() {
+    // TODO
+  }
+
   function handleChangedName() {
     saveUser(user)
-    console.log({ ...socketEventAfterName.params, user })
     if (socketEventAfterName.event) {
       socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
-        console.log(session)
         setSession(session)
         setNeedName(false)
         setSocketEventAfterName({ event: '', params: {} })

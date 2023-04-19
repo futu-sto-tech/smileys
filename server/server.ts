@@ -5,16 +5,13 @@ import { Server, Socket } from 'socket.io'
 import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import { networkInterfaces } from 'os'
-
 import sessionsRouter from './routes/sessions'
 import { registerSessionHandlers } from './socket-handlers/sessionHandlers'
 import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './types/websocket'
 
 dotenv.config()
-
 const app: Express = express()
 const server = createServer(app)
-
 const nets = networkInterfaces()
 let localAddr: string
 
@@ -45,9 +42,7 @@ server
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 app.use('/sessions', sessionsRouter)
-
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript server running')
 })

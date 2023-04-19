@@ -14,3 +14,14 @@ export function useTrendingGifs() {
     return data.data
   })
 }
+
+export function useGifById(id: string) {
+  return useQuery('GifById', async () => {
+    const { data } = await axios.get<{ data: GifResult[] }>(`https://api.giphy.com/v1/gifs/{id}`, {
+      params: {
+        api_key: import.meta.env.VITE_GIPHY_API_KEY,
+      },
+    })
+    return data.data
+  })
+}

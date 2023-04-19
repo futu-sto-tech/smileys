@@ -9,6 +9,7 @@ export interface Session {
 export interface User {
   id: string
   name: string
+  gifId: string
 }
 
 export interface GifResult {

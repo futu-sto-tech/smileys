@@ -1,28 +1,60 @@
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
-import { useTrendingGifs } from '../../shared/gif_api'
+import { useGifById } from '../../shared/gif_api'
 import { useQueryClient } from 'react-query'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import { Gif } from '../../components/Gif'
 import { GifResult } from '../../@types/types'
+import styles from './SelectGifPage.module.scss'
+import { Button } from '../../components/Button'
+
+type Parameters = {
+  roomId: string
+  gifId: string
+}
 
 function SelectGifPage() {
   const { session } = useContext(AppContext)
-  let { roomId, gifId } = useParams()
+  const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const data = queryClient.getQueryData<GifResult[]>('trendingGifs')
+  const cachedGifData = queryClient.getQueryData<GifResult[]>('trendingGifs')
 
   let url
-  if (data) {
-    url = data.find((gifResult) => {
+  if (cachedGifData) {
+    url = cachedGifData.find((gifResult) => {
       return gifResult.id == gifId
     })?.images.original.url
+  } else {
   }
-
-  const temp =
-    'https://media3.giphy.com/media/2C2qwckZzyiz8UzvzK/200w.gif?cid=96f63caf4dpcufofpo1w4benupnjkijfguss3tiab3tc5rbt&rid=200w.gif&ct=g'
-  return <div>{url ? <Gif url={url}></Gif> : <p>Oops Couldn't find your gif</p>}</div>
+  return (
+    <div>
+      {url ? (
+        <div className={styles.container}>
+          <h1>Select this GIF?</h1>
+          <p>Pick a GIF to share with your team during this week's smileys session</p>
+          <Gif url={url}></Gif>
+          <div>
+            <Button
+              text={'Back'}
+              onClick={(e) => {
+                navigate(-1)
+              }}
+            />
+            <Button
+              text={'Select'}
+              onClick={(e) => {
+                // TODO
+              }}
+            />
+          </div>
+        </div>
+      ) : (
+        <p>Oops Couldn't find your gif</p>
+      )}
+    </div>
+  )
 }
 
 export default SelectGifPage

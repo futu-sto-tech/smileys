@@ -18,7 +18,6 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   }
 
   const createSession = (data: { user: User }, callback: any) => {
-    console.log(data.user)
     addUserSocket(ws, data.user)
 
     const session: Session = {
