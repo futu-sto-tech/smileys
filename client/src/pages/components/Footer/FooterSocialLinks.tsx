@@ -9,15 +9,15 @@ import {
 } from '../../../components/CodeTextField/Logos/Logos'
 
 const { footerTextStyling } = footerStyling
-const { container, socialLinksContainerStyling, elementStyling } = styling
+const { container, socialLinksContainerStyling, elementMargin } = styling
 
 function FooterSocialLinks() {
   return (
-    <div className={`${container} ${elementStyling}`}>
-      <div className={elementStyling}>
+    <div className={`${container} ${elementMargin}`}>
+      <div className={elementMargin}>
         <SmileyLogo />
       </div>
-      <div className={`${socialLinksContainerStyling} ${elementStyling}`}>
+      <div className={`${socialLinksContainerStyling} ${elementMargin}`}>
         <TwitterLogo />
         <InstagramLogo />
         <YouTubeLogo />
