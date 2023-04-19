@@ -1,3 +1,4 @@
+import Footer from '../components/Footer/Footer'
 import styling from './Layout.module.scss'
 
 const { navStyle, footerStyle, contentStyle, mainStyle } = styling
@@ -12,7 +13,7 @@ function Layout({ children }: LayoutProps) {
       <main className={mainStyle}>
         <nav className={navStyle}>Nav</nav>
         <div className={contentStyle}>{children}</div>
-        <div className={footerStyle}>footer</div>
+        <Footer />
       </main>
     </>
   )
