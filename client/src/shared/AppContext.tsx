@@ -11,6 +11,9 @@ interface socketEvent {
 
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
+socket.on('error', (e) => {
+  console.log(e)
+})
 
 export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
