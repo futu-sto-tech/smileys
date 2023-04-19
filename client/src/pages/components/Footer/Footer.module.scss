@@ -1,0 +1,19 @@
+.containerStyling {
+  height: 360px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  color: var(--white);
+  background-color: var(--background-green);
+}
+
+.footerSectionStyling {
+  display: flex;
+}
+
+.footerTextStyling {
+  font-size: 22px;
+  font-weight: 900;
+}
