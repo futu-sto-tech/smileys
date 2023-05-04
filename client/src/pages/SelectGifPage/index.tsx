@@ -15,15 +15,13 @@ type Parameters = {
 }
 
 function SelectGifPage() {
-  const { session, joinSession, user }: AppProviders = useContext(AppContext)
+  const { session, joinSession, user, updateUser }: AppProviders = useContext(AppContext)
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const cachedGifData = queryClient.getQueryData<GifResult[]>('trendingGifs')
 
   useEffect(() => {
-    console.log({ session, user })
-
     if (!session) joinSession(roomId)
   }, [])
 
@@ -55,11 +53,10 @@ function SelectGifPage() {
               Back
             </Button>
             <Button
-              onClick={(e) => {
-                // TODO
+              onClick={() => {
+                updateUser({ ...user, gifId })
               }}
             >
-              {' '}
               Choose Gif
             </Button>
           </div>

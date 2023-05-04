@@ -83,6 +83,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   function createSession() {
+    console.log({ event: 'createSession', params: { user } })
+
     if (!user.name) {
       setSocketEventAfterName({ event: 'createSession', params: { user } })
       setNeedName(true)
@@ -94,8 +96,15 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     }
   }
 
-  function updateUser() {
-    // TODO
+  function updateUser(updatedUser: User) {
+    if (!session) {
+      return // Todo
+    }
+    setUser(updatedUser)
+    socket.emit('updateUser', { code: session.code, user: updatedUser }, (session: Session) => {
+      setSession(session)
+      navigate('/' + session.code)
+    })
   }
 
   function handleChangedName() {
@@ -124,6 +133,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     setNeedName,
     joinSession,
     createSession,
+    updateUser,
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
@@ -141,6 +151,7 @@ export interface AppProviders {
   setNeedName: React.Dispatch<React.SetStateAction<boolean>>
   joinSession: (roomCode: string, navigateToRoom?: boolean) => void
   createSession: () => void
+  updateUser: (updatedUser: User) => void
 }
 
 export default AppContext
