@@ -16,5 +16,5 @@ export interface UserSocket {
 export interface User {
   id: string
   name: string
-  gifId: string
+  gifId?: string
 }
