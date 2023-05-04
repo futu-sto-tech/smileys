@@ -1,13 +1,17 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import WebSocketContext from '../../shared/WebSocketContext'
+import AppContext from '../../shared/AppContext'
+import { useTrendingGifs } from '../../shared/gif_api'
+import { useQueryClient } from 'react-query'
+import { TrendingGifs } from '../../components/TrendingGifs'
 
 function RoomPage() {
-  const { session } = useContext(WebSocketContext)
-  let { id } = useParams()
+  const { session } = useContext(AppContext)
+  let { roomId } = useParams()
   return (
     <div>
-      <p>This this is room {id}</p>
+      <p>This this is room {roomId}</p>
+      <TrendingGifs />
       {session && (
         <>
           <h1>Session:</h1>
