@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AppContext, { AppProviders } from '../../shared/AppContext'
-import { useTrendingGifs } from '../../shared/gif_api'
-import { useQueryClient } from 'react-query'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'

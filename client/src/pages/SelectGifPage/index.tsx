@@ -15,18 +15,28 @@ type Parameters = {
 }
 
 function SelectGifPage() {
-  const { session }: AppProviders = useContext(AppContext)
+  const { session, joinSession, user }: AppProviders = useContext(AppContext)
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const cachedGifData = queryClient.getQueryData<GifResult[]>('trendingGifs')
+
+  useEffect(() => {
+    console.log({ session, user })
+
+    if (!session) joinSession(roomId)
+  }, [])
 
   let url
   if (cachedGifData) {
     url = cachedGifData.find((gifResult) => {
       return gifResult.id == gifId
     })?.images.original.url
-  } else {
+  }
+
+  if (!url) {
+    const { status, data, error, isFetching } = useGifById(gifId)
+    if (data) url = data.images.original.url
   }
   return (
     <div>

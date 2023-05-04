@@ -58,12 +58,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     // }
   }, [socket])
 
-  useEffect(() => {
-    if (session && session.code && user.name) {
-      navigate('/' + session.code)
-    }
-  }, [session?.code])
-
   function obtainUser(): User {
     const userJSON = localStorage.getItem('user')
     if (!userJSON) {
@@ -111,6 +105,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
         setSession(session)
         setNeedName(false)
         setSocketEventAfterName({ event: '', params: {} })
+        navigate('/' + session.code)
       })
     } else {
       setNeedName(false)
