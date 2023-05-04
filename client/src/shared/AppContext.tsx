@@ -35,9 +35,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     socket.on('connect', () => {
       console.log('Connected')
       setWebSocketState('Connected to Websocket')
-      if (sessionRef.current) {
-        socket.emit('rejoinSession', { name: userName.current, sessionId: sessionRef.current.id })
-      }
     })
     socket.on('message', (message) => {
       console.log('Websocket message: ', message)
@@ -79,14 +76,14 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     localStorage.setItem('user', JSON.stringify(user))
   }
 
-  function joinSession(roomCode: string) {
+  function joinSession(roomCode: string, navigateToRoom?: boolean) {
     if (!user.name) {
       setSocketEventAfterName({ event: 'joinSession', params: { code: roomCode, user } })
       setNeedName(true)
     } else {
       socket.emit('joinSession', { code: roomCode, user }, (session: Session) => {
         setSession(session)
-        navigate('/' + session.code)
+        if (navigateToRoom) navigate('/' + session.code)
       })
     }
   }
@@ -120,7 +117,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     }
   }
 
-  const providers = {
+  const providers: AppProviders = {
     user,
     setUser,
     handleChangedName,
@@ -135,6 +132,20 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
+}
+
+export interface AppProviders {
+  user: User
+  setUser: React.Dispatch<React.SetStateAction<User>>
+  handleChangedName: Function
+  socket: Socket
+  session?: Session
+  setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
+  webSocketState: string
+  needName: boolean
+  setNeedName: React.Dispatch<React.SetStateAction<boolean>>
+  joinSession: (roomCode: string, navigateToRoom?: boolean) => void
+  createSession: () => void
 }
 
 export default AppContext

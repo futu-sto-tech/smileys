@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import AppContext from '../../shared/AppContext'
+import AppContext, { AppProviders } from '../../shared/AppContext'
 import { useGifById } from '../../shared/gif_api'
 import { useQueryClient } from 'react-query'
 import { TrendingGifs } from '../../components/TrendingGifs'
@@ -15,7 +15,7 @@ type Parameters = {
 }
 
 function SelectGifPage() {
-  const { session } = useContext(AppContext)
+  const { session }: AppProviders = useContext(AppContext)
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -35,19 +35,23 @@ function SelectGifPage() {
           <h1>Select this GIF?</h1>
           <p>Pick a GIF to share with your team during this week's smileys session</p>
           <Gif url={url}></Gif>
-          <div>
+          <div className={styles.buttons}>
             <Button
-              text={'Back'}
+              className={styles.rightButton}
               onClick={(e) => {
                 navigate(-1)
               }}
-            />
+            >
+              Back
+            </Button>
             <Button
-              text={'Select'}
               onClick={(e) => {
                 // TODO
               }}
-            />
+            >
+              {' '}
+              Choose Gif
+            </Button>
           </div>
         </div>
       ) : (

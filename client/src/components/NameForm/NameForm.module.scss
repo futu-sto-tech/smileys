@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nameForm {
+  width: 40%;
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+}
+
+.input {
+  width: 100%;
+  margin-right: 30px;
+}

@@ -4,3 +4,13 @@
   align-items: center;
   width: 100%;
 }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+}
+
+.rightButton {
+  margin-right: 20px;
+}
