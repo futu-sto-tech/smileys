@@ -27,15 +27,17 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       users: [data.user],
       gameStarted: false,
     }
+    console.log(sessions)
     sessions.push(session)
     ws.join(session.id)
     if (typeof callback == 'function') {
       callback(session)
     }
+    logSessions()
   }
 
   const joinSession = (data: { code: string; user: User }, callback: any) => {
-    let session = sessions.find((session) => session.code === data.code)
+    const session = sessions.find((session) => session.code === data.code)
     if (session) {
       addUserSocket(ws, data.user)
       addUserToSession(session, data.user)
@@ -47,6 +49,28 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     } else {
       ws.send('Invalid session code')
     }
+    logSessions()
+  }
+
+  const updateUser = (data: { code: string; user: User }, callback: any) => {
+    const sessionIndex = sessions.findIndex((session) => session.code === data.code)
+    if (sessionIndex === -1) {
+      ws.send('Invalid session code')
+      return
+    }
+    let session = sessions[sessionIndex]
+    const userIndex = session.users.findIndex((user) => user.name === data.user.name)
+    if (userIndex === -1) {
+      ws.send('Invalid user name')
+      return
+    }
+    session.users[userIndex] = data.user
+    sessions[sessionIndex] = session
+    if (typeof callback == 'function') {
+      callback(session)
+    }
+    logSessions()
+    ws.to(session.id).emit('sessionUpdated', session)
   }
 
   const leaveSession = (data: { code: string; name: string }, callback: any) => {
@@ -109,6 +133,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   ws.on('findMyActiveSessions', findMyActiveSessions)
   ws.on('createSession', createSession)
   ws.on('joinSession', joinSession)
+  ws.on('updateUser', updateUser)
   ws.on('leaveSession', leaveSession)
   ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)
@@ -137,9 +162,9 @@ const addUserSocket = (ws: any, user: User) => {
 const logSessions = () => {
   for (const session of sessions) {
     console.log(
-      `code=${session.code}, users=${session.users.map((user) => user.name)}, startedTracking=${
-        session.gameStarted
-      } id=${session.id}`
+      `code=${session.code}, users=${session.users.map((user) => user.name)}, gameStarted=${session.gameStarted} id=${
+        session.id
+      }`
     )
   }
 }
