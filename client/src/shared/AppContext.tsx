@@ -109,11 +109,12 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
 
   function handleChangedName() {
     saveUser(user)
+    console.log(user)
     if (socketEventAfterName.event) {
       socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
         setSession(session)
-        setNeedName(false)
         setSocketEventAfterName({ event: '', params: {} })
+        setNeedName(false)
         navigate('/' + session.code)
       })
     } else {

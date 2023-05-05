@@ -50,7 +50,12 @@ function RoomPage() {
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        {/* <TrendingGifs /> */}
+        {session &&
+          session.users &&
+          session.users.map((user) => {
+            return <p>{user.name}</p>
+          })}
+
         <h1>How are you doing?</h1>
         <p>Pick a GIF to describe your experiences. </p>
         <Input className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>

@@ -4,7 +4,7 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {}
 
 export function Button(props: ButtonProps) {
   return (
-    <button onClick={props.onClick} className={`${props.className} ${styles.button}`}>
+    <button className={`${props.className} ${styles.button}`} {...props}>
       {props.children}
     </button>
   )
