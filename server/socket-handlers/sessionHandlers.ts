@@ -26,8 +26,8 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       creator: data.user,
       users: [data.user],
       gameStarted: false,
+      presenterIndex: 0,
     }
-    console.log(sessions)
     sessions.push(session)
     ws.join(session.id)
     if (typeof callback == 'function') {
@@ -52,7 +52,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     logSessions()
   }
 
-  const updateUser = (data: { code: string; user: User }, callback: any) => {
+  const updateSessionUser = (data: { code: string; user: User }, callback: any) => {
     const sessionIndex = sessions.findIndex((session) => session.code === data.code)
     if (sessionIndex === -1) {
       ws.send('Invalid session code')
@@ -71,6 +71,16 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
     logSessions()
     ws.to(session.id).emit('sessionUpdated', session)
+  }
+
+  const updateSessionPresenter = (data: { code: string; presenterId: number }, callback: any) => {
+    const sessionIndex = sessions.findIndex((session) => session.code === data.code)
+    if (!sessionIndex) ws.send('Invalid session code')
+    sessions[sessionIndex].presenterIndex = data.presenterId
+    ws.to(sessions[sessionIndex].id).emit('sessionUpdated', sessions[sessionIndex])
+    if (typeof callback == 'function') {
+      callback(sessions[sessionIndex])
+    }
   }
 
   const leaveSession = (data: { code: string; name: string }, callback: any) => {
@@ -133,7 +143,8 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   ws.on('findMyActiveSessions', findMyActiveSessions)
   ws.on('createSession', createSession)
   ws.on('joinSession', joinSession)
-  ws.on('updateUser', updateUser)
+  ws.on('updateSessionUser', updateSessionUser)
+  ws.on('updateSessionPresenter', updateSessionPresenter)
   ws.on('leaveSession', leaveSession)
   ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)

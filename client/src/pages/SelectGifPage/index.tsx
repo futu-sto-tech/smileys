@@ -16,7 +16,7 @@ type Parameters = {
 }
 
 function SelectGifPage() {
-  const { session, joinSession, user, updateUser }: AppProviders = useContext(AppContext)
+  const { session, joinSession, user, updateSessionUser }: AppProviders = useContext(AppContext)
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -42,7 +42,7 @@ function SelectGifPage() {
         </Button>
         <Button
           onClick={() => {
-            updateUser({ ...user, gifId })
+            updateSessionUser({ ...user, gifId })
           }}
         >
           Choose Gif

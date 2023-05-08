@@ -4,6 +4,7 @@ export enum ButtonColor {
   Green = 'green',
   Black = 'black',
   White = 'white',
+  Gray = 'gray',
 }
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   buttonColor?: ButtonColor
@@ -17,6 +18,8 @@ function mapColorToCSSClassName(color: ButtonColor | undefined) {
       return styles.black
     case ButtonColor.White:
       return styles.white
+    case ButtonColor.Gray:
+      return styles.gray
     default:
       return styles.green
   }

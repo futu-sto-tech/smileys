@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  align-items: stretch;
+  background-color: aqua;
+}
+
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--primary-gray);
+  width: 280px;
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--white);
+  margin-right: 30px;
+}
+
+.nameContainer {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.highlightUser {
+  border-radius: 10px;
+  background-color: var(--secondary-gray);
+}
+
+.statusDot {
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.navigationButtonsContainer {
+  justify-self: flex-end;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}

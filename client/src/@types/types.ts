@@ -4,6 +4,7 @@ export interface Session {
   users: User[]
   creator: User
   gameStarted: boolean
+  presenterIndex: number
 }
 
 export interface User {
