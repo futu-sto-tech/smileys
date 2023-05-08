@@ -8,6 +8,7 @@ import { NameForm } from '../../components/NameForm'
 import { useGifById } from '../../shared/gif_api'
 import { Gif } from '../../components/Gif'
 import GifFetcher from '../../components/GifFetcher'
+import SessionMenu from '../../components/sessionMenu'
 
 function RoomPage() {
   const { session, joinSession, needName, user }: AppProviders = useContext(AppContext)
@@ -23,7 +24,7 @@ function RoomPage() {
   if (user.gifId && session) {
     return (
       <>
-        {session.users.map((user, i) => {
+        {/* {session.users.map((user, i) => {
           if (user.gifId) {
             return (
               <>
@@ -33,7 +34,8 @@ function RoomPage() {
             )
           }
           return <p>{user.name} is still choosing</p>
-        })}
+        })} */}
+        <SessionMenu></SessionMenu>
       </>
     )
   }

@@ -5,7 +5,7 @@ import { Server, Socket } from 'socket.io'
 import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import { networkInterfaces } from 'os'
-import sessionsRouter from './routes/sessions'
+// import sessionsRouter from './routes/sessions'
 import { registerSessionHandlers } from './socket-handlers/sessionHandlers'
 import { ClientToServerEvents, InterServerEvents, ServerToClientEvents, SocketData } from './types/websocket'
 
@@ -42,10 +42,10 @@ server
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/sessions', sessionsRouter)
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript server running')
-})
+// app.use('/sessions', sessionsRouter)
+// app.get('/', (req: Request, res: Response) => {
+//   res.send('Express + TypeScript server running')
+// })
 
 // ****** WEBSOCKET STUFF *******
 
