@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { GifResult } from '../@types/types'
+import { GifResult } from '../types/types'
 
 export function useTrendingGifs() {
   return useQuery('trendingGifs', async () => {
