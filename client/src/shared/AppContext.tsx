@@ -96,20 +96,26 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     }
   }
 
-  function updateUser(updatedUser: User) {
+  function updateSessionUser(updatedUser: User) {
     if (!session) {
       return // Todo
     }
     setUser(updatedUser)
-    socket.emit('updateUser', { code: session.code, user: updatedUser }, (session: Session) => {
+    socket.emit('updateSessionUser', { code: session.code, user: updatedUser }, (session: Session) => {
       setSession(session)
       navigate('/' + session.code)
     })
   }
 
+  function updateSessionPresenter(presenterId: number) {
+    if (!session) return
+    socket.emit('updateSessionPresenter', { code: session.code, presenterId }, (session: Session) => {
+      setSession(session)
+    })
+  }
+
   function handleChangedName() {
     saveUser(user)
-    console.log(user)
     if (socketEventAfterName.event) {
       socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
         setSession(session)
@@ -134,7 +140,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     setNeedName,
     joinSession,
     createSession,
-    updateUser,
+    updateSessionUser,
+    updateSessionPresenter,
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
@@ -152,7 +159,8 @@ export interface AppProviders {
   setNeedName: React.Dispatch<React.SetStateAction<boolean>>
   joinSession: (roomCode: string, navigateToRoom?: boolean) => void
   createSession: () => void
-  updateUser: (updatedUser: User) => void
+  updateSessionUser: (updatedUser: User) => void
+  updateSessionPresenter: (presenterId: number) => void
 }
 
 export default AppContext
