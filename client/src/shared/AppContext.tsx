@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { Socket, io } from 'socket.io-client'
-import { Session, User } from '../@types/types'
+import { Session, User } from '../types/types'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import { IAppProvider } from '../types/AppContext'
 
 interface socketEvent {
   event: string
@@ -126,7 +127,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     }
   }
 
-  const providers: AppProviders = {
+  const providers: IAppProvider = {
     user,
     setUser,
     handleChangedName,
@@ -143,22 +144,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
-}
-
-export interface AppProviders {
-  user: User
-  setUser: React.Dispatch<React.SetStateAction<User>>
-  handleChangedName: Function
-  socket: Socket
-  session?: Session
-  setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
-  webSocketState: string
-  needName: boolean
-  setNeedName: React.Dispatch<React.SetStateAction<boolean>>
-  joinSession: (roomCode: string, navigateToRoom?: boolean) => void
-  createSession: () => void
-  updateSessionUser: (updatedUser: User) => void
-  updateSessionPresenter: (presenterId: number) => void
 }
 
 export default AppContext

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import AppContext, { AppProviders } from '../../shared/AppContext'
+import AppContext from '../../shared/AppContext'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
@@ -9,9 +9,10 @@ import { useGifById } from '../../shared/gif_api'
 import { Gif } from '../../components/Gif'
 import GifFetcher from '../../components/GifFetcher'
 import SessionMenu from '../../components/sessionMenu'
+import { IAppProvider } from '../../types/AppContext'
 
 function RoomPage() {
-  const { session, joinSession, needName, user }: AppProviders = useContext(AppContext)
+  const { session, joinSession, needName, user }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
 
   useEffect(() => {
