@@ -1,21 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './styles/index.scss'
-import { BrowserRouter, Routes, Route, RouterProvider } from 'react-router-dom'
-import { AppProvider } from './shared/AppContext'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Layout from './pages/HomePage/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
-
-import { router } from './pages/router'
+import { routes } from './pages/router'
+import { AppProvider } from './shared/AppContext'
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AppProvider>
-        <RouterProvider router={router} />
-      </AppProvider>
+      <Router>
+        <AppProvider>
+          <Layout>
+            <Routes>{routes}</Routes>
+          </Layout>
+        </AppProvider>
+      </Router>
     </QueryClientProvider>
   </React.StrictMode>
 )

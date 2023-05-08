@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { Socket, io } from 'socket.io-client'
+<<<<<<< HEAD
 import { Session, User } from '../@types/types'
+=======
+import { Session, User } from '../types/types'
+import { useNavigate } from 'react-router-dom'
+>>>>>>> a873474 (fe-refactor: routing)
 import { v4 as uuid } from 'uuid'
+import { IAppProvider } from '../types/AppContext'
 
 interface socketEvent {
   event: string
@@ -98,7 +104,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
-  const providers: AppProviders = {
+  const providers: IAppProvider = {
     user,
     setUser,
     handleChangedName,
@@ -115,6 +121,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
 }
 
+<<<<<<< HEAD
 export interface AppProviders {
   user: User
   setUser: React.Dispatch<React.SetStateAction<User>>
@@ -129,4 +136,6 @@ export interface AppProviders {
   updateSessionPresenter: (presenterId: number) => void
 }
 
+=======
+>>>>>>> a873474 (fe-refactor: routing)
 export default AppContext

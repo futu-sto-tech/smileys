@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
-import AppContext, { AppProviders } from '../../shared/AppContext'
-import { Session } from '../../@types/types'
+import AppContext from '../../shared/AppContext'
+import { Session } from '../../types/types'
+import { NameForm } from '../../components/NameForm'
 import { Button } from '../../components/Button'
 import Input from '../../components/Input'
-import { useNavigate } from 'react-router-dom'
+import { IAppProvider } from '../../types/AppContext'
 
 function HomePage() {
   const [roomCode, setRoomCode] = useState('')
-  const { user, webSocketState, joinSession, createSession }: AppProviders = useContext(AppContext)
-  const navigate = useNavigate()
+  const { user, webSocketState, joinSession, createSession, needName, setNeedName }: IAppProvider =
+    useContext(AppContext)
 
   function handleJoin() {
     if (user.name) {
