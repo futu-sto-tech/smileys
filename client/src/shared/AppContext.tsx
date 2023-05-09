@@ -15,6 +15,7 @@ const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
 export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
+  const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
   const userName = useRef<string>('')
   userName.current = user ? user.name : ''
   const [needName, setNeedName] = useState(false)
@@ -141,6 +142,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     createSession,
     updateSessionUser,
     updateSessionPresenter,
+    gifSearchTerm,
+    setGifSearchTerm,
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>

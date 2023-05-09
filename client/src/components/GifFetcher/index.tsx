@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
-import { useGifById } from '../../shared/gif_api'
 import { useQueryClient } from 'react-query'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import { Gif } from '../../components/Gif'
 import { GifResult } from '../../types/types'
 import styles from './SelectGifPage.module.scss'
 import { Button } from '../../components/Button'
+import { useGifById } from '../../hooks/api/useGifById'
 
 function GifFetcher({ gifId }: { gifId: string }) {
   const queryClient = useQueryClient()

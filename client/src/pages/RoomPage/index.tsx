@@ -5,14 +5,12 @@ import { TrendingGifs } from '../../components/TrendingGifs'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
 import { NameForm } from '../../components/NameForm'
-import { useGifById } from '../../shared/gif_api'
-import { Gif } from '../../components/Gif'
 import GifFetcher from '../../components/GifFetcher'
 import SessionMenu from '../../components/sessionMenu'
 import { IAppProvider } from '../../types/AppContext'
 
 function RoomPage() {
-  const { session, joinSession, needName, user }: IAppProvider = useContext(AppContext)
+  const { session, joinSession, needName, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
 
   useEffect(() => {
@@ -30,7 +28,7 @@ function RoomPage() {
             return (
               <>
                 <p>name: {user.name}</p>
-                <GifFetcher gifId={user.gifId} />
+                <GifFetcher key={i} gifId={user.gifId} />
               </>
             )
           }
@@ -41,18 +39,22 @@ function RoomPage() {
     )
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGifSearchTerm(e.target.value)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         {session &&
           session.users &&
-          session.users.map((user) => {
-            return <p>{user.name}</p>
+          session.users.map((user, i) => {
+            return <p key={i}>{user.name}</p>
           })}
 
         <h1>How are you doing?</h1>
         <p>Pick a GIF to describe your experiences. </p>
-        <Input className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
+        <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
       </div>
       {session ? (
         <TrendingGifs className={styles.trendingGifs}></TrendingGifs>
