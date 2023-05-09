@@ -1,10 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
-import { useGifById } from '../../hooks/api/useTrendingGifs'
 import { useQueryClient } from 'react-query'
-import { TrendingGifs } from '../../components/TrendingGifs'
-import { Gif } from '../../components/Gif'
 import { GifResult } from '../../types/types'
 import styles from './SelectGifPage.module.scss'
 import { Button } from '../../components/Button'
@@ -21,7 +18,7 @@ function SelectGifPage() {
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const cachedGifData = queryClient.getQueryData<GifResult[]>('trendingGifs')
+  const cachedGifData = queryClient.getQueryData<GifResult[]>('GifList')
 
   useEffect(() => {
     if (!session) joinSession(roomId)

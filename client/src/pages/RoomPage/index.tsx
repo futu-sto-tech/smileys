@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
-import { TrendingGifs } from '../../components/TrendingGifs'
+import { GifList } from '../../components/GifList'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
 import { NameForm } from '../../components/NameForm'
@@ -55,7 +55,7 @@ function RoomPage() {
         <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
       </div>
       {session ? (
-        <TrendingGifs className={styles.trendingGifs}></TrendingGifs>
+        <GifList className={styles.gifList}></GifList>
       ) : (
         <>
           <p>Connecting to websocket...</p>
