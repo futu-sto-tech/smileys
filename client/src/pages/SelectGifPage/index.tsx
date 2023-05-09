@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
-import { useGifById } from '../../shared/gif_api'
+import { useGifById } from '../../hooks/api/useTrendingGifs'
 import { useQueryClient } from 'react-query'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import { Gif } from '../../components/Gif'
