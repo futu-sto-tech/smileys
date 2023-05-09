@@ -83,8 +83,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   function createSession() {
-    console.log({ event: 'createSession', params: { user } })
-
     if (!user.name) {
       setSocketEventAfterName({ event: 'createSession', params: { user } })
       setNeedName(true)
