@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--primary-transparent-green);
+  font-size: 2rem;
+  font-weight: 500;
+  border-color: var(--primary-green);
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+.big {
+  width: 800px;
+  height: 100px;
+}
+
+.small {
+  padding: 10px;
+}
+
+.url {
+  margin-right: 30px;
+}
