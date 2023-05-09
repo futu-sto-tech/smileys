@@ -4,12 +4,7 @@ import AppContext from '../../shared/AppContext'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
-<<<<<<< HEAD
-import { useGifById } from '../../shared/gif_api'
-import { Gif } from '../../components/Gif'
-=======
 import { NameForm } from '../../components/NameForm'
->>>>>>> 4dabbd9 (fe-feat: add gif search)
 import GifFetcher from '../../components/GifFetcher'
 import SessionMenu from '../../components/sessionMenu'
 import { IAppProvider } from '../../types/AppContext'
