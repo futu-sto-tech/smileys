@@ -1,14 +1,13 @@
 import { useTrendingGifs } from '../../hooks/api/useTrendingGifs'
-import { useQueryClient } from 'react-query'
 import MasonryGrid from '../MasonryGrid'
-import styles from './TrendingGifs.module.scss'
+import styles from './GifList.module.scss'
 import { SelectableGif } from '../SelectableGif/Index'
 import { useSearchGifs } from '../../hooks/api/useSearchGifs'
 import { useContext } from 'react'
 import AppContext from '../../shared/AppContext'
 import { IAppProvider } from '../../types/AppContext'
 
-export function TrendingGifs({ className }: { className?: string }) {
+export function GifList({ className }: { className?: string }) {
   const { gifSearchTerm }: IAppProvider = useContext(AppContext)
 
   const { status, data, isSuccess } = useTrendingGifs()
