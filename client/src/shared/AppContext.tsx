@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { Socket, io } from 'socket.io-client'
-<<<<<<< HEAD
-import { Session, User } from '../@types/types'
-=======
 import { Session, User } from '../types/types'
 import { useNavigate } from 'react-router-dom'
->>>>>>> a873474 (fe-refactor: routing)
 import { v4 as uuid } from 'uuid'
 import { IAppProvider } from '../types/AppContext'
 
@@ -124,21 +120,4 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
 }
 
-<<<<<<< HEAD
-export interface AppProviders {
-  user: User
-  setUser: React.Dispatch<React.SetStateAction<User>>
-  handleChangedName: Function
-  socket: Socket
-  session?: Session
-  setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
-  webSocketState: string
-  joinSession: (roomCode: string, navigationCallback?: () => void) => void
-  createSession: (navigationCallback: (roomCode: string) => void) => void
-  updateSessionUser: (updatedUser: User) => void
-  updateSessionPresenter: (presenterId: number) => void
-}
-
-=======
->>>>>>> a873474 (fe-refactor: routing)
 export default AppContext

@@ -9,10 +9,8 @@ export interface IAppProvider {
   session?: Session
   setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
   webSocketState: string
-  needName: boolean
-  setNeedName: React.Dispatch<React.SetStateAction<boolean>>
-  joinSession: (roomCode: string, navigateToRoom?: boolean) => void
-  createSession: () => void
+  joinSession: (roomCode: string, navigationCallback?: () => void) => void
+  createSession: (navigationCallback: (roomCode: string) => void) => void
   updateSessionUser: (updatedUser: User) => void
   updateSessionPresenter: (presenterId: number) => void
   gifSearchTerm: string
