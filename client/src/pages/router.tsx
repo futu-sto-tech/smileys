@@ -1,11 +1,38 @@
 /* existing imports */
-import { Route } from 'react-router-dom'
-import HomePage from './HomePage'
-import RoomPage from './RoomPage'
-import SelectGifPage from './SelectGifPage'
+import { createBrowserRouter } from 'react-router-dom'
+import Layout from './HomePage/Layout'
+import HomePage from '../pages/HomePage'
+import RoomPage from '../pages/RoomPage'
+import EnterNamePage from '../pages/EnterNamePage'
+import ShareRoomPage from '../pages/ShareRoomPage'
+import SelectGifPage from '../pages/SelectGifPage'
 
-export const routes = [
-  <Route path="/" element={<HomePage />} />,
-  <Route path="/:roomId" element={<RoomPage />} />,
-  <Route path="/:roomId/:gifId" element={<SelectGifPage />} />,
-]
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <Layout>
+        <HomePage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/name/:id',
+    element: <EnterNamePage />,
+  },
+
+  {
+    path: '/create/:id',
+    element: <ShareRoomPage />,
+  },
+
+  {
+    path: '/:id',
+    element: <RoomPage />,
+  },
+
+  {
+    path: '/:id/:gifId',
+    element: <SelectGifPage />,
+  },
+])
