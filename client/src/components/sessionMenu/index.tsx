@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react'
-import AppContext, { AppProviders } from '../../shared/AppContext'
+import AppContext from '../../shared/AppContext'
 import styles from './sessionMenu.module.scss'
 import { Button, ButtonColor } from '../Button'
 import GifFetcher from '../GifFetcher'
-import { User } from '../../@types/types'
+import { User } from '../../types/types'
+import { IAppProvider } from '../../types/AppContext'
 
 function SessionMenu() {
-  const { user, session, updateSessionPresenter }: AppProviders = useContext(AppContext)
+  const { user, session, updateSessionPresenter }: IAppProvider = useContext(AppContext)
 
   function handleNext() {
     if (session && session.presenterIndex < session?.users.length - 1) {
