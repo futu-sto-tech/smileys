@@ -21,9 +21,11 @@ export interface GifResult {
     }
     fixed_width: {
       url: string
+      height: number
     }
     fixed_width_downsampled: {
       url: string
+      height: number
     }
   }
   title: string
