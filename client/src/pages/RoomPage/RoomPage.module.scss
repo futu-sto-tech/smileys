@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
 }
 
 .infoContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
   width: 50%;
 }
 
@@ -16,6 +16,6 @@
   width: 100%;
 }
 
-.trendingGifs {
+.gifList {
   margin-top: 30px;
 }

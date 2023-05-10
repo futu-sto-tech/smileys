@@ -14,7 +14,7 @@ interface Props<T extends BaseT> {
 
 function MasonryGrid<T extends BaseT>({ columns = 2, items, children }: Props<T>): React.ReactElement {
   return (
-    <div>
+    <>
       <Masonry
         breakpointCols={{ default: columns, 756: columns - 1 }}
         className={styles.masonryGrid}
@@ -24,7 +24,7 @@ function MasonryGrid<T extends BaseT>({ columns = 2, items, children }: Props<T>
           <div key={item.id}>{children(item)}</div>
         ))}
       </Masonry>
-    </div>
+    </>
   )
 }
 

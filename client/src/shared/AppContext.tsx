@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { Socket, io } from 'socket.io-client'
-import { Session, User } from '../@types/types'
+import { Session, User } from '../types/types'
 import { v4 as uuid } from 'uuid'
+import { IAppProvider } from '../types/AppContext'
 
 interface socketEvent {
   event: string
@@ -13,6 +14,7 @@ const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
 export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
+  const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
   const userName = useRef<string>('')
   userName.current = user ? user.name : ''
   const [socketEventAfterName, setSocketEventAfterName] = useState<socketEvent>({ event: '', params: {} })
@@ -98,7 +100,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
-  const providers: AppProviders = {
+  const providers: IAppProvider = {
     user,
     setUser,
     handleChangedName,
@@ -110,23 +112,11 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     createSession,
     updateSessionUser,
     updateSessionPresenter,
+    gifSearchTerm,
+    setGifSearchTerm,
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>
-}
-
-export interface AppProviders {
-  user: User
-  setUser: React.Dispatch<React.SetStateAction<User>>
-  handleChangedName: Function
-  socket: Socket
-  session?: Session
-  setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
-  webSocketState: string
-  joinSession: (roomCode: string, navigationCallback?: () => void) => void
-  createSession: (navigationCallback: (roomCode: string) => void) => void
-  updateSessionUser: (updatedUser: User) => void
-  updateSessionPresenter: (presenterId: number) => void
 }
 
 export default AppContext

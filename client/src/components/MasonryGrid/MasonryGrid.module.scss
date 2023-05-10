@@ -1,6 +1,7 @@
 .masonryGrid {
   display: flex;
-  width: auto;
+  width: 650px;
+  min-height: 110vh;
   margin-left: -30px;
 }
 
@@ -12,4 +13,5 @@
 .masonryGridColumn > div {
   /* change div to reference your elements you put in <MasonryGrid> */
   margin-bottom: 15px;
+  cursor: pointer;
 }

@@ -1,16 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import AppContext, { AppProviders } from '../../shared/AppContext'
-import { TrendingGifs } from '../../components/TrendingGifs'
+import AppContext from '../../shared/AppContext'
+import { GifList } from '../../components/GifList'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
-import { useGifById } from '../../shared/gif_api'
-import { Gif } from '../../components/Gif'
-import GifFetcher from '../../components/GifFetcher'
 import SessionMenu from '../../components/sessionMenu'
+import { IAppProvider } from '../../types/AppContext'
 
 function RoomPage() {
-  const { session, joinSession, needName, user }: AppProviders = useContext(AppContext)
+  const { session, joinSession, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
 
   useEffect(() => {
@@ -26,7 +24,7 @@ function RoomPage() {
             return (
               <>
                 <p>name: {user.name}</p>
-                <GifFetcher gifId={user.gifId} />
+                <GifFetcher key={i} gifId={user.gifId} />
               </>
             )
           }
@@ -37,21 +35,19 @@ function RoomPage() {
     )
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGifSearchTerm(e.target.value)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        {session &&
-          session.users &&
-          session.users.map((user) => {
-            return <p>{user.name}</p>
-          })}
-
         <h1>How are you doing?</h1>
         <p>Pick a GIF to describe your experiences. </p>
-        <Input className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
+        <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
       </div>
       {session ? (
-        <TrendingGifs className={styles.trendingGifs}></TrendingGifs>
+        <GifList className={styles.gifList}></GifList>
       ) : (
         <>
           <p>Connecting to websocket...</p>

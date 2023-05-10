@@ -1,11 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './styles/index.scss'
-import { BrowserRouter, Routes, Route, RouterProvider } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, RouterProvider } from 'react-router-dom'
 import { AppProvider } from './shared/AppContext'
-import Layout from './pages/HomePage/Layout'
 import { QueryClient, QueryClientProvider } from 'react-query'
-
 import { router } from './pages/router'
 
 const queryClient = new QueryClient()

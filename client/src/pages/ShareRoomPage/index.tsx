@@ -3,11 +3,12 @@ import ShareRoom from '../../components/ShareRoom'
 import styles from './ShareRoomPage.module.scss'
 import { Button } from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
-import AppContext, { AppProviders } from '../../shared/AppContext'
+import AppContext from '../../shared/AppContext'
+import { IAppProvider } from '../../types/AppContext'
 
 function ShareRoomPage() {
   const [showJoinRoom, setShowJoinRoom] = useState(false)
-  const { session }: AppProviders = useContext(AppContext)
+  const { session }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
 
   return (
