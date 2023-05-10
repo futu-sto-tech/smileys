@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react'
 import styles from './ShareRoom.module.scss'
-import AppContext, { AppProviders } from '../../shared/AppContext'
+import AppContext from '../../shared/AppContext'
 import { Button, ButtonColor } from '../Button'
+import { IAppProvider } from '../../types/AppContext'
 
 interface ShareSessionProps {
   big?: boolean
@@ -9,7 +10,7 @@ interface ShareSessionProps {
 }
 
 function ShareRoom({ big, onCopied }: ShareSessionProps) {
-  const { session }: AppProviders = useContext(AppContext)
+  const { session }: IAppProvider = useContext(AppContext)
   const [hasCopied, setHasCopied] = useState(false)
 
   function handleClick() {
