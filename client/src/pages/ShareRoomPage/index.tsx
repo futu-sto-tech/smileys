@@ -2,13 +2,14 @@ import { useContext, useState } from 'react'
 import ShareRoom from '../../components/ShareRoom'
 import styles from './ShareRoomPage.module.scss'
 import { Button } from '../../components/Button'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
 import { IAppProvider } from '../../types/AppContext'
 
 function ShareRoomPage() {
   const [showJoinRoom, setShowJoinRoom] = useState(false)
   const { session }: IAppProvider = useContext(AppContext)
+  let { roomId } = useParams()
   const navigate = useNavigate()
 
   return (
@@ -18,7 +19,7 @@ function ShareRoomPage() {
       {showJoinRoom && (
         <Button
           onClick={() => {
-            if (session) navigate(`/${session.code}`)
+            navigate(`/${roomId}`)
           }}
         >
           Join room!
