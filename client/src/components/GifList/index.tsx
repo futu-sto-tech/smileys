@@ -21,7 +21,13 @@ export function GifList({ className }: { className?: string }) {
     <div className={`${className} ${styles.trendingContainer}`}>
       {data || gifsSearchData ? (
         <MasonryGrid items={usedData} columns={3}>
-          {(item): React.ReactElement => <SelectableGif url={item.images.fixed_width_downsampled.url} id={item.id} />}
+          {(item): React.ReactElement => (
+            <SelectableGif
+              url={item.images.fixed_width_downsampled.url}
+              height={item.images.fixed_width_downsampled.height}
+              id={item.id}
+            />
+          )}
         </MasonryGrid>
       ) : (
         <p>Status: {status}</p>
