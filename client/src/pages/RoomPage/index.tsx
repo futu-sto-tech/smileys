@@ -4,20 +4,16 @@ import AppContext from '../../shared/AppContext'
 import { GifList } from '../../components/GifList'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
-import { NameForm } from '../../components/NameForm'
-import GifFetcher from '../../components/GifFetcher'
 import SessionMenu from '../../components/sessionMenu'
 import { IAppProvider } from '../../types/AppContext'
 
 function RoomPage() {
-  const { session, joinSession, needName, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
+  const { session, joinSession, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
 
   useEffect(() => {
     !session && roomId && joinSession(roomId)
   }, [])
-
-  if (needName) return <NameForm />
 
   // Temporary for demonstrating GIFS
   if (user.gifId && session) {

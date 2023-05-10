@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { Socket, io } from 'socket.io-client'
 import { Session, User } from '../types/types'
-import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import { IAppProvider } from '../types/AppContext'
 
 interface socketEvent {
   event: string
-  params: any
+  params: {}
 }
 
 const AppContext = createContext<any>(null)
@@ -18,20 +17,11 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
   const userName = useRef<string>('')
   userName.current = user ? user.name : ''
-  const [needName, setNeedName] = useState(false)
   const [socketEventAfterName, setSocketEventAfterName] = useState<socketEvent>({ event: '', params: {} })
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
   const sessionRef = useRef<Session>()
   sessionRef.current = session
-  const [activeSessionId, setActiveSessionId] = useState<string>()
-  const navigate = useNavigate()
-
-  function getMyActiveSessions() {
-    socket.emit('findMyActiveSessions', { name: userName.current }, (sessionId: string) => {
-      setActiveSessionId(sessionId)
-    })
-  }
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -72,28 +62,18 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     localStorage.setItem('user', JSON.stringify(user))
   }
 
-  function joinSession(roomCode: string, navigateToRoom?: boolean) {
-    if (!user.name) {
-      setSocketEventAfterName({ event: 'joinSession', params: { code: roomCode, user } })
-      setNeedName(true)
-    } else {
-      socket.emit('joinSession', { code: roomCode, user }, (session: Session) => {
-        setSession(session)
-        if (navigateToRoom) navigate('/' + session.code)
-      })
-    }
+  function joinSession(roomCode: string, navigationCallback?: () => void) {
+    socket.emit('joinSession', { code: roomCode, user }, (session: Session) => {
+      setSession(session)
+      navigationCallback && navigationCallback()
+    })
   }
 
-  function createSession() {
-    if (!user.name) {
-      setSocketEventAfterName({ event: 'createSession', params: { user } })
-      setNeedName(true)
-    } else {
-      socket.emit('createSession', { user }, (session: Session) => {
-        setSession(session)
-        navigate('/' + session.code)
-      })
-    }
+  function createSession(navigationCallback: (code: string) => void) {
+    socket.emit('createSession', { user }, (session: Session) => {
+      setSession(session)
+      navigationCallback(session.code)
+    })
   }
 
   function updateSessionUser(updatedUser: User) {
@@ -103,7 +83,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     setUser(updatedUser)
     socket.emit('updateSessionUser', { code: session.code, user: updatedUser }, (session: Session) => {
       setSession(session)
-      navigate('/' + session.code)
     })
   }
 
@@ -116,16 +95,9 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
 
   function handleChangedName() {
     saveUser(user)
-    if (socketEventAfterName.event) {
-      socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
-        setSession(session)
-        setSocketEventAfterName({ event: '', params: {} })
-        setNeedName(false)
-        navigate('/' + session.code)
-      })
-    } else {
-      setNeedName(false)
-    }
+    socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
+      setSession(session)
+    })
   }
 
   const providers: IAppProvider = {
@@ -136,8 +108,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     session: sessionRef.current,
     setSession,
     webSocketState,
-    needName,
-    setNeedName,
     joinSession,
     createSession,
     updateSessionUser,

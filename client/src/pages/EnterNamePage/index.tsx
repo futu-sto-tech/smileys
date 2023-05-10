@@ -1,13 +1,16 @@
 import { User } from '../../types/types'
 import { useContext, useEffect, useState } from 'react'
 import AppContext from '../../shared/AppContext'
-import { Button } from '../Button'
-import styles from './NameForm.module.scss'
-import Input from '../Input'
+import { Button } from '../../components/Button'
+import styles from './EnterNamePage.module.scss'
+import Input from '../../components/Input'
+import { useNavigate } from 'react-router-dom'
 import { IAppProvider } from '../../types/AppContext'
 
-export function NameForm() {
-  const { handleChangedName, user, setUser }: IAppProvider = useContext(AppContext)
+function EnterNamePage() {
+  const { handleChangedName, user, setUser, session }: IAppProvider = useContext(AppContext)
+  const navigate = useNavigate()
+
   return (
     <div className={styles.container}>
       <h1>Hey, welcome to your team's smileys session!</h1>
@@ -23,6 +26,7 @@ export function NameForm() {
         <Button
           onClick={() => {
             handleChangedName()
+            if (session) navigate(`/${session.code}`)
           }}
         >
           Continue
@@ -31,3 +35,5 @@ export function NameForm() {
     </div>
   )
 }
+
+export default EnterNamePage

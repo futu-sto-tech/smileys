@@ -41,6 +41,7 @@ function SelectGifPage() {
         <Button
           onClick={() => {
             updateSessionUser({ ...user, gifId })
+            navigate(`/${roomId}`)
           }}
         >
           Choose Gif
