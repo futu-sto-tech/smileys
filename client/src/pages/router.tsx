@@ -1,6 +1,6 @@
 /* existing imports */
 import { createBrowserRouter } from 'react-router-dom'
-import Layout from './HomePage/Layout'
+import Layout from './Layout'
 import HomePage from '../pages/HomePage'
 import RoomPage from '../pages/RoomPage'
 import EnterNamePage from '../pages/EnterNamePage'
@@ -18,21 +18,38 @@ export const router = createBrowserRouter([
   },
   {
     path: '/name/:id',
-    element: <EnterNamePage />,
+    element: (
+      <Layout>
+        <EnterNamePage />
+      </Layout>
+    ),
   },
 
   {
     path: '/create/:id',
-    element: <ShareRoomPage />,
+    element: (
+      <Layout>
+        <ShareRoomPage />
+      </Layout>
+    ),
   },
 
   {
     path: '/:id',
-    element: <RoomPage />,
+    element: (
+      <Layout>
+        <RoomPage />
+      </Layout>
+    ),
   },
 
   {
     path: '/:id/:gifId',
-    element: <SelectGifPage />,
+
+    element: (
+      <Layout>
+        <SelectGifPage />
+      </Layout>
+    ),
   },
 ])
