@@ -1,13 +1,19 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import AppContext from '../../shared/AppContext'
 import styles from './sessionMenu.module.scss'
-import { Button, ButtonColor } from '../Button'
-import GifFetcher from '../GifFetcher'
+import { Button, ButtonColor } from '../../components/Button'
+import GifFetcher from '../../components/GifFetcher'
 import { User } from '../../types/types'
 import { IAppProvider } from '../../types/AppContext'
+import { useParams } from 'react-router-dom'
 
-function SessionMenu() {
-  const { user, session, updateSessionPresenter }: IAppProvider = useContext(AppContext)
+function GifPresentationPage() {
+  const { user, session, updateSessionPresenter, joinSession }: IAppProvider = useContext(AppContext)
+  let { roomId } = useParams()
+
+  useEffect(() => {
+    !session && roomId && joinSession(roomId)
+  }, [])
 
   function handleNext() {
     if (session && session.presenterIndex < session?.users.length - 1) {
@@ -68,4 +74,4 @@ function SessionMenu() {
   )
 }
 
-export default SessionMenu
+export default GifPresentationPage
