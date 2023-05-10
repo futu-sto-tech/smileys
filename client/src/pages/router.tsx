@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/name/:id',
+    path: '/name/:roomId',
     element: (
       <Layout>
         <EnterNamePage />
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/create/:id',
+    path: '/create/:roomId',
     element: (
       <Layout>
         <ShareRoomPage />
@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/:id',
+    path: '/:roomId',
     element: (
       <Layout>
         <RoomPage />
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/present/:id',
+    path: '/present/:roomId',
     element: (
       <Layout>
         <GifPresentationPage />

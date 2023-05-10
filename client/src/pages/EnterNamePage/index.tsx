@@ -4,11 +4,12 @@ import AppContext from '../../shared/AppContext'
 import { Button } from '../../components/Button'
 import styles from './EnterNamePage.module.scss'
 import Input from '../../components/Input'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { IAppProvider } from '../../types/AppContext'
 
 function EnterNamePage() {
   const { handleChangedName, user, setUser, session }: IAppProvider = useContext(AppContext)
+  let { roomId } = useParams()
   const navigate = useNavigate()
 
   return (
@@ -26,7 +27,7 @@ function EnterNamePage() {
         <Button
           onClick={() => {
             handleChangedName()
-            if (session) navigate(`/${session.code}`)
+            navigate(`/${roomId}`)
           }}
         >
           Continue
