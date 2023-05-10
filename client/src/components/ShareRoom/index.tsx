@@ -5,16 +5,17 @@ import { Button, ButtonColor } from '../Button'
 
 interface ShareSessionProps {
   big?: boolean
+  onCopied: () => void
 }
 
-function ShareRoom({ big }: ShareSessionProps) {
+function ShareRoom({ big, onCopied }: ShareSessionProps) {
   const { session }: AppProviders = useContext(AppContext)
   const [hasCopied, setHasCopied] = useState(false)
 
   function handleClick() {
     navigator.clipboard.writeText(`${window.location.hostname}/${session?.code}`)
     setHasCopied(true)
-
+    onCopied()
     setTimeout(() => {
       setHasCopied(false)
     }, 4000)
