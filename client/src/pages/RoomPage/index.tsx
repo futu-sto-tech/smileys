@@ -46,12 +46,6 @@ function RoomPage() {
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        {session &&
-          session.users &&
-          session.users.map((user, i) => {
-            return <p key={i}>{user.name}</p>
-          })}
-
         <h1>How are you doing?</h1>
         <p>Pick a GIF to describe your experiences. </p>
         <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>

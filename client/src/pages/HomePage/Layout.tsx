@@ -11,7 +11,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <>
       <main className={mainStyle}>
-        <nav className={navStyle}>Nav</nav>
+        {/* <nav className={navStyle}>Nav</nav> */}
         <div className={contentStyle}>{children}</div>
         <Footer />
       </main>
