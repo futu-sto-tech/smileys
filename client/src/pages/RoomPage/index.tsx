@@ -4,7 +4,7 @@ import AppContext from '../../shared/AppContext'
 import { GifList } from '../../components/GifList'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
-import SessionMenu from '../../components/sessionMenu'
+import SessionMenu from '../GifPresentationPage'
 import { IAppProvider } from '../../types/AppContext'
 
 function RoomPage() {
@@ -14,26 +14,6 @@ function RoomPage() {
   useEffect(() => {
     !session && roomId && joinSession(roomId)
   }, [])
-
-  // Temporary for demonstrating GIFS
-  if (user.gifId && session) {
-    return (
-      <>
-        {/* {session.users.map((user, i) => {
-          if (user.gifId) {
-            return (
-              <>
-                <p>name: {user.name}</p>
-                <GifFetcher key={i} gifId={user.gifId} />
-              </>
-            )
-          }
-          return <p>{user.name} is still choosing</p>
-        })} */}
-        <SessionMenu></SessionMenu>
-      </>
-    )
-  }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGifSearchTerm(e.target.value)
