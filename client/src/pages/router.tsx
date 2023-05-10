@@ -6,6 +6,7 @@ import RoomPage from '../pages/RoomPage'
 import EnterNamePage from '../pages/EnterNamePage'
 import ShareRoomPage from '../pages/ShareRoomPage'
 import SelectGifPage from '../pages/SelectGifPage'
+import GifPresentationPage from './GifPresentationPage'
 
 export const router = createBrowserRouter([
   {
@@ -44,11 +45,18 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: '/:id/:gifId',
-
+    path: '/:roomId/:gifId',
     element: (
       <Layout>
         <SelectGifPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/present/:id',
+    element: (
+      <Layout>
+        <GifPresentationPage />
       </Layout>
     ),
   },
