@@ -4,7 +4,6 @@ import AppContext, { AppProviders } from '../../shared/AppContext'
 import { TrendingGifs } from '../../components/TrendingGifs'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
-import { NameForm } from '../../components/NameForm'
 import { useGifById } from '../../shared/gif_api'
 import { Gif } from '../../components/Gif'
 import GifFetcher from '../../components/GifFetcher'
@@ -17,8 +16,6 @@ function RoomPage() {
   useEffect(() => {
     !session && roomId && joinSession(roomId)
   }, [])
-
-  if (needName) return <NameForm />
 
   // Temporary for demonstrating GIFS
   if (user.gifId && session) {

@@ -1,16 +1,34 @@
 import { useContext, useEffect, useState } from 'react'
 import AppContext, { AppProviders } from '../../shared/AppContext'
 import { Session } from '../../@types/types'
-import { NameForm } from '../../components/NameForm'
 import { Button } from '../../components/Button'
 import Input from '../../components/Input'
+import { useNavigate } from 'react-router-dom'
 
 function HomePage() {
   const [roomCode, setRoomCode] = useState('')
-  const { user, webSocketState, joinSession, createSession, needName, setNeedName }: AppProviders =
-    useContext(AppContext)
+  const { user, webSocketState, joinSession, createSession }: AppProviders = useContext(AppContext)
+  const navigate = useNavigate()
 
-  if (needName) return <NameForm />
+  function handleJoin() {
+    if (user.name) {
+      joinSession(roomCode, () => {
+        navigate(`/${roomCode}`)
+      })
+    } else {
+      navigate(`/name/${roomCode}`)
+    }
+  }
+
+  function handleCreate() {
+    if (user.name) {
+      createSession((code) => {
+        navigate(`/create/${code}`)
+      })
+    } else {
+      navigate(`/${roomCode}/name`)
+    }
+  }
 
   return (
     <div>
@@ -24,23 +42,9 @@ function HomePage() {
           setRoomCode(e.target.value)
         }}
       ></Input>
-      <Button
-        onClick={() => {
-          joinSession(roomCode, true)
-        }}
-      >
-        Join
-      </Button>
+      <Button onClick={handleJoin}>Join</Button>
       <h2>Create a New Session:</h2>
-      <Button
-        onClick={() => {
-          createSession()
-        }}
-      >
-        Create
-      </Button>
-      <h2>Change name</h2>
-      <Button onClick={() => setNeedName(true)}>Change name</Button>
+      <Button onClick={handleCreate}>Create</Button>
     </div>
   )
 }
