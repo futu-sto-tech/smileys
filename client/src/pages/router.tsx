@@ -12,51 +12,27 @@ import SuspendSessionRoute from '../components/ProtectedRouteBySession'
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <Layout>
-        <HomePage />
-      </Layout>
-    ),
+    element: <HomePage />,
   },
   {
     path: '/name/:roomId',
-    element: (
-      <Layout>
-        <EnterNamePage />
-      </Layout>
-    ),
+    element: <EnterNamePage />,
   },
   {
     path: '/create/:roomId',
-    element: (
-      <Layout>
-        <ShareRoomPage />
-      </Layout>
-    ),
+    element: <ShareRoomPage />,
   },
 
   {
     path: '/:roomId',
-    element: (
-      <Layout>
-        <SuspendSessionRoute Component={RoomPage} />
-      </Layout>
-    ),
+    element: <SuspendSessionRoute Component={RoomPage} />,
   },
   {
     path: '/:roomId/:gifId',
-    element: (
-      <Layout>
-        <SuspendSessionRoute Component={SelectGifPage} />
-      </Layout>
-    ),
+    element: <SuspendSessionRoute Component={SelectGifPage} />,
   },
   {
     path: '/present/:roomId',
-    element: (
-      <Layout>
-        <SuspendSessionRoute Component={GifPresentationPage} />
-      </Layout>
-    ),
+    element: <SuspendSessionRoute Component={GifPresentationPage} />,
   },
 ])
