@@ -6,10 +6,10 @@ export let sessions: Session[] = []
 export let userSockets: UserSocket[] = []
 
 export const registerSessionHandlers = (wss: Server, ws: Socket) => {
-  const findMyActiveSessions = (data: { name: string }, callback: any) => {
+  const findMyActiveSessions = (data: { userId: string }, callback: any) => {
     const activeSession = sessions
       .filter((session) => session.gameStarted)
-      .find((session) => session.users.find((user) => user.name === data.name))
+      .find((session) => session.users.find((user) => user.id === data.userId))
     if (activeSession) {
       callback(activeSession.code)
     } else {
@@ -59,12 +59,13 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       return
     }
     let session = sessions[sessionIndex]
-    const userIndex = session.users.findIndex((user) => user.name === data.user.name)
+    const userIndex = session.users.findIndex((user) => user.id === data.user.id)
     if (userIndex === -1) {
-      ws.send('Invalid user name')
+      ws.send('Invalid user')
       return
     }
     session.users[userIndex] = data.user
+    session.creator = data.user
     sessions[sessionIndex] = session
     if (typeof callback == 'function') {
       callback(session)
@@ -83,11 +84,11 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  const leaveSession = (data: { code: string; name: string }, callback: any) => {
+  const leaveSession = (data: { code: string; userId: string }, callback: any) => {
     const sessionIndex = sessions.findIndex((session) => session.code === data.code)
     let session = sessions[sessionIndex]
     if (session) {
-      const userIndex = session.users.findIndex((user) => user.name === data.name)
+      const userIndex = session.users.findIndex((user) => user.id === data.userId)
       session.users.splice(userIndex, 1)
       if (session.users.length === 0) {
         sessions.splice(sessionIndex, 1)
@@ -121,9 +122,9 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  const rejoinSession = async (data: { name: string; sessionId: string }, callback: any) => {
+  const rejoinSession = async (data: { userId: string; sessionId: string }, callback: any) => {
     await ws.join(data.sessionId)
-    let userSocket = userSockets.find((userSocket) => userSocket.user.name === data.name)
+    let userSocket = userSockets.find((userSocket) => userSocket.user.id === data.userId)
     if (userSocket) {
       userSocket.socket = ws
     } else {
@@ -153,7 +154,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
 
 const addUserToSession = (session: Session, newUser: User) => {
   const newUsers = session.users.filter((user) => {
-    return user.name !== newUser.name
+    return user.id !== newUser.id
   })
   newUsers.push(newUser)
   session.users = newUsers
@@ -161,7 +162,7 @@ const addUserToSession = (session: Session, newUser: User) => {
 
 const addUserSocket = (ws: any, user: User) => {
   const newUserSockets = userSockets.filter((userSocket) => {
-    return userSocket.user.name !== user.name
+    return userSocket.user.id !== user.id
   })
   newUserSockets.push({
     socket: ws,

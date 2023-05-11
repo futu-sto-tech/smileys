@@ -43,9 +43,9 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // app.use('/sessions', sessionsRouter)
-// app.get('/', (req: Request, res: Response) => {
-//   res.send('Express + TypeScript server running')
-// })
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express + TypeScript server running')
+})
 
 // ****** WEBSOCKET STUFF *******
 
