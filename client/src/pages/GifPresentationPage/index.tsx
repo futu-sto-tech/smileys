@@ -77,7 +77,13 @@ function GifPresentationPage() {
         </div>
       </div>
       <div className={styles.gifContainer}>
-        {data && <img src={data[session.presenterIndex].images.original.url} height={600} className={styles.gif} />}
+        {data &&
+          (data[session.presenterIndex].images.original.width / data[session.presenterIndex].images.original.height <
+          2 ? (
+            <img src={data[session.presenterIndex].images.original.url} height={500} className={styles.gif} />
+          ) : (
+            <img src={data[session.presenterIndex].images.original.url} width={1000} className={styles.gif} />
+          ))}
       </div>
     </div>
   )

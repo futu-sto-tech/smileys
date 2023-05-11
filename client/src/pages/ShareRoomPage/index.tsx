@@ -14,10 +14,11 @@ function ShareRoomPage() {
 
   return (
     <div className={styles.container}>
-      <h1>Your team's session code</h1>
-      <ShareRoom onCopied={() => setShowJoinRoom(true)} />
+      <h1 className={styles.header}>Your team's session code</h1>
+      <ShareRoom onCopied={() => setShowJoinRoom(true)} big={true} />
       {showJoinRoom && (
         <Button
+          className={styles.button}
           onClick={() => {
             if (user.name) {
               navigate(`/${roomId}`)
@@ -29,11 +30,7 @@ function ShareRoomPage() {
           Join room!
         </Button>
       )}
-      <div className={styles.joinRoom}>
-        <p>
-          Already have an existing room?<span className={styles.joinNow}></span>
-        </p>
-      </div>
+      <div className={styles.joinRoom}></div>
     </div>
   )
 }

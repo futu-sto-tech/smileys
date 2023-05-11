@@ -1,13 +1,14 @@
 .container {
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 100%;
   flex-grow: 1;
 }
 
 .menuContainer {
+  margin-left: 50px;
   display: flex;
+  justify-self: flex-start;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--primary-gray);
@@ -51,5 +52,10 @@
 .gifContainer {
   display: flex;
   align-self: center;
-  justify-content: center;
+  margin: auto;
+  padding-right: 300px;
+}
+
+.gif {
+  border-radius: 15px;
 }
