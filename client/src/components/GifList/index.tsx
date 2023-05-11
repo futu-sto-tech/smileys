@@ -7,6 +7,7 @@ import { useContext } from 'react'
 import AppContext from '../../shared/AppContext'
 import { IAppProvider } from '../../types/AppContext'
 import { useDebounce } from '../../hooks/useDebounce'
+import classNames from 'classnames'
 
 export function GifList({ className }: { className?: string }) {
   const { gifSearchTerm }: IAppProvider = useContext(AppContext)
@@ -18,7 +19,7 @@ export function GifList({ className }: { className?: string }) {
   const usedData = gifSearchTerm && searchSuccess ? gifsSearchData : data && isSuccess ? data : []
 
   return (
-    <div className={`${className} ${styles.trendingContainer}`}>
+    <div className={classNames([className, styles.gifContainer])}>
       {data || gifsSearchData ? (
         <MasonryGrid items={usedData} columns={3}>
           {(item): React.ReactElement => (

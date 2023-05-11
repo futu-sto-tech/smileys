@@ -4,7 +4,6 @@ import AppContext from '../../shared/AppContext'
 import { GifList } from '../../components/GifList'
 import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
-import SessionMenu from '../GifPresentationPage'
 import { IAppProvider } from '../../types/AppContext'
 
 function RoomPage() {
@@ -23,7 +22,7 @@ function RoomPage() {
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <h1>How are you doing?</h1>
-        <p>Pick a GIF to describe your experiences. </p>
+        <p className={styles.subtitle}>Pick a GIF to describe your experiences. </p>
         <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
       </div>
       {session ? (
