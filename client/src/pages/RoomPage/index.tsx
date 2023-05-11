@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
 import { GifList } from '../../components/GifList'
 import styles from './RoomPage.module.scss'
@@ -10,8 +10,12 @@ import { IAppProvider } from '../../types/AppContext'
 function RoomPage() {
   const { session, joinSession, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (!user.name) {
+      navigate(`/name/${roomId}`)
+    }
     !session && roomId && joinSession(roomId)
   }, [])
 
