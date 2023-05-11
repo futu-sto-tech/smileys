@@ -6,12 +6,13 @@ import { GIPHY_URLS } from '../../consts/urls'
 import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
 
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
+const { GIPHY_BASE_URL_SEARCH } = GIPHY_URLS
 
 export function useSearchGifs(search: string): UseQueryResult<GifResult[]> {
   return useQuery(['searchGif', search], async () => {
     const requestConfig: AxiosRequestConfig = {
       method: 'get',
-      url: GIPHY_URLS.GIPHY_BASE_URL,
+      url: GIPHY_BASE_URL_SEARCH,
       params: {
         limit: LIMIT,
         rating: RATING,
@@ -22,7 +23,6 @@ export function useSearchGifs(search: string): UseQueryResult<GifResult[]> {
     }
 
     const res = await handleAxiosMethod<{ data: GifResult[] }>(requestConfig)
-    console.log(res.data)
     return res.data
   })
 }
