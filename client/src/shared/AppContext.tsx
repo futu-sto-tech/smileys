@@ -16,9 +16,6 @@ const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
-  const userName = useRef<string>('')
-  userName.current = user ? user.name : ''
-  const [socketEventAfterName, setSocketEventAfterName] = useState<socketEvent>({ event: '', params: {} })
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
   const sessionRef = useRef<Session>()
@@ -96,9 +93,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
 
   function handleChangedName() {
     saveUser(user)
-    socket.emit(socketEventAfterName.event, { ...socketEventAfterName.params, user }, (session: Session) => {
-      setSession(session)
-    })
   }
 
   const providers: IAppProvider = {

@@ -8,7 +8,7 @@ import { IAppProvider } from '../../types/AppContext'
 
 function ShareRoomPage() {
   const [showJoinRoom, setShowJoinRoom] = useState(false)
-  const { session }: IAppProvider = useContext(AppContext)
+  const { user }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
   const navigate = useNavigate()
 
@@ -19,7 +19,11 @@ function ShareRoomPage() {
       {showJoinRoom && (
         <Button
           onClick={() => {
-            navigate(`/${roomId}`)
+            if (user.name) {
+              navigate(`/${roomId}`)
+            } else {
+              navigate(`/name/${roomId}`)
+            }
           }}
         >
           Join room!
