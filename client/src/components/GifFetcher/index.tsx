@@ -15,8 +15,8 @@ function GifFetcher({ gifId }: { gifId: string }) {
   }
 
   if (!url) {
-    const { status, data, error, isFetching } = useGifById(gifId)
-    if (data) url = data.images.original.url
+    const { status, data, error, isFetching } = useGifById([gifId])
+    if (data) url = data[0].images.original.url
   }
   return (
     <div>
