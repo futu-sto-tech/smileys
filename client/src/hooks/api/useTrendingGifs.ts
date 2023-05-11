@@ -8,8 +8,8 @@ import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 const { GIPHY_BASE_URL_TRENDING } = GIPHY_URLS
 
-export function useTrendingGifs(search: string): UseQueryResult<GifResult[]> {
-  return useQuery(['trendingGifs', search], async () => {
+export function useTrendingGifs(): UseQueryResult<GifResult[]> {
+  return useQuery(['trendingGifs'], async () => {
     const requestConfig: AxiosRequestConfig = {
       method: 'get',
       url: GIPHY_BASE_URL_TRENDING,
