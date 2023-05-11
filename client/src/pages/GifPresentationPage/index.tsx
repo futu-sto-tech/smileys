@@ -3,9 +3,10 @@ import AppContext from '../../shared/AppContext'
 import styles from './sessionMenu.module.scss'
 import { Button, ButtonColor } from '../../components/Button'
 import GifFetcher from '../../components/GifFetcher'
-import { User } from '../../types/types'
+import { Session, User } from '../../types/types'
 import { IAppProvider } from '../../types/AppContext'
 import { useParams } from 'react-router-dom'
+import { useGifByIds } from '../../hooks/api/useGifByIds'
 
 function GifPresentationPage() {
   const { user, session, updateSessionPresenter, joinSession }: IAppProvider = useContext(AppContext)
@@ -14,6 +15,13 @@ function GifPresentationPage() {
   useEffect(() => {
     !session && roomId && joinSession(roomId)
   }, [])
+
+  function getGifIds(session?: Session) {
+    if (!session) return []
+    return session.users.map((user) => user.gifId)
+  }
+
+  const { status, data, error, isFetching } = useGifByIds(getGifIds(session))
 
   function handleNext() {
     if (session && session.presenterIndex < session?.users.length - 1) {
@@ -38,9 +46,9 @@ function GifPresentationPage() {
       <div className={styles.menuContainer}>
         <div>
           <h1>Participants</h1>
-          {session?.users.map((user) => {
+          {session?.users.map((user, i) => {
             return (
-              <div className={`${styles.nameContainer} ${isCurrentUser(user) ? styles.highlightUser : ''}`}>
+              <div className={`${styles.nameContainer} ${isCurrentUser(user) ? styles.highlightUser : ''}`} key={i}>
                 <div style={{ backgroundColor: user.gifId ? '#38B271' : '#E8D213' }} className={styles.statusDot}></div>
                 <p className={styles.name}>{user.name}</p>
               </div>
@@ -69,7 +77,7 @@ function GifPresentationPage() {
           </Button>
         </div>
       </div>
-      <GifFetcher gifId={session.users[session.presenterIndex].gifId} />
+      {data && <img src={data[session.presenterIndex].images.fixed_height.url} className={styles.gif} />}
     </div>
   )
 }

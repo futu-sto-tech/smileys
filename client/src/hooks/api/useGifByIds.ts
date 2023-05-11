@@ -7,7 +7,7 @@ import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
 
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 
-export function useGifById(ids: string[]): UseQueryResult<GifResult[]> {
+export function useGifByIds(ids: string[]): UseQueryResult<GifResult[]> {
   return useQuery(['gifIds', ids], async () => {
     const requestConfig: AxiosRequestConfig = {
       method: 'get',
@@ -15,13 +15,14 @@ export function useGifById(ids: string[]): UseQueryResult<GifResult[]> {
       params: {
         limit: LIMIT,
         rating: RATING,
-        ids: encodeURIComponent(ids.toString()),
+        ids: ids.toString(),
         lang: LANGUAGE,
         api_key: API_KEY,
       },
     }
 
     const res = await handleAxiosMethod<{ data: GifResult[] }>(requestConfig)
+    console.log(res.data)
     return res.data
   })
 }
