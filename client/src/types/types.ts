@@ -18,6 +18,8 @@ export interface GifResult {
   images: {
     original: {
       url: string
+      height: number
+      width: number
     }
     fixed_width: {
       url: string
