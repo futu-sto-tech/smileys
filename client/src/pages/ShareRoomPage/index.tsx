@@ -8,23 +8,29 @@ import { IAppProvider } from '../../types/AppContext'
 
 function ShareRoomPage() {
   const [showJoinRoom, setShowJoinRoom] = useState(false)
-  const { session }: IAppProvider = useContext(AppContext)
+  const { user, joinSession }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
   const navigate = useNavigate()
+
+  function handleJoin() {
+    if (user.name) {
+      if (roomId) {
+        joinSession(roomId, () => {
+          navigate(`/${roomId}`)
+        })
+      } else {
+        navigate(`/${roomId}`)
+      }
+    } else {
+      navigate(`/name/${roomId}`)
+    }
+  }
 
   return (
     <div className={styles.container}>
       <h1>Your team's session code</h1>
       <ShareRoom onCopied={() => setShowJoinRoom(true)} />
-      {showJoinRoom && (
-        <Button
-          onClick={() => {
-            navigate(`/${roomId}`)
-          }}
-        >
-          Join room!
-        </Button>
-      )}
+      {showJoinRoom && <Button onClick={handleJoin}>Join room!</Button>}
       <div className={styles.joinRoom}>
         <p>
           Already have an existing room?<span className={styles.joinNow}></span>

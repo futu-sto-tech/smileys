@@ -8,28 +8,24 @@ import { IAppProvider } from '../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
 
 function HomePage() {
-  const [roomCode, setRoomCode] = useState('')
+  const [roomId, setRoomCode] = useState('')
   const { user, webSocketState, joinSession, createSession }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
 
   function handleJoin() {
     if (user.name) {
-      joinSession(roomCode, () => {
-        navigate(`/${roomCode}`)
+      joinSession(roomId, () => {
+        navigate(`/${roomId}`)
       })
     } else {
-      navigate(`/name/${roomCode}`)
+      navigate(`/name/${roomId}`)
     }
   }
 
   function handleCreate() {
-    if (user.name) {
-      createSession((code) => {
-        navigate(`/create/${code}`)
-      })
-    } else {
-      navigate(`/${roomCode}/name`)
-    }
+    createSession((newRoomId) => {
+      navigate(`/create/${newRoomId}`)
+    })
   }
 
   return (

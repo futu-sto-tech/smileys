@@ -8,9 +8,20 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { IAppProvider } from '../../types/AppContext'
 
 function EnterNamePage() {
-  const { handleChangedName, user, setUser, session }: IAppProvider = useContext(AppContext)
+  const { handleChangedName, user, setUser, joinSession }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
   const navigate = useNavigate()
+
+  function HandleContinue() {
+    handleChangedName()
+    if (roomId) {
+      joinSession(roomId, () => {
+        navigate(`/${roomId}`)
+      })
+    } else {
+      navigate(`/${roomId}`)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -24,14 +35,7 @@ function EnterNamePage() {
             setUser({ ...user, name: e.target.value })
           }}
         ></Input>
-        <Button
-          onClick={() => {
-            handleChangedName()
-            navigate(`/${roomId}`)
-          }}
-        >
-          Continue
-        </Button>
+        <Button onClick={HandleContinue}>Continue</Button>
       </div>
     </div>
   )
