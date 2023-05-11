@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import AppContext from '../../shared/AppContext'
-import styles from './sessionMenu.module.scss'
+import styles from './GifPresentationPage.module.scss'
 import { Button, ButtonColor } from '../../components/Button'
-import GifFetcher from '../../components/GifFetcher'
 import { Session, User } from '../../types/types'
 import { IAppProvider } from '../../types/AppContext'
 import { useParams } from 'react-router-dom'
@@ -77,7 +76,9 @@ function GifPresentationPage() {
           </Button>
         </div>
       </div>
-      {data && <img src={data[session.presenterIndex].images.fixed_height.url} className={styles.gif} />}
+      <div className={styles.gifContainer}>
+        {data && <img src={data[session.presenterIndex].images.original.url} height={600} className={styles.gif} />}
+      </div>
     </div>
   )
 }
