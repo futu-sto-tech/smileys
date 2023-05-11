@@ -8,6 +8,7 @@ import AppContext from '../../shared/AppContext'
 import { IAppProvider } from '../../types/AppContext'
 import { useDebounce } from '../../hooks/useDebounce'
 import { Session } from '../../types/types'
+import classNames from 'classnames'
 
 interface GifListProps {
   className?: string
@@ -24,7 +25,7 @@ export function GifList({ className, session }: GifListProps) {
   const usedData = gifSearchTerm && searchSuccess ? gifsSearchData : data && isSuccess ? data : []
 
   return (
-    <div className={`${className} ${styles.trendingContainer}`}>
+    <div className={classNames([className, styles.gifContainer])}>
       {data || gifsSearchData ? (
         <MasonryGrid items={usedData} columns={3}>
           {(item): React.ReactElement => (
