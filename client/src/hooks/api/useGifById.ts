@@ -1,14 +1,27 @@
-import axios from 'axios'
-import { useQuery } from 'react-query'
+import axios, { AxiosRequestConfig } from 'axios'
+import { UseQueryResult, useQuery } from 'react-query'
 import { GifResult } from '../../types/types'
+import { GIPHY_URLS } from '../../consts/urls'
+import { GIPHY } from '../../consts/gifs'
+import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
 
-export function useGifById(id: string) {
-  return useQuery('GifById', async () => {
-    const { data } = await axios.get<{ data: GifResult }>(`https://api.giphy.com/v1/gifs/${id}`, {
+const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
+
+export function useGifById(ids: string[]): UseQueryResult<GifResult[]> {
+  return useQuery(['gifIds', ids], async () => {
+    const requestConfig: AxiosRequestConfig = {
+      method: 'get',
+      url: GIPHY_URLS.GIPHY_BASE_URL,
       params: {
-        api_key: import.meta.env.VITE_GIPHY_API_KEY,
+        limit: LIMIT,
+        rating: RATING,
+        ids: encodeURIComponent(ids.toString()),
+        lang: LANGUAGE,
+        api_key: API_KEY,
       },
-    })
-    return data.data
+    }
+
+    const res = await handleAxiosMethod<{ data: GifResult[] }>(requestConfig)
+    return res.data
   })
 }
