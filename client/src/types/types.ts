@@ -27,6 +27,10 @@ export interface GifResult {
       url: string
       height: number
     }
+    fixed_height: {
+      url: string
+      height: number
+    }
   }
   title: string
 }
