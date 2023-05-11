@@ -1,7 +1,7 @@
 import { useQueryClient } from 'react-query'
 import { Gif } from '../../components/Gif'
 import { GifResult } from '../../types/types'
-import { useGifById } from '../../hooks/api/useGifById'
+import { useGifByIds } from '../../hooks/api/useGifByIds'
 
 function GifFetcher({ gifId }: { gifId: string }) {
   const queryClient = useQueryClient()
@@ -15,7 +15,7 @@ function GifFetcher({ gifId }: { gifId: string }) {
   }
 
   if (!url) {
-    const { status, data, error, isFetching } = useGifById([gifId])
+    const { status, data, error, isFetching } = useGifByIds([gifId])
     if (data) url = data[0].images.original.url
   }
   return (
