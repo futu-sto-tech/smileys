@@ -1,7 +1,9 @@
 .container {
   display: flex;
-  align-items: stretch;
-  background-color: aqua;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
 }
 
 .menuContainer {
@@ -10,6 +12,7 @@
   justify-content: space-between;
   background-color: var(--primary-gray);
   width: 280px;
+  height: 600px;
   border-radius: 10px;
   padding: 10px;
   color: var(--white);
@@ -43,5 +46,10 @@
   justify-self: flex-end;
   display: flex;
   justify-content: space-around;
-  width: 100%;
+}
+
+.gifContainer {
+  display: flex;
+  align-self: center;
+  justify-content: center;
 }
