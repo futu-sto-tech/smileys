@@ -15,7 +15,6 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
   const { user, updateSessionPresenter, joinSession }: IAppProvider = useContext(AppContext)
   const { presenterIndex, users } = session
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
-  console.log(session)
 
   function isCurrentUser(user: User) {
     return user.id === users[presenterIndex].id
@@ -75,9 +74,9 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
         {!isFetching &&
           activeGif &&
           (activeGif.images.original.width / activeGif.images.original.height < 2 ? (
-            <img src={activeGif.images.original.url} height={500} className={styles.gif} />
+            <img src={activeGif.images.original.url} height={600} className={styles.gif} />
           ) : (
-            <img src={activeGif.images.original.url} width={1000} className={styles.gif} />
+            <img src={activeGif.images.original.url} width={1200} className={styles.gif} />
           ))}
       </div>
     </div>
