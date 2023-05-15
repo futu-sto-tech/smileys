@@ -17,7 +17,7 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
 
   function isCurrentUser(user: User) {
-    return user.name === users[presenterIndex].name
+    return user.id === users[presenterIndex].id
   }
 
   const isFirstPresenter = presenterIndex <= 0
