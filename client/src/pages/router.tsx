@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
     path: '/name/:roomId',
     element: (
       <Layout>
-        <SuspendSessionRoute Component={EnterNamePage} />
+        <EnterNamePage />
       </Layout>
     ),
   },
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
     path: '/create/:roomId',
     element: (
       <Layout>
-        <SuspendSessionRoute Component={ShareRoomPage} />
+        <ShareRoomPage />
       </Layout>
     ),
   },

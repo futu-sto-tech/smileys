@@ -7,6 +7,7 @@ import styles from './SelectGifPage.module.scss'
 import { Button } from '../../components/Button'
 // import GifFetcher from '../../components/GifFetcher'
 import { IAppProvider } from '../../types/AppContext'
+import { useGifByIds } from '../../hooks/api/useGifByIds'
 
 type Parameters = {
   roomId: string
@@ -18,11 +19,9 @@ function SelectGifPage() {
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const cachedGifData = queryClient.getQueryData<GifResult[]>('GifList')
+  const { isError, data: userGifMap, error, isFetching } = useGifByIds([{ ...user, gifId }])
 
-  useEffect(() => {
-    if (!session) joinSession(roomId)
-  }, [])
+  const activeGif = userGifMap?.get(gifId)
 
   return (
     <div className={styles.container}>
@@ -30,6 +29,13 @@ function SelectGifPage() {
       <p>Pick a GIF to share with your team during this week's smileys session</p>
       {/* Todo: */}
       {/* <GifFetcher gifId={gifId} /> */}
+      {!isFetching &&
+        activeGif &&
+        (activeGif.images.original.width / activeGif.images.original.height < 2 ? (
+          <img src={activeGif.images.original.url} height={500} className={styles.gif} />
+        ) : (
+          <img src={activeGif.images.original.url} width={1000} className={styles.gif} />
+        ))}
       <div className={styles.buttons}>
         <Button
           className={styles.rightButton}
