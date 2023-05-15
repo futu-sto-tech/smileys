@@ -15,10 +15,9 @@ type Parameters = {
 }
 
 function SelectGifPage() {
-  const { session, joinSession, user, updateSessionUser }: IAppProvider = useContext(AppContext)
+  const { user, updateSessionUser }: IAppProvider = useContext(AppContext)
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
   const { isError, data: userGifMap, error, isFetching } = useGifByIds([{ ...user, gifId }])
 
   const activeGif = userGifMap?.get(gifId)
@@ -27,8 +26,6 @@ function SelectGifPage() {
     <div className={styles.container}>
       <h1>Select this GIF?</h1>
       <p>Pick a GIF to share with your team during this week's smileys session</p>
-      {/* Todo: */}
-      {/* <GifFetcher gifId={gifId} /> */}
       {!isFetching &&
         activeGif &&
         (activeGif.images.original.width / activeGif.images.original.height < 2 ? (

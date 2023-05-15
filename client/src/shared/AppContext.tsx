@@ -73,6 +73,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   function updateSessionUser(updatedUser: User, promoteToCreator?: boolean) {
+    saveUser(updatedUser)
     if (!session) return
     setUser(updatedUser)
     socket.emit(
