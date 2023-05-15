@@ -72,14 +72,16 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
-  function updateSessionUser(updatedUser: User) {
-    if (!session) {
-      return // Todo
-    }
+  function updateSessionUser(updatedUser: User, promoteToCreator?: boolean) {
+    if (!session) return
     setUser(updatedUser)
-    socket.emit('updateSessionUser', { code: session.code, user: updatedUser }, (session: Session) => {
-      setSession(session)
-    })
+    socket.emit(
+      'updateSessionUser',
+      { code: session.code, user: updatedUser, promoteToCreator },
+      (session: Session) => {
+        setSession(session)
+      }
+    )
   }
 
   function updateSessionPresenter(presenterId: number) {

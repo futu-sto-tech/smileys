@@ -52,7 +52,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     logSessions()
   }
 
-  const updateSessionUser = (data: { code: string; user: User }, callback: any) => {
+  const updateSessionUser = (data: { code: string; user: User; promoteToCreator?: boolean }, callback: any) => {
     const sessionIndex = sessions.findIndex((session) => session.code === data.code)
     if (sessionIndex === -1) {
       ws.send('Invalid session code')
@@ -65,7 +65,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       return
     }
     session.users[userIndex] = data.user
-    session.creator = data.user
+    if (data.promoteToCreator) session.creator = data.user
     sessions[sessionIndex] = session
     if (typeof callback == 'function') {
       callback(session)

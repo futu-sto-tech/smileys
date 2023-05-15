@@ -20,7 +20,8 @@ function EnterNamePage() {
         navigate(`/${roomId}`)
       })
     } else {
-      updateSessionUser(user)
+      //The session is created with an unnamed user, so the creator has user.name and session.creator updated
+      updateSessionUser(user, true)
       navigate(`/${roomId}`)
     }
   }
