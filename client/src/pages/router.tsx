@@ -7,6 +7,7 @@ import EnterNamePage from '../pages/EnterNamePage'
 import ShareRoomPage from '../pages/ShareRoomPage'
 import SelectGifPage from '../pages/SelectGifPage'
 import GifPresentationPage from './GifPresentationPage'
+import SuspendSessionRoute from '../components/ProtectedRouteBySession'
 
 export const router = createBrowserRouter([
   {
@@ -21,16 +22,15 @@ export const router = createBrowserRouter([
     path: '/name/:roomId',
     element: (
       <Layout>
-        <EnterNamePage />
+        <SuspendSessionRoute Component={EnterNamePage} />
       </Layout>
     ),
   },
-
   {
     path: '/create/:roomId',
     element: (
       <Layout>
-        <ShareRoomPage />
+        <SuspendSessionRoute Component={ShareRoomPage} />
       </Layout>
     ),
   },
@@ -39,16 +39,15 @@ export const router = createBrowserRouter([
     path: '/:roomId',
     element: (
       <Layout>
-        <RoomPage />
+        <SuspendSessionRoute Component={RoomPage} />
       </Layout>
     ),
   },
-
   {
     path: '/:roomId/:gifId',
     element: (
       <Layout>
-        <SelectGifPage />
+        <SuspendSessionRoute Component={SelectGifPage} />
       </Layout>
     ),
   },
@@ -56,7 +55,7 @@ export const router = createBrowserRouter([
     path: '/present/:roomId',
     element: (
       <Layout>
-        <GifPresentationPage />
+        <SuspendSessionRoute Component={GifPresentationPage} />
       </Layout>
     ),
   },
