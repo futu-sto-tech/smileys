@@ -5,7 +5,6 @@ import { useQueryClient } from 'react-query'
 import { GifResult } from '../../types/types'
 import styles from './SelectGifPage.module.scss'
 import { Button } from '../../components/Button'
-// import GifFetcher from '../../components/GifFetcher'
 import { IAppProvider } from '../../types/AppContext'
 import { useGifByIds } from '../../hooks/api/useGifByIds'
 
