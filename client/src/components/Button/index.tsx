@@ -26,9 +26,10 @@ function mapColorToCSSClassName(color: ButtonColor | undefined) {
 }
 
 export function Button(props: ButtonProps) {
+  const { buttonColor, ...nativeProps } = props
   return (
     <button
-      {...props}
+      {...nativeProps}
       className={`${styles.button} 
       ${mapColorToCSSClassName(props.buttonColor)} 
       ${props.className ? props.className : ''}`}
