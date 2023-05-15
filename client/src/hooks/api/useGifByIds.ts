@@ -10,23 +10,11 @@ const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 type GifId = string
 type UserGifByIdMap = Map<GifId, GifResult>
 
-export function useGifByIds(users: User[] | undefined): any {
-  // UseQueryResult<UserGifByIdMap>
-
-  const emptyResp = {
-    data: new Map<string, GifResult>(),
-    isFetching: false,
-    error: null,
-  }
-
-  if (!users) return emptyResp
+export function useGifByIds(users: User[]): UseQueryResult<UserGifByIdMap> {
   const ids = users.filter((user) => user.gifId).map((user) => user.gifId)
-
-  if (!ids.length) return emptyResp
-
   const userGifByIdMap = new Map<GifId, GifResult>()
 
-  const { isFetching, data, error } = useQuery(['gifIds', users], async () => {
+  return useQuery(['gifIds', users], async () => {
     const requestConfig: AxiosRequestConfig = {
       method: 'get',
       url: GIPHY_URLS.GIPHY_BASE_URL,
@@ -48,10 +36,4 @@ export function useGifByIds(users: User[] | undefined): any {
 
     return userGifByIdMap
   })
-
-  return {
-    data,
-    isFetching,
-    error,
-  }
 }

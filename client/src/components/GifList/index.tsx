@@ -7,8 +7,14 @@ import { useContext } from 'react'
 import AppContext from '../../shared/AppContext'
 import { IAppProvider } from '../../types/AppContext'
 import { useDebounce } from '../../hooks/useDebounce'
+import { Session } from '../../types/types'
 
-export function GifList({ className }: { className?: string }) {
+interface GifListProps {
+  className?: string
+  session: Session
+}
+
+export function GifList({ className, session }: GifListProps) {
   const { gifSearchTerm }: IAppProvider = useContext(AppContext)
 
   const { status, data, isSuccess } = useTrendingGifs()
@@ -23,6 +29,7 @@ export function GifList({ className }: { className?: string }) {
         <MasonryGrid items={usedData} columns={3}>
           {(item): React.ReactElement => (
             <SelectableGif
+              session={session}
               url={item.images.fixed_width_downsampled.url}
               height={item.images.fixed_width_downsampled.height}
               id={item.id}

@@ -14,10 +14,6 @@ interface GifPresentationPageProps {
 function GifPresentationPage({ session }: GifPresentationPageProps) {
   const { user, updateSessionPresenter, joinSession }: IAppProvider = useContext(AppContext)
   const { presenterIndex, users } = session
-  console.log({
-    session,
-  })
-
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
 
   function isCurrentUser(user: User) {

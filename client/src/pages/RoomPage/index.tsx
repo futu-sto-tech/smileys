@@ -6,9 +6,14 @@ import styles from './RoomPage.module.scss'
 import Input from '../../components/Input'
 import SessionMenu from '../GifPresentationPage'
 import { IAppProvider } from '../../types/AppContext'
+import { Session } from '../../types/types'
 
-function RoomPage() {
-  const { session, joinSession, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
+interface RoomPageProps {
+  session: Session
+}
+
+function RoomPage({ session }: RoomPageProps) {
+  const { joinSession, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
   const navigate = useNavigate()
 
@@ -16,7 +21,7 @@ function RoomPage() {
     if (!user.name) {
       navigate(`/name/${roomId}`)
     }
-    !session && roomId && joinSession(roomId)
+    roomId && joinSession(roomId)
   }, [])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +36,7 @@ function RoomPage() {
         <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
       </div>
       {session ? (
-        <GifList className={styles.gifList}></GifList>
+        <GifList className={styles.gifList} session={session}></GifList>
       ) : (
         <>
           <p>Connecting to websocket...</p>
