@@ -1,14 +1,32 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { UseQueryResult, useQuery } from 'react-query'
-import { GifResult } from '../../types/types'
+import { GifResult, User } from '../../types/types'
 import { GIPHY_URLS } from '../../consts/urls'
 import { GIPHY } from '../../consts/gifs'
 import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
 
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 
-export function useGifByIds(ids: string[]): UseQueryResult<GifResult[]> {
-  return useQuery(['gifIds', ids], async () => {
+type GifId = string
+type UserGifByIdMap = Map<GifId, GifResult>
+
+export function useGifByIds(users: User[] | undefined): any {
+  // UseQueryResult<UserGifByIdMap>
+
+  const emptyResp = {
+    data: new Map<string, GifResult>(),
+    isFetching: false,
+    error: null,
+  }
+
+  if (!users) return emptyResp
+  const ids = users.filter((user) => user.gifId).map((user) => user.gifId)
+
+  if (!ids.length) return emptyResp
+
+  const userGifByIdMap = new Map<GifId, GifResult>()
+
+  const { isFetching, data, error } = useQuery(['gifIds', users], async () => {
     const requestConfig: AxiosRequestConfig = {
       method: 'get',
       url: GIPHY_URLS.GIPHY_BASE_URL,
@@ -22,7 +40,18 @@ export function useGifByIds(ids: string[]): UseQueryResult<GifResult[]> {
     }
 
     const res = await handleAxiosMethod<{ data: GifResult[] }>(requestConfig)
-    console.log(res.data)
-    return res.data
+    const gifResult = res?.data
+
+    ids.forEach((id, i) => {
+      userGifByIdMap.set(id, gifResult[i])
+    })
+
+    return userGifByIdMap
   })
+
+  return {
+    data,
+    isFetching,
+    error,
+  }
 }

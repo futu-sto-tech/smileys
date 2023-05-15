@@ -5,7 +5,7 @@ import { useQueryClient } from 'react-query'
 import { GifResult } from '../../types/types'
 import styles from './SelectGifPage.module.scss'
 import { Button } from '../../components/Button'
-import GifFetcher from '../../components/GifFetcher'
+// import GifFetcher from '../../components/GifFetcher'
 import { IAppProvider } from '../../types/AppContext'
 
 type Parameters = {
@@ -28,7 +28,8 @@ function SelectGifPage() {
     <div className={styles.container}>
       <h1>Select this GIF?</h1>
       <p>Pick a GIF to share with your team during this week's smileys session</p>
-      <GifFetcher gifId={gifId} />
+      {/* Todo: */}
+      {/* <GifFetcher gifId={gifId} /> */}
       <div className={styles.buttons}>
         <Button
           className={styles.rightButton}

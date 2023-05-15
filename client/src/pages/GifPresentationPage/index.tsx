@@ -7,38 +7,36 @@ import { IAppProvider } from '../../types/AppContext'
 import { useParams } from 'react-router-dom'
 import { useGifByIds } from '../../hooks/api/useGifByIds'
 
-function GifPresentationPage() {
-  const { user, session, updateSessionPresenter, joinSession }: IAppProvider = useContext(AppContext)
-  let { roomId } = useParams()
+interface GifPresentationPageProps {
+  session: Session
+}
 
-  useEffect(() => {
-    !session && roomId && joinSession(roomId)
-  }, [])
+function GifPresentationPage({ session }: GifPresentationPageProps) {
+  const { user, updateSessionPresenter, joinSession }: IAppProvider = useContext(AppContext)
+  const { presenterIndex, users } = session
+  console.log({
+    session,
+  })
 
-  function getGifIds(session?: Session) {
-    if (!session) return []
-    return session.users.map((user) => user.gifId)
+  const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
+
+  function isCurrentUser(user: User) {
+    return user.name === users[presenterIndex].name
   }
 
-  const { status, data, error, isFetching } = useGifByIds(getGifIds(session))
+  const isFirstPresenter = presenterIndex <= 0
+  const isLastPresenter = presenterIndex >= users.length - 1
 
   function handleNext() {
-    if (session && session.presenterIndex < session?.users.length - 1) {
-      updateSessionPresenter(session.presenterIndex + 1)
-    }
+    if (session && !isLastPresenter) updateSessionPresenter(presenterIndex + 1)
   }
 
   function handleBack() {
-    if (session && session.presenterIndex > 0) {
-      updateSessionPresenter(session.presenterIndex - 1)
-    }
+    if (session && !isFirstPresenter) updateSessionPresenter(presenterIndex - 1)
   }
 
-  function isCurrentUser(user: User) {
-    return user.name === session?.users[session.presenterIndex].name
-  }
-
-  if (!session) return <></>
+  const activeGif = userGifMap?.get(users[presenterIndex].gifId)
+  const loader = () => <p>Loading...</p>
 
   return (
     <div className={styles.container}>
@@ -55,34 +53,34 @@ function GifPresentationPage() {
           })}
         </div>
         <div className={styles.navigationButtonsContainer}>
-          <Button buttonColor={session.presenterIndex <= 0 ? ButtonColor.Gray : ButtonColor.White} onClick={handleBack}>
+          <Button buttonColor={isFirstPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleBack}>
             <img
               src="../../../../assets/icons/arrowLeft.svg"
               alt="back"
-              style={session.presenterIndex <= 0 ? {} : { filter: 'brightness(0)' }}
+              style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
             />{' '}
             Back
           </Button>
-          <Button
-            buttonColor={session.presenterIndex >= session.users.length - 1 ? ButtonColor.Gray : ButtonColor.White}
-            onClick={handleNext}
-          >
+          <Button buttonColor={isLastPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleNext}>
             Next{' '}
             <img
               src="../../../../assets/icons/arrowRight.svg"
               alt="next"
-              style={session.presenterIndex >= session.users.length - 1 ? {} : { filter: 'brightness(0)' }}
+              style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
             />
           </Button>
         </div>
       </div>
+
+      {isFetching && loader()}
+
       <div className={styles.gifContainer}>
-        {data &&
-          (data[session.presenterIndex].images.original.width / data[session.presenterIndex].images.original.height <
-          2 ? (
-            <img src={data[session.presenterIndex].images.original.url} height={500} className={styles.gif} />
+        {!isFetching &&
+          activeGif &&
+          (activeGif.images.original.width / activeGif.images.original.height < 2 ? (
+            <img src={activeGif.images.original.url} height={500} className={styles.gif} />
           ) : (
-            <img src={data[session.presenterIndex].images.original.url} width={1000} className={styles.gif} />
+            <img src={activeGif.images.original.url} width={1000} className={styles.gif} />
           ))}
       </div>
     </div>

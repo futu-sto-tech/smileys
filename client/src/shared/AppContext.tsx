@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createContext } from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 import { Socket, io } from 'socket.io-client'
 import { Session, User } from '../types/types'
 import { useNavigate } from 'react-router-dom'
@@ -18,8 +18,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
-  const sessionRef = useRef<Session>()
-  sessionRef.current = session
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -91,6 +89,13 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
+  function handleStartGame() {
+    if (!session) return
+    socket.emit('startGame', { code: session.code, userId: user.id }, (session: Session) => {
+      setSession(session)
+    })
+  }
+
   function handleChangedName() {
     saveUser(user)
   }
@@ -100,7 +105,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     setUser,
     handleChangedName,
     socket,
-    session: sessionRef.current,
+    session,
     setSession,
     webSocketState,
     joinSession,

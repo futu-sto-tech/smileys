@@ -104,25 +104,27 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  const disbandSession = (data: { code: string }) => {
-    const sessionIndex = sessions.findIndex((session) => session.code === data.code)
-    if (sessionIndex > -1) {
-      wss.in(sessions[sessionIndex].id).emit('sessionUpdated', null)
-      sessions.splice(sessionIndex, 1)
-    }
+  // const disbandSession = (data: { code: Pick<Session, 'code'>; userId: Pick<User, 'id'> }) => {
+  //   const sessionIndex = sessions.findIndex((session) => session.code === data.code)
+  //   if (sessionIndex > -1) {
+  //     wss.in(sessions[sessionIndex].id).emit('sessionUpdated', null)
+  //     sessions.splice(sessionIndex, 1)
+  //   }
+  // }
+
+  const startGame = (data: { code: string; userId: string }, callBack: Function) => {
+    const session = sessions.find((session) => session.code === data.code)
+    if (!session) return ws.send('Session id not found')
+
+    const userIsCreator = session.creator.id === data.userId
+    if (!userIsCreator) return ws.send('Only the creator can start the game')
+
+    session.gameStarted = true
+    ws.to(session.id).emit('gameStarted')
+    callBack(session)
   }
 
-  const startGame = (data: { sessionId: string }) => {
-    const session = sessions.find((session) => session.id === data.sessionId)
-    if (session) {
-      session.gameStarted = true
-      ws.to(session.id).emit('gameStarted')
-    } else {
-      ws.send('Session id not found')
-    }
-  }
-
-  const rejoinSession = async (data: { userId: string; sessionId: string }, callback: any) => {
+  const rejoinSession = async (data: { userId: string; sessionId: string }, callback?: Function) => {
     await ws.join(data.sessionId)
     let userSocket = userSockets.find((userSocket) => userSocket.user.id === data.userId)
     if (userSocket) {
@@ -147,7 +149,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   ws.on('updateSessionUser', updateSessionUser)
   ws.on('updateSessionPresenter', updateSessionPresenter)
   ws.on('leaveSession', leaveSession)
-  ws.on('disbandSession', disbandSession)
+  // ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)
   ws.on('rejoinSession', rejoinSession)
 }
