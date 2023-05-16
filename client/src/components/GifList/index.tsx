@@ -31,7 +31,8 @@ export function GifList({ className, session }: GifListProps) {
           {(item): React.ReactElement => (
             <SelectableGif
               session={session}
-              url={item.images.fixed_width_downsampled.url}
+              downsampled_url={item.images.fixed_width_downsampled.url}
+              original_url={item.images.original.url}
               height={item.images.fixed_width_downsampled.height}
               id={item.id}
             />
