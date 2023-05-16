@@ -92,7 +92,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
-  function handleStartGame() {
+  function startGame() {
     if (!session) return
     socket.emit('startGame', { code: session.code, userId: user.id }, (session: Session) => {
       setSession(session)
@@ -117,6 +117,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     updateSessionPresenter,
     gifSearchTerm,
     setGifSearchTerm,
+    startGame,
   }
 
   return <AppContext.Provider value={providers}>{children}</AppContext.Provider>

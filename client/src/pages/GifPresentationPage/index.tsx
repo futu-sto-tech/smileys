@@ -6,6 +6,7 @@ import { Session, User } from '../../types/types'
 import { IAppProvider } from '../../types/AppContext'
 import { useParams } from 'react-router-dom'
 import { useGifByIds } from '../../hooks/api/useGifByIds'
+import ParticipantList from './ParticipantList'
 
 interface GifPresentationPageProps {
   session: Session
@@ -16,57 +17,12 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
   const { presenterIndex, users } = session
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
 
-  function isCurrentUser(user: User) {
-    return user.id === users[presenterIndex].id
-  }
-
-  const isFirstPresenter = presenterIndex <= 0
-  const isLastPresenter = presenterIndex >= users.length - 1
-
-  function handleNext() {
-    if (session && !isLastPresenter) updateSessionPresenter(presenterIndex + 1)
-  }
-
-  function handleBack() {
-    if (session && !isFirstPresenter) updateSessionPresenter(presenterIndex - 1)
-  }
-
   const activeGif = userGifMap?.get(users[presenterIndex].gifId)
   const loader = () => <p>Loading...</p>
 
   return (
     <div className={styles.container}>
-      <div className={styles.menuContainer}>
-        <div>
-          <h1>Participants</h1>
-          {session?.users.map((user, i) => {
-            return (
-              <div className={`${styles.nameContainer} ${isCurrentUser(user) ? styles.highlightUser : ''}`} key={i}>
-                <div style={{ backgroundColor: user.gifId ? '#38B271' : '#E8D213' }} className={styles.statusDot}></div>
-                <p className={styles.name}>{user.name}</p>
-              </div>
-            )
-          })}
-        </div>
-        <div className={styles.navigationButtonsContainer}>
-          <Button buttonColor={isFirstPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleBack}>
-            <img
-              src="../../../../assets/icons/arrowLeft.svg"
-              alt="back"
-              style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
-            />{' '}
-            Back
-          </Button>
-          <Button buttonColor={isLastPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleNext}>
-            Next{' '}
-            <img
-              src="../../../../assets/icons/arrowRight.svg"
-              alt="next"
-              style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
-            />
-          </Button>
-        </div>
-      </div>
+      <ParticipantList users={users} presenterIndex={presenterIndex} updateSessionPresenter={updateSessionPresenter} />
 
       {isFetching && loader()}
 
