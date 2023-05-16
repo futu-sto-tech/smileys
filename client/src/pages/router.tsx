@@ -13,26 +13,28 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />,
-  },
-  {
-    path: '/name/:roomId',
-    element: <EnterNamePage />,
-  },
-  {
-    path: '/create/:roomId',
-    element: <ShareRoomPage />,
-  },
+    children: [
+      {
+        path: '/name/:roomId',
+        element: <EnterNamePage />,
+      },
+      {
+        path: '/create/:roomId',
+        element: <ShareRoomPage />,
+      },
 
-  {
-    path: '/:roomId',
-    element: <SuspendSessionRoute Component={RoomPage} />,
-  },
-  {
-    path: '/:roomId/:gifId',
-    element: <SuspendSessionRoute Component={SelectGifPage} />,
-  },
-  {
-    path: '/present/:roomId',
-    element: <SuspendSessionRoute Component={GifPresentationPage} />,
+      {
+        path: '/:roomId',
+        element: <SuspendSessionRoute Component={RoomPage} />,
+      },
+      {
+        path: '/:roomId/:gifId',
+        element: <SuspendSessionRoute Component={SelectGifPage} />,
+      },
+      {
+        path: '/present/:roomId',
+        element: <SuspendSessionRoute Component={GifPresentationPage} />,
+      },
+    ],
   },
 ])
