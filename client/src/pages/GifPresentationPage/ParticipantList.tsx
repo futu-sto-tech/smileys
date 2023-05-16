@@ -1,11 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
-import AppContext from '../../shared/AppContext'
-import styles from './GifPresentationPage.module.scss'
+import styles from './ParticipantList.module.scss'
 import { Button, ButtonColor } from '../../components/Button'
-import { Session, User } from '../../types/types'
-import { IAppProvider } from '../../types/AppContext'
-import { useParams } from 'react-router-dom'
-import { useGifByIds } from '../../hooks/api/useGifByIds'
+import { User } from '../../types/types'
 
 interface ParticipantListProps {
   users: User[]

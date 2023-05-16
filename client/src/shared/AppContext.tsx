@@ -38,6 +38,9 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     socket.on('disconnect', () => {
       setWebSocketState('Disconnected from Websocket')
     })
+    socket.on('gameStarted', (session) => {
+      setSession(session)
+    })
     socket.on('error', () => {
       console.log('Error')
     })

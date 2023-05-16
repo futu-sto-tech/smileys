@@ -120,7 +120,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     if (!userIsCreator) return ws.send('Only the creator can start the game')
 
     session.gameStarted = true
-    ws.to(session.id).emit('gameStarted')
+    ws.to(session.id).emit('gameStarted', session)
     callBack(session)
   }
 
