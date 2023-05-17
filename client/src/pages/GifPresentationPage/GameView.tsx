@@ -35,7 +35,7 @@ function GameView({ activeGif, currentUser, isCreator }: GameViewProps) {
   if (!activeGif) {
     elementDisplayed = (
       <div className={styles.hasNotChosen}>
-        <p>{currentUser.name ? currentUser.name : 'This user'} has not chosen a gif yet! 🥲</p>
+        <p>{currentUser.name ? currentUser.name : 'This user'} has not chosen a GIF yet! 🥲</p>
       </div>
     )
   }
