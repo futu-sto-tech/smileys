@@ -6,9 +6,17 @@ interface ParticipantListProps {
   users: User[]
   presenterIndex: number
   updateSessionPresenter: (index: number) => void
+  gameStarted: boolean
+  isCreator: boolean
 }
 
-function ParticipantList({ users, presenterIndex, updateSessionPresenter }: ParticipantListProps) {
+function ParticipantList({
+  users,
+  presenterIndex,
+  updateSessionPresenter,
+  gameStarted,
+  isCreator,
+}: ParticipantListProps) {
   function isCurrentUser(user: User) {
     return user.id === users[presenterIndex].id
   }
@@ -37,24 +45,26 @@ function ParticipantList({ users, presenterIndex, updateSessionPresenter }: Part
           )
         })}
       </div>
-      <div className={styles.navigationButtonsContainer}>
-        <Button buttonColor={isFirstPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleBack}>
-          <img
-            src="../../../../assets/icons/arrowLeft.svg"
-            alt="back"
-            style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
-          />{' '}
-          Back
-        </Button>
-        <Button buttonColor={isLastPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleNext}>
-          Next{' '}
-          <img
-            src="../../../../assets/icons/arrowRight.svg"
-            alt="next"
-            style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
-          />
-        </Button>
-      </div>
+      {gameStarted && isCreator && (
+        <div className={styles.navigationButtonsContainer}>
+          <Button buttonColor={isFirstPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleBack}>
+            <img
+              src="../../../../assets/icons/arrowLeft.svg"
+              alt="back"
+              style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
+            />{' '}
+            Back
+          </Button>
+          <Button buttonColor={isLastPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleNext}>
+            Next{' '}
+            <img
+              src="../../../../assets/icons/arrowRight.svg"
+              alt="next"
+              style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
+            />
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

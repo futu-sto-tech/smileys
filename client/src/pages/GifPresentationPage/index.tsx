@@ -23,7 +23,13 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
 
   return (
     <div className={styles.container}>
-      <ParticipantList users={users} presenterIndex={presenterIndex} updateSessionPresenter={updateSessionPresenter} />
+      <ParticipantList
+        users={users}
+        gameStarted={gameStarted}
+        presenterIndex={presenterIndex}
+        updateSessionPresenter={updateSessionPresenter}
+        isCreator={isCreator}
+      />
 
       {isFetching && <Loader />}
 

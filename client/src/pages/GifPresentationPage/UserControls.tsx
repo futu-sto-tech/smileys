@@ -4,9 +4,9 @@ import { Button } from '../../components/Button'
 function UserControls() {
   return (
     <div className={styles.userControlContainer}>
-      <Button>Next</Button>
-      <Button>Next</Button>
-      <Button>Next</Button>
+      <Button>Button</Button>
+      <Button>Button</Button>
+      <Button>Button</Button>
     </div>
   )
 }

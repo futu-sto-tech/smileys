@@ -3,8 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-
-  background-color: var(--primary-gray);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
 
@@ -15,10 +14,3 @@
   border-radius: 10px;
   object-fit: contain;
 }
-
-// .gifWrapper {
-//   display: flex;
-//   flex: 1;
-//   justify-content: center;
-//   align-items: center;
-// }
