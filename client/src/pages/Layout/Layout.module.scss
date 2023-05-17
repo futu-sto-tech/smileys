@@ -17,10 +17,12 @@
 
 .contentStyle {
   height: 100%;
+
   display: flex;
   justify-self: stretch;
   flex-direction: column;
   align-items: center;
   background-color: var(--background-beige);
   flex-grow: 1;
+  padding: 20px 0px;
 }

@@ -25,7 +25,7 @@ function ParticipantList({ users, presenterIndex, updateSessionPresenter }: Part
   }
 
   return (
-    <div className={styles.menuContainer}>
+    <div className={styles.participantContainer}>
       <div>
         <h1>Participants</h1>
         {users.map((user, i) => {

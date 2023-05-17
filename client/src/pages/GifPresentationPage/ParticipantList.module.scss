@@ -1,16 +1,16 @@
-.menuContainer {
-  margin-left: 50px;
+.participantContainer {
+  grid-row: 2 / 14;
+  grid-column: 1 / 4;
+  width: 240px;
+
   display: flex;
-  justify-self: flex-start;
+  flex-shrink: 0;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--primary-gray);
-  width: 280px;
-  height: 600px;
   border-radius: 10px;
-  padding: 10px;
   color: var(--white);
-  margin-right: 30px;
+  padding: 10px 10px;
 }
 
 .nameContainer {

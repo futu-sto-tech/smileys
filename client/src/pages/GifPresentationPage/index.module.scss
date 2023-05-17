@@ -1,61 +1,7 @@
 .container {
   display: flex;
-  align-items: center;
-  width: 100%;
   flex-grow: 1;
-}
-
-.menuContainer {
-  margin-left: 50px;
-  display: flex;
-  justify-self: flex-start;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--primary-gray);
-  width: 280px;
-  height: 600px;
-  border-radius: 10px;
-  padding: 10px;
-  color: var(--white);
-  margin-right: 30px;
-}
-
-.nameContainer {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.highlightUser {
-  border-radius: 10px;
-  background-color: var(--secondary-gray);
-}
-
-.statusDot {
-  height: 10px;
-  width: 10px;
-  border-radius: 10px;
-  margin-right: 10px;
-}
-
-.name {
-  font-size: 1.6rem;
-  font-weight: 600;
-}
-
-.navigationButtonsContainer {
-  justify-self: flex-end;
-  display: flex;
-  justify-content: space-around;
-}
-
-.gifContainer {
-  display: flex;
-  align-self: center;
-  margin: auto;
-  padding-right: 300px;
-}
-
-.gif {
-  border-radius: 15px;
+  width: var(--standard-content-width);
+  height: 500px;
+  gap: 20px;
 }

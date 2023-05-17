@@ -1,0 +1,14 @@
+.userControlContainer {
+  display: flex;
+  background-color: var(--background-green);
+  opacity: 0.5;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { Gif } from '../Gif'
 import { useContext, useState } from 'react'
 import AppContext from '../../shared/AppContext'
 import { IAppProvider } from '../../types/AppContext'
