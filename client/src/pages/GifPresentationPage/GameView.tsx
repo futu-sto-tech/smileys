@@ -24,19 +24,25 @@ function GameView({ activeGif, currentUser, isCreator }: GameViewProps) {
 
   if (activeGif) {
     elementDisplayed = (
-      <div className={styles.gifWrapper} ref={imgWrapper}>
-        <img height={'430px'} width={'800px'} src={activeGif?.images.original.url} className={styles.gif} />
+      <div className={styles.gifContainer}>
+        <div className={styles.gifWrapper} ref={imgWrapper}>
+          <img height={'430px'} width={'800px'} src={activeGif?.images.original.url} className={styles.gif} />
+        </div>
       </div>
     )
   }
 
   if (!activeGif) {
-    elementDisplayed = <p>{currentUser.name ? currentUser.name : 'This user'} has not chosen a gif yet!</p>
+    elementDisplayed = (
+      <div className={styles.hasNotChosen}>
+        <p>{currentUser.name ? currentUser.name : 'This user'} has not chosen a gif yet! 🥲</p>
+      </div>
+    )
   }
 
   return (
     <>
-      <div className={styles.gifContainer}>{elementDisplayed}</div>
+      {elementDisplayed}
       <UserControls />
     </>
   )
