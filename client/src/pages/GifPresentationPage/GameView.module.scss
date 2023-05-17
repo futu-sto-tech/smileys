@@ -1,0 +1,24 @@
+.gifContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  background-color: var(--primary-gray);
+  border-radius: 10px;
+}
+
+.gif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+// .gifWrapper {
+//   display: flex;
+//   flex: 1;
+//   justify-content: center;
+//   align-items: center;
+// }

@@ -1,10 +1,10 @@
 import PreGameView from './PreGameView'
 import styles from './GameWindow.module.scss'
-import Gif from './PresenterGif'
-import { User } from '../../types/types'
+import GameView from './GameView'
+import { GifResult, User } from '../../types/types'
 
 interface GameWindowProps {
-  activeGif: any
+  activeGif?: GifResult
   gameStarted: boolean
   startGame: () => void
   isCreator: boolean
@@ -15,7 +15,7 @@ function GameWindow({ activeGif, gameStarted, startGame, isCreator, currentUser 
   return (
     <div className={styles.gameWindowContainer}>
       {gameStarted ? (
-        <Gif currentUser={currentUser} activeGif={activeGif} />
+        <GameView isCreator={isCreator} currentUser={currentUser} activeGif={activeGif} />
       ) : (
         <PreGameView isCreator={isCreator} startGame={startGame} />
       )}
