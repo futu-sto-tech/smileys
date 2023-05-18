@@ -1,5 +1,5 @@
 import styles from './ParticipantList.module.scss'
-import { Button, ButtonColor } from '../../components/Button'
+import { Button } from '../../components/Button'
 import { User } from '../../types/types'
 
 interface ParticipantListProps {
@@ -47,7 +47,7 @@ function ParticipantList({
       </div>
       {gameStarted && isCreator && (
         <div className={styles.navigationButtonsContainer}>
-          <Button buttonColor={isFirstPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleBack}>
+          <Button buttonColor={isFirstPresenter ? 'gray' : 'white'} onClick={handleBack}>
             <img
               src="../../../../assets/icons/arrowLeft.svg"
               alt="back"
@@ -55,7 +55,7 @@ function ParticipantList({
             />{' '}
             Back
           </Button>
-          <Button buttonColor={isLastPresenter ? ButtonColor.Gray : ButtonColor.White} onClick={handleNext}>
+          <Button buttonColor={isLastPresenter ? 'gray' : 'white'} onClick={handleNext}>
             Next{' '}
             <img
               src="../../../../assets/icons/arrowRight.svg"
