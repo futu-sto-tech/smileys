@@ -1,25 +1,23 @@
 import styles from './Button.module.scss'
 
-export enum ButtonColor {
-  Green = 'green',
-  Black = 'black',
-  White = 'white',
-  Gray = 'gray',
-}
+type ButtonColor = 'green' | 'black' | 'white' | 'gray' | 'red'
+
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   buttonColor?: ButtonColor
 }
 
 function mapColorToCSSClassName(color: ButtonColor | undefined) {
   switch (color) {
-    case ButtonColor.Green:
+    case 'green':
       return styles.green
-    case ButtonColor.Black:
+    case 'black':
       return styles.black
-    case ButtonColor.White:
+    case 'white':
       return styles.white
-    case ButtonColor.Gray:
+    case 'gray':
       return styles.gray
+    case 'red':
+      return styles.red
     default:
       return styles.green
   }
