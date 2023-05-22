@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { UseQueryResult, useQuery } from 'react-query'
-import { GifResult } from '../../types/types'
+import { UseInfiniteQueryResult, useInfiniteQuery } from 'react-query'
+import { GiphyResult } from '../../types/types'
 import { GIPHY } from '../../consts/gifs'
 import { GIPHY_URLS } from '../../consts/urls'
 import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
@@ -8,34 +8,29 @@ import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 const { GIPHY_BASE_URL_TRENDING } = GIPHY_URLS
 
-export function useTrendingGifs(): UseQueryResult<GifResult[]> {
-  return useQuery(['trendingGifs'], async () => {
-    const requestConfig: AxiosRequestConfig = {
-      method: 'get',
-      url: GIPHY_BASE_URL_TRENDING,
-      params: {
-        limit: LIMIT,
-        rating: RATING,
-        lang: LANGUAGE,
-        api_key: API_KEY,
+export function useTrendingGifs(): UseInfiniteQueryResult<GiphyResult> {
+  return useInfiniteQuery(
+    'trendingGifs',
+    async ({ pageParam }) => {
+      const requestConfig: AxiosRequestConfig = {
+        method: 'get',
+        url: GIPHY_BASE_URL_TRENDING,
+        params: {
+          limit: LIMIT,
+          rating: RATING,
+          lang: LANGUAGE,
+          api_key: API_KEY,
+          offset: pageParam ? pageParam.count + pageParam.offset : 0,
+        },
+      }
+
+      const res = await handleAxiosMethod<GiphyResult>(requestConfig)
+      return res
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        return lastPage.pagination.offset === lastPage.pagination.total_count ? undefined : lastPage.pagination
       },
     }
-
-    const res = await handleAxiosMethod<{ data: GifResult[] }>(requestConfig)
-    return res.data
-  })
+  )
 }
-
-// export function useTrendingGifs() {
-//   return useQuery('trendingGifs', async () => {
-//     const { data } = await axios.get<{ data: GifResult[] }>('https://api.giphy.com/v1/gifs/trending', {
-//       params: {
-//         api_key: import.meta.env.VITE_GIPHY_API_KEY,
-//         limit: GIPHY.LIMIT,
-//         rating: 'g',
-//       },
-//     })
-
-//     return data.data
-//   })
-// }
