@@ -6,12 +6,13 @@ import { Button } from '../../../components/Button'
 import AppContext from '../../../shared/AppContext'
 import { IAppProvider } from '../../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 function Navbar() {
   const [roomId, setRoomId] = useState('')
   const { user, joinSession }: IAppProvider = useContext(AppContext)
-
   const navigate = useNavigate()
+  let location = useLocation()
 
   function handleJoin() {
     if (user.name) {
