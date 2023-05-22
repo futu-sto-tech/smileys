@@ -1,4 +1,5 @@
 import { GifResult } from '../../types/types'
+import _ from 'lodash'
 
 export function sortDataOnHeight(data: GifResult[], columns: number) {
   const sortedData: GifResult[] = []
@@ -7,12 +8,15 @@ export function sortDataOnHeight(data: GifResult[], columns: number) {
   for (let i = 0; i < columns; i++) {
     columnHeights.push(0)
   }
-
-  for (let i = 0; i < data.length; i += columns) {
+  data.forEach((_, i) => {
+    if (i % columns) {
+      return
+    }
     const row = data.slice(i, i + columns)
+
     if (row.length < columns) {
       sortedData.push(...row)
-      continue
+      return
     }
 
     let sortedColumnHeights = columnHeights.sort()
@@ -30,7 +34,31 @@ export function sortDataOnHeight(data: GifResult[], columns: number) {
     })
     console.log({ sortedColumnHeights, indexArray, sortedRow, columnHeights })
     sortedData.push(...sortedRow)
-  }
+  })
   //sortedData.push(...data.slice(Math.floor(data.length / columns)))
   return sortedData
+}
+
+export function sortDataOnHeightAga(data: GifResult[], columns: number) {
+  let columnHeight = Array.of(Array(columns)).map(() => 0)
+  const rowInit = Array.of(Array(columns)).map(() => null)
+  let res: GifResult[] = []
+
+  for (let i = 0; i < data.length; i += columns) {
+    let columnHeightWithIndex = columnHeight.map((h, idx) => ({ height: h, colIdx: idx }))
+    columnHeightWithIndex = _.orderBy(columnHeightWithIndex, (h) => h.height, 'asc')
+
+    let currentGifs = data.slice(i, i + columns)
+    currentGifs = _.orderBy(currentGifs, (g) => g.images.fixed_width.height, 'desc')
+    const row: (GifResult | null)[] = rowInit
+    columnHeightWithIndex.forEach((c, idx) => (row[c.colIdx] = currentGifs[idx]))
+
+    row.forEach((c, idx) => {
+      if (c) {
+        res.push(c)
+        columnHeight[idx] += Number(c.images.fixed_width.height)
+      }
+    })
+  }
+  return res
 }

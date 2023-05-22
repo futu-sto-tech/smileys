@@ -9,7 +9,7 @@ import { IAppProvider } from '../../types/AppContext'
 import { useDebounce } from '../../hooks/useDebounce'
 import { GifResult, Session } from '../../types/types'
 import classNames from 'classnames'
-import { sortDataOnHeight } from './utils'
+import { sortDataOnHeightAga } from './utils'
 import { Button } from '../Button'
 import { InfiniteData } from 'react-query'
 
@@ -55,8 +55,7 @@ export function GifList({ className, session }: GifListProps) {
     for (const page of data.pages) {
       for (const gifResult of page.data) unpackedData.push(gifResult)
     }
-    return unpackedData
-    //return sortDataOnHeight(unpackedData, COLUMNS)
+    return sortDataOnHeightAga(unpackedData, COLUMNS)
   }
 
   return (
