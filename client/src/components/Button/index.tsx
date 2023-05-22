@@ -1,4 +1,4 @@
-import styles from './Button.module.scss'
+import styles from './index.module.scss'
 
 type ButtonColor = 'green' | 'black' | 'white' | 'gray' | 'red'
 

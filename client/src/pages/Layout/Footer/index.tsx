@@ -1,4 +1,4 @@
-import styling from './Footer.module.scss'
+import styling from './index.module.scss'
 import FooterLinks from './FooterLinks'
 import FooterSocialLinks from './FooterSocialLinks'
 

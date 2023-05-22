@@ -1,5 +1,5 @@
 import styling from './FooterLinks.module.scss'
-import footerStyling from './Footer.module.scss'
+import footerStyling from './index.module.scss'
 
 const { footerTextStyling } = footerStyling
 const { container, textMarginBottomStyling } = styling

@@ -1,0 +1,27 @@
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  padding-top: 25px;
+}
+
+.codeInputContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.smileysLogo {
+}
+
+.inputContainerText {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
