@@ -1,8 +1,10 @@
 .containerStyling {
   height: 360px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-grow: 1;
 
   color: var(--white);
   background-color: var(--background-green);

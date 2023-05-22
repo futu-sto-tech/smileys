@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
+  background-color: var(--background-beige);
 }
 
 .navStyle {
@@ -17,12 +19,12 @@
 
 .contentStyle {
   height: 100%;
+  width: var(--standard-content-width);
 
   display: flex;
   justify-self: stretch;
   flex-direction: column;
   align-items: center;
-  background-color: var(--background-beige);
   flex-grow: 1;
   padding: 100px 0 20px 0px;
 }
