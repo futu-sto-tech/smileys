@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import styles from './ShareRoom.module.scss'
 import AppContext from '../../shared/AppContext'
-import { Button, ButtonColor } from '../Button'
+import { Button } from '../Button'
 import { IAppProvider } from '../../types/AppContext'
 
 interface ShareSessionProps {
@@ -28,7 +28,7 @@ function ShareRoom({ big, onCopied }: ShareSessionProps) {
       {hasCopied ? (
         <p>Copied!</p>
       ) : (
-        <Button buttonColor={ButtonColor.Black} onClick={handleClick}>
+        <Button buttonColor="black" onClick={handleClick}>
           Copy link
         </Button>
       )}

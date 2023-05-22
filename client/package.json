@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest --watchAll --coverage --coverageReporters=text"
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
@@ -15,6 +15,8 @@
     "axios": "^1.3.5",
     "classnames": "^2.3.2",
     "debounce": "^1.2.1",
+    "esbuild": "^0.17.19",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-masonry-css": "^1.0.16",
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@types/debounce": "^1.2.1",
     "@types/jest": "^29.5.1",
+    "@types/lodash": "^4.14.194",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.1",

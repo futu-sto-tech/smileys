@@ -1,23 +1,16 @@
-.container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  flex-grow: 1;
-}
+.participantContainer {
+  grid-row: 2 / 14;
+  grid-column: 1 / 4;
+  width: 240px;
 
-.menuContainer {
-  margin-left: 50px;
   display: flex;
-  justify-self: flex-start;
+  flex-shrink: 0;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--primary-gray);
-  width: 280px;
-  height: 600px;
   border-radius: 10px;
-  padding: 10px;
   color: var(--white);
-  margin-right: 30px;
+  padding: 10px 10px;
 }
 
 .nameContainer {
@@ -44,18 +37,8 @@
 }
 
 .navigationButtonsContainer {
+  display: flex;
   justify-self: flex-end;
-  display: flex;
-  justify-content: space-around;
-}
-
-.gifContainer {
-  display: flex;
-  align-self: center;
-  margin: auto;
-  padding-right: 300px;
-}
-
-.gif {
-  border-radius: 15px;
+  justify-content: center;
+  gap: 5px;
 }

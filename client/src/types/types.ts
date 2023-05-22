@@ -36,3 +36,16 @@ export interface GifResult {
   }
   title: string
 }
+
+export interface GiphyResult {
+  data: GifResult[]
+  pagination: {
+    total_count: number
+    count: number
+    offset: number
+  }
+}
+
+export interface InfiniteGifData {
+  pages: GifResult[][]
+}

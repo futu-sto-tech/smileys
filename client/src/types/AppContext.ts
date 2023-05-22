@@ -15,4 +15,5 @@ export interface IAppProvider {
   updateSessionPresenter: (presenterId: number) => void
   gifSearchTerm: string
   setGifSearchTerm: React.Dispatch<React.SetStateAction<string>>
+  startGame: () => void
 }

@@ -1,0 +1,41 @@
+.gifContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.gif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.hasNotChosen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 430px;
+  color: white;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+
+  p {
+    font-size: 4rem;
+    font-weight: 600;
+  }
+}
+
+.userControlsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
