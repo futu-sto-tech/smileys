@@ -37,7 +37,8 @@
 }
 
 .navigationButtonsContainer {
-  justify-self: flex-end;
   display: flex;
-  justify-content: space-around;
+  justify-self: flex-end;
+  justify-content: center;
+  gap: 5px;
 }

@@ -52,6 +52,8 @@ function ParticipantList({
               src="../../../../assets/icons/arrowLeft.svg"
               alt="back"
               style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
+              height={10}
+              width={10}
             />{' '}
             Back
           </Button>
@@ -61,6 +63,8 @@ function ParticipantList({
               src="../../../../assets/icons/arrowRight.svg"
               alt="next"
               style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
+              height={10}
+              width={10}
             />
           </Button>
         </div>
