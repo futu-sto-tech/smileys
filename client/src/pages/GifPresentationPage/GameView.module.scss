@@ -32,3 +32,10 @@
     font-weight: 600;
   }
 }
+
+.userControlsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}

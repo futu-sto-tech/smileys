@@ -27,7 +27,9 @@ function GameView({ activeGif, currentUser, isCreator }: GameViewProps) {
   return (
     <>
       {activeGif ? gif : gifNotChosen}
-      <UserControls isCreator={isCreator} />
+      <div className={styles.userControlsWrapper}>
+        <UserControls isCreator={isCreator} />
+      </div>
     </>
   )
 }
