@@ -24,19 +24,23 @@ function Navbar() {
     }
   }
 
+  const codeInputContainer = (
+    <div className={styles.codeInputContainer}>
+      <div className={styles.inputContainerText}>Join your team here</div>
+      <Input
+        placeholder="Code"
+        onChange={(e) => {
+          setRoomId(e.target.value)
+        }}
+      ></Input>
+      <Button onClick={handleJoin}>Join</Button>
+    </div>
+  )
+
   return (
     <nav className={styles.navbarContainer}>
       <SmileyLogo color="black" className={styles.smileysLogo} />
-      <div className={styles.codeInputContainer}>
-        <div className={styles.inputContainerText}>Join your team here</div>
-        <Input
-          placeholder="Code"
-          onChange={(e) => {
-            setRoomId(e.target.value)
-          }}
-        ></Input>
-        <Button onClick={handleJoin}>Join</Button>
-      </div>
+      {location && location.pathname === '/' ? codeInputContainer : null}
     </nav>
   )
 }
