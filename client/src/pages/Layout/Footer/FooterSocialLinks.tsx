@@ -1,5 +1,5 @@
 import styling from './FooterSocialLinks.module.scss'
-import footerStyling from './Footer.module.scss'
+import footerStyling from './index.module.scss'
 import {
   SmileyLogo,
   InstagramLogo,

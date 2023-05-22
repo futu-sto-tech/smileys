@@ -1,26 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
 import AppContext from '../../shared/AppContext'
-import { Session } from '../../types/types'
 import { Button } from '../../components/Button'
-import Input from '../../components/Input'
 import { IAppProvider } from '../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
-import styles from './HomePage.module.scss'
+import styles from './index.module.scss'
+import Typewriter from 'typewriter-effect'
+import classNames from 'classnames'
 
 function HomePage() {
-  const [roomId, setRoomId] = useState('')
-  const { user, webSocketState, joinSession, createSession }: IAppProvider = useContext(AppContext)
+  const { user, createSession }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
-
-  function handleJoin() {
-    if (user.name) {
-      joinSession(roomId, () => {
-        navigate(`/${roomId}`)
-      })
-    } else {
-      navigate(`/name/${roomId}`)
-    }
-  }
 
   function handleCreate() {
     createSession((newRoomId) => {
@@ -28,22 +17,31 @@ function HomePage() {
     })
   }
 
+  const typeWriterOptions = {
+    strings: ['socialize', 'check-in', 'connect', 'gather', 'catch up', 'have fun', 'get together'],
+    autoStart: true,
+    loop: true,
+    delay: 50,
+  }
+
+  const typeWriter = (
+    <div className={styles.staticTypeWriterWrapper}>
+      <Typewriter
+        onInit={(typewriter) => {
+          typewriter.pauseFor(2500).start()
+        }}
+        options={typeWriterOptions}
+      />
+    </div>
+  )
+
   return (
     <div className={styles.container}>
-      <h1>Welcome to Smileys {user.name} :)</h1>
-      <div>
-        <Button onClick={handleCreate}>Create a New Session</Button>
-      </div>
-      <div>
-        <h2> Join Session with code:</h2>
-        <Input
-          placeholder="Code"
-          onChange={(e) => {
-            setRoomId(e.target.value)
-          }}
-        ></Input>
-        <Button onClick={handleJoin}>Join</Button>
-      </div>
+      <h1 className={styles.heading}>A fun way for your remote</h1>
+      <h1 className={`${styles.heading} ${styles.secondRow}`}>
+        team to <span className={styles.typeWriter}>{typeWriter}</span>
+      </h1>
+      <Button onClick={handleCreate}>Create a New Session</Button>
     </div>
   )
 }

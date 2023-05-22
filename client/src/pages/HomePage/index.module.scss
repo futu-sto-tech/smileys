@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  width: 900px;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-around;
+  padding-top: 100px;
+}
+
+.typeWriter {
+  display: inline-block;
+  color: var(--primary-green);
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  font-size: 5.7rem;
+}
+
+.staticTypeWriterWrapper {
+  width: 400px;
+}
+
+.secondRow {
+  display: flex;
+  margin-right: -120px;
+  gap: 12px;
+}
