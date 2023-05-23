@@ -28,7 +28,7 @@ function Navbar() {
     <div className={styles.codeInputContainer}>
       <div className={styles.inputContainerText}>Join your team here</div>
       <Input
-        placeholder="Code"
+        placeholder="Enter room code"
         onChange={(e) => {
           setRoomId(e.target.value)
         }}
