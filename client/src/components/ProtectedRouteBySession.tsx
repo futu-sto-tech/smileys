@@ -15,13 +15,11 @@ interface SuspendSessionRouteProps<T extends ComponentWithSessionProps> {
 const SuspendSessionRoute = ({ Component }: SuspendSessionRouteProps<ComponentWithSessionProps>) => {
   const { session, joinSession }: IAppProvider = useContext(AppContext)
   const { roomId } = useParams()
-  // const navigate = useNavigate()
 
   useEffect(() => {
     !session && roomId && joinSession(roomId)
   }, [session])
 
-  // if (!roomId) navigate('/')
   if (!session) return <p>Loading...</p>
 
   return <Component session={session}></Component>
