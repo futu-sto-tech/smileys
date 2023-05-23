@@ -5,8 +5,6 @@ import { IAppProvider } from '../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.scss'
 import Typewriter from 'typewriter-effect'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 function HomePage() {
   const { user, createSession }: IAppProvider = useContext(AppContext)
