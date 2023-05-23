@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import { Button } from '../../../components/Button'
 import AppContext from '../../../shared/AppContext'
 import { IAppProvider } from '../../../types/AppContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 
@@ -46,7 +46,9 @@ function Navbar() {
 
   return (
     <nav className={cx}>
-      <SmileyLogo color="black" className={styles.smileysLogo} />
+      <Link to="/">
+        <SmileyLogo color="black" className={styles.smileysLogo} />
+      </Link>
       {location && location.pathname === '/' ? codeInputContainer : null}
     </nav>
   )
