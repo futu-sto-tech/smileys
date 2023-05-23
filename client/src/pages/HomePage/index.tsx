@@ -42,7 +42,7 @@ function HomePage() {
         team to <span className={styles.typeWriter}>{typeWriter}</span>
       </h1>
       <h2>
-        Create your own session to make your meetings less informal and build better connections in your virtual team.
+        Create your own room to make your meetings less informal and build better connections in your virtual team.
       </h2>
       <Button className={styles.createAnewRoomButton} onClick={handleCreate}>
         Create a room

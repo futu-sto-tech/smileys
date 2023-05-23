@@ -1,10 +1,17 @@
 .navbarContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   width: var(--standard-content-width);
   padding: 35px 0 10px 0;
+}
+
+.homeLayout {
+  justify-content: space-between;
+}
+
+.creationLayout {
+  justify-content: center;
 }
 
 .codeInputContainer {
