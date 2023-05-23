@@ -40,7 +40,9 @@ function Navbar() {
           setRoomId(e.target.value)
         }}
       ></Input>
-      <Button onClick={handleJoin}>Join</Button>
+      <Button onClick={handleJoin} size="large">
+        Join
+      </Button>
     </div>
   )
 

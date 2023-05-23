@@ -17,11 +17,6 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
   const isCreator = user.id === session.creator.id
   const currentUser = users.find((user) => user.id === users[presenterIndex].id)!
-  console.log({
-    isCreator,
-    userId: user.id,
-    creatorId: session.creator.id,
-  })
 
   const activeGif = userGifMap?.get(users[presenterIndex].gifId)
   const Loader = () => <p>Loading...</p>

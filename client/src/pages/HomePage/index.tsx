@@ -43,7 +43,7 @@ function HomePage() {
       <h2>
         Create your own room to make your meetings less informal and build better connections in your virtual team.
       </h2>
-      <Button className={styles.createAnewRoomButton} onClick={handleCreate}>
+      <Button size="large" className={styles.createAnewRoomButton} onClick={handleCreate}>
         Create a room
       </Button>
       <img className={styles.laptop} src="../assets/images/laptop.png" />
@@ -71,7 +71,7 @@ function HomePage() {
           Schedule meeting
         </div>
       </div>
-      <Button className={styles.createAnewRoomButton} onClick={handleCreate}>
+      <Button size="large" className={styles.createAnewRoomButton} onClick={handleCreate}>
         Create a room
       </Button>
     </div>

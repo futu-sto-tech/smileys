@@ -3,8 +3,6 @@
   border-radius: 5px;
   border-width: 0;
   border-style: solid;
-  padding: 14px 28px;
-  font-size: 1.6rem;
   font-weight: 700;
   font-family: 'Quicksand', Arial, sans-serif;
 }
@@ -37,4 +35,19 @@
 .red {
   background-color: var(--primary-red);
   color: var(--white);
+}
+
+.small {
+  padding: 7px 14px;
+  font-size: 1.2rem;
+}
+
+.medium {
+  padding: 10px 20px;
+  font-size: 1.4rem;
+}
+
+.large {
+  padding: 14px 28px;
+  font-size: 1.6rem;
 }
