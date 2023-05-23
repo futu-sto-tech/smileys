@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import AppContext from '../../shared/AppContext'
 import { Button } from '../../components/Button'
 import { IAppProvider } from '../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.scss'
 import Typewriter from 'typewriter-effect'
-import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 function HomePage() {
   const { user, createSession }: IAppProvider = useContext(AppContext)
@@ -48,7 +49,33 @@ function HomePage() {
         Create a room
       </Button>
       <img className={styles.laptop} src="../../public/assets/images/laptop.png" />
-      {/* <h1 className={`${styles.heading} ${styles.getStarted}`}>Get started</h1> */}
+      <h1 className={`${styles.heading} ${styles.getStarted}`}>Get started with your team</h1>
+      <div className={styles.getStartedContainer}>
+        <div className={styles.step}>
+          <span className={`fa-stack fa-sm ${styles.numberedIcon}`}>
+            <i className="fa fa-circle fa-stack-2x" style={{ color: 'var(--primary-green)' }}></i>
+            <i className="fa fa-stack-1x">1</i>
+          </span>
+          Create a room
+        </div>
+        <div className={styles.step}>
+          <span className={`fa-stack fa-sm ${styles.numberedIcon}`}>
+            <i className="fa fa-circle fa-stack-2x" style={{ color: 'var(--primary-green)' }}></i>
+            <i className="fa fa-stack-1x">2</i>
+          </span>
+          Share link
+        </div>
+        <div className={styles.step}>
+          <span className={`fa-stack fa-sm ${styles.numberedIcon}`}>
+            <i className="fa fa-circle fa-stack-2x" style={{ color: 'var(--primary-green)' }}></i>
+            <i className="fa fa-stack-1x">3</i>
+          </span>
+          Schedule meeting
+        </div>
+      </div>
+      <Button className={styles.createAnewRoomButton} onClick={handleCreate}>
+        Create a room
+      </Button>
     </div>
   )
 }
