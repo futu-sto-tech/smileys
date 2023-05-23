@@ -46,5 +46,24 @@ h2 {
   margin-bottom: 100px;
 }
 
+.getStartedContainer {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  margin-bottom: 50px;
+}
+
 .getStarted {
+  margin-bottom: 20px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  font-size: 2.5rem;
+}
+
+.numberedIcon {
+  margin-right: 5px;
+  font-size: 1.5rem;
 }
