@@ -13,7 +13,7 @@ function EnterNamePage() {
   let { roomId } = useParams()
   const navigate = useNavigate()
 
-  function HandleContinue() {
+  function handleContinue() {
     handleChangedName()
     if (!session && roomId) {
       joinSession(roomId, () => {
@@ -21,7 +21,9 @@ function EnterNamePage() {
       })
     } else {
       //The session is created with an unnamed user, so the creator has user.name and session.creator updated
-      updateSessionUser(user, true)
+      if (session?.creator.id === user.id) {
+        updateSessionUser(user, true)
+      }
       navigate(`/${roomId}`)
     }
   }
@@ -38,7 +40,7 @@ function EnterNamePage() {
             setUser({ ...user, name: e.target.value })
           }}
         ></Input>
-        <Button onClick={HandleContinue}>Continue</Button>
+        <Button onClick={handleContinue}>Continue</Button>
       </div>
     </div>
   )
