@@ -46,7 +46,7 @@ function HomePage() {
       <Button size="large" className={styles.createAnewRoomButton} onClick={handleCreate}>
         Create a room
       </Button>
-      <img className={styles.laptop} src="../assets/images/laptop.png" />
+      <img className={styles.laptop} src="../src/assets/images/laptop.png" />
       <h1 className={`${styles.heading} ${styles.getStarted}`}>Get started with your team</h1>
       <div className={styles.getStartedContainer}>
         <div className={styles.step}>
