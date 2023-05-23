@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import styles from './ShareRoom.module.scss'
+import styles from './index.module.scss'
 import AppContext from '../../shared/AppContext'
 import { Button } from '../Button'
 import { IAppProvider } from '../../types/AppContext'

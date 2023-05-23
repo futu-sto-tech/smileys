@@ -7,6 +7,7 @@ import AppContext from '../../../shared/AppContext'
 import { IAppProvider } from '../../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import classNames from 'classnames'
 
 function Navbar() {
   const [roomId, setRoomId] = useState('')
@@ -24,6 +25,12 @@ function Navbar() {
     }
   }
 
+  const cx = classNames({
+    [`${styles.navbarContainer}`]: true,
+    [`${styles.homeLayout}`]: location && location.pathname === '/',
+    [`${styles.creationLayout}`]: location && location.pathname.includes('/create'),
+  })
+
   const codeInputContainer = (
     <div className={styles.codeInputContainer}>
       <div className={styles.inputContainerText}>Join your team here</div>
@@ -38,7 +45,7 @@ function Navbar() {
   )
 
   return (
-    <nav className={styles.navbarContainer}>
+    <nav className={cx}>
       <SmileyLogo color="black" className={styles.smileysLogo} />
       {location && location.pathname === '/' ? codeInputContainer : null}
     </nav>

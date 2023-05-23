@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import ShareRoom from '../../components/ShareRoom'
-import styles from './ShareRoomPage.module.scss'
+import styles from './index.module.scss'
 import { Button } from '../../components/Button'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
@@ -14,7 +14,7 @@ function ShareRoomPage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Your team's session code</h1>
+      <h1 className={styles.header}>Your team's room code</h1>
       <ShareRoom onCopied={() => setShowJoinRoom(true)} big={true} />
       {showJoinRoom && (
         <Button
