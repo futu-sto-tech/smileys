@@ -11,7 +11,7 @@ import classNames from 'classnames'
 
 function Navbar() {
   const [roomId, setRoomId] = useState('')
-  const { user, joinSession }: IAppProvider = useContext(AppContext)
+  const { user, joinSession, error }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
   let location = useLocation()
 
@@ -39,6 +39,7 @@ function Navbar() {
         onChange={(e) => {
           setRoomId(e.target.value)
         }}
+        error={error}
       ></Input>
       <Button onClick={handleJoin} size="large">
         Join
