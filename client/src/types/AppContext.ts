@@ -1,5 +1,6 @@
 import { Socket } from 'socket.io-client'
 import { Session, User } from './types'
+import { SocketError } from './Error'
 
 export interface IAppProvider {
   user: User
@@ -16,4 +17,5 @@ export interface IAppProvider {
   gifSearchTerm: string
   setGifSearchTerm: React.Dispatch<React.SetStateAction<string>>
   startGame: () => void
+  error: SocketError | undefined
 }

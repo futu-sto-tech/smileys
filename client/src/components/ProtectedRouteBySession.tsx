@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import { IAppProvider } from '../types/AppContext'
 import AppContext from '../shared/AppContext'
 import { Session } from '../types/types'
-import { useMatch, useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 interface ComponentWithSessionProps {
   session: Session

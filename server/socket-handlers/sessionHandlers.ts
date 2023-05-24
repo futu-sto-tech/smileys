@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io'
 import { Session, UserSocket, User } from '../types/session'
 import { v4 as uuid } from 'uuid'
+import { Socket400Error } from '../types/Error'
 
 export let sessions: Session[] = []
 export let userSockets: UserSocket[] = []
@@ -47,7 +48,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
         callback(session)
       }
     } else {
-      ws.send('Invalid session code')
+      ws.emit('error', new Socket400Error('Invalid session code').getClientError())
     }
     logSessions()
   }
