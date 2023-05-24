@@ -8,21 +8,28 @@ import { IAppProvider } from '../../../types/AppContext'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
+import * as serverService from '../../../services/server'
+import { ApiError } from '../../../types/errors'
 
 function Navbar() {
   const [roomId, setRoomId] = useState('')
-  const { user, joinSession, error }: IAppProvider = useContext(AppContext)
+  const [error, setError] = useState<ApiError>()
+  const { user, joinSession }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
   let location = useLocation()
 
-  function handleJoin() {
-    if (user.name) {
-      joinSession(roomId, () => {
-        navigate(`/${roomId}`)
-      })
-    } else {
+  async function handleJoin() {
+    const { err } = await serverService.checkIfSessionExists(roomId)
+
+    if (err) return setError(err)
+
+    if (!user.name) {
       navigate(`/name/${roomId}`)
     }
+
+    joinSession(roomId, () => {
+      navigate(`/${roomId}`)
+    })
   }
 
   const cx = classNames({

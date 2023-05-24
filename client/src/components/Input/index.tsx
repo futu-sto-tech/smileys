@@ -1,4 +1,4 @@
-import { SocketError } from '../../types/Error'
+import { ApiError, ServerError } from '../../types/errors'
 import styles from './index.module.scss'
 
 interface InputProps {
@@ -6,7 +6,7 @@ interface InputProps {
   children?: React.ReactNode
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
-  error?: SocketError
+  error?: ApiError
 }
 
 function Input(props: InputProps) {

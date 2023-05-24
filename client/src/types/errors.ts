@@ -1,6 +1,8 @@
 import { AxiosError } from 'axios'
 import { IServerError } from './responseData'
 
+export type ApiError = Error | ServerError
+
 export class ServerError extends Error {
   constructor(public message: string = 'Server Error', public statusCode?: number, public type?: string | null) {
     super(message)
@@ -10,16 +12,16 @@ export class ServerError extends Error {
   }
 
   fromAxios = (axiosError: AxiosError<IServerError>): ServerError | Error => {
-    const { response, message } = axiosError
+    const { response, message: axiosMessage } = axiosError
     if (!(axiosError instanceof AxiosError) || !response) throw Error('Axios call does not return axios error')
 
     // Request never received a response with data
     const { data } = response
-    if (!data) return new Error(message)
+    if (!data) return new Error(axiosMessage)
 
     // Request received a response
-    const { error, statusCode, type } = data
-    return new ServerError(error, statusCode, type)
+    const { message, statusCode, type } = data
+    return new ServerError(message, statusCode, type)
   }
 
   getError = () => {
