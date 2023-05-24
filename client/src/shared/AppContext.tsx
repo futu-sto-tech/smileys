@@ -1,10 +1,9 @@
-import React, { useState, useEffect, createContext } from 'react'
-import { Socket, io } from 'socket.io-client'
+import { useState, useEffect, createContext } from 'react'
+import { io } from 'socket.io-client'
 import { Session, User } from '../types/types'
-import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import { IAppProvider } from '../types/AppContext'
-import { SocketError } from '../types/Error'
+import { ServerError } from '../types/errors'
 
 interface socketEvent {
   event: string
@@ -16,7 +15,7 @@ const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
 export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
   const [user, setUser] = useState<User>(obtainUser())
-  const [error, setError] = useState<SocketError>()
+  const [error, setError] = useState<ServerError>()
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
@@ -43,7 +42,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     socket.on('gameStarted', (session) => {
       setSession(session)
     })
-    socket.on('error', (error: SocketError) => {
+    socket.on('error', (error: ServerError) => {
       setError(error)
     })
     // return () => {

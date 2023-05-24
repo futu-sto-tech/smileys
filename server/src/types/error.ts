@@ -20,8 +20,14 @@ export class BaseError extends Error {
   }
 }
 
-export class Socket400Error extends BaseError {
+export class Error400 extends BaseError {
   constructor(message?: string, isOperational?: boolean, log?: any) {
-    super(message || 'Bad request.', isOperational, log, StatusCodes.BAD_REQUEST)
+    super(message || 'Bad request', isOperational, log, StatusCodes.BAD_REQUEST)
+  }
+}
+
+export class Error500 extends BaseError {
+  constructor(message?: string, isOperational?: boolean, log?: any) {
+    super(message || 'Internal Server Error', isOperational, log, StatusCodes.INTERNAL_SERVER_ERROR)
   }
 }

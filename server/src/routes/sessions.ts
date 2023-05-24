@@ -1,6 +1,21 @@
-// import { Router, Request, Response } from 'express'
-// import { Session, User } from '../types/session'
-// import { v4 as uuid } from 'uuid'
+import { Router, Request, Response } from 'express'
+import { sessions } from '../socket-handlers/sessionHandlers'
+import { Error400 } from '../types/error'
+import { StatusCodes } from 'http-status-codes'
+
+const rootRouter = Router()
+
+rootRouter.post('/session-exists', async (req: Request, res: Response) => {
+  const data = req.body
+  const session = sessions.find((session) => session.code === data.code)
+  if (!session) throw new Error400('Invalid session code')
+
+  res.status(StatusCodes.OK).json(session)
+})
+
+export default rootRouter
+
+// DEPRECATED BELOW
 
 // export let sessions: Session[] = []
 
