@@ -6,8 +6,9 @@ import { StatusCodes } from 'http-status-codes'
 const rootRouter = Router()
 
 rootRouter.post('/session-exists', async (req: Request, res: Response) => {
-  const data = req.body
-  const session = sessions.find((session) => session.code === data.code)
+  //data = req.body
+  const code = Object.keys(req.body)[0]
+  const session = sessions.find((session) => session.code === code)
   if (!session) throw new Error400('Invalid session code')
 
   res.status(StatusCodes.OK).json(session)
