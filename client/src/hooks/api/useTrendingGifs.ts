@@ -3,7 +3,7 @@ import { UseInfiniteQueryResult, useInfiniteQuery } from 'react-query'
 import { GiphyResult } from '../../types/types'
 import { GIPHY } from '../../consts/gifs'
 import { GIPHY_URLS } from '../../consts/urls'
-import { handleAxiosMethod } from '../../utils/handleAxiosMethod'
+import { handleAxiosMethodGiphy } from '../../utils/handleAxiosMethod'
 
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 const { GIPHY_BASE_URL_TRENDING } = GIPHY_URLS
@@ -24,14 +24,12 @@ export function useTrendingGifs(): UseInfiniteQueryResult<GiphyResult> {
         },
       }
 
-      const res = await handleAxiosMethod<GiphyResult>(requestConfig)
+      const res = await handleAxiosMethodGiphy<GiphyResult>(requestConfig)
       return res
     },
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.data && lastPage.data.pagination.offset !== lastPage.data.pagination.total_count
-          ? lastPage.data.pagination
-          : undefined
+        return lastPage.pagination.offset === lastPage.pagination.total_count ? undefined : lastPage.pagination
       },
     }
   )

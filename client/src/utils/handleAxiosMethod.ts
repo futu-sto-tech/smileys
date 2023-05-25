@@ -12,3 +12,12 @@ export const handleAxiosMethod = async <D>(
     return { err: error, data: null }
   }
 }
+
+export const handleAxiosMethodGiphy = async <D>(axiosConfig: AxiosRequestConfig<D>): Promise<D> => {
+  try {
+    return (await axios(axiosConfig)).data
+  } catch (err) {
+    if (err instanceof AxiosError) throw new ServerError().fromAxios(err)
+    throw new ServerError()
+  }
+}
