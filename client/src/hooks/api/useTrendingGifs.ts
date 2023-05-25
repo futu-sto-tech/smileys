@@ -29,7 +29,9 @@ export function useTrendingGifs(): UseInfiniteQueryResult<GiphyResult> {
     },
     {
       getNextPageParam: (lastPage) => {
-        return lastPage.pagination.offset === lastPage.pagination.total_count ? undefined : lastPage.pagination
+        return lastPage.data && lastPage.data.pagination.offset !== lastPage.data.pagination.total_count
+          ? lastPage.data.pagination
+          : undefined
       },
     }
   )

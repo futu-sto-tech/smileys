@@ -31,7 +31,7 @@ export function useGifByIds(users: User[]): UseQueryResult<UserGifByIdMap> {
     const gifResult = res?.data
 
     ids.forEach((id, i) => {
-      userGifByIdMap.set(id, gifResult[i])
+      gifResult && userGifByIdMap.set(id, gifResult.data[i])
     })
 
     return userGifByIdMap
