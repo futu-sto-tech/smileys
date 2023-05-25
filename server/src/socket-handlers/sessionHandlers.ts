@@ -34,7 +34,6 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     if (typeof callback == 'function') {
       callback(session)
     }
-    logSessions()
   }
 
   const joinSession = (data: { code: string; user: User }, callback: any) => {
@@ -50,7 +49,6 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     } else {
       ws.emit('error', new Error400('Invalid session code').getClientError())
     }
-    logSessions()
   }
 
   const updateSessionUser = (data: { code: string; user: User; promoteToCreator?: boolean }, callback: any) => {
