@@ -11,31 +11,42 @@ datasource db {
 }
 
 model User {
-  id          String        @id @default(uuid())
-  name        String
-  gifId       String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  UsersInRoom UsersInRoom[]
-  Room        Room?
+  id           String         @id @default(uuid())
+  name         String
+  gifId        String?
+  UsersInRoom  UsersInRoom[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  // roomsCreated Room[]
+  RoomsCreated RoomsCreated[]
 }
 
 model Room {
-  id             String        @id @default(uuid())
-  code           String        @unique
-  creator        User          @relation(fields: [creatorId], references: [id])
-  creatorId      String        @unique
-  participantsId String
-  gameStarted    Boolean
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  UsersInRoom    UsersInRoom[]
+  id           String         @id @default(uuid())
+  code         String         @unique
+  // creator     User          @relation(fields: [creatorId], references: [id])
+  creatorId    String         @default(uuid())
+  gameStarted  Boolean        @default(false)
+  UsersInRoom  UsersInRoom[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  RoomsCreated RoomsCreated[]
 }
 
 model UsersInRoom {
-  id     String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [id])
   userId String
   room   Room   @relation(fields: [roomId], references: [id])
   roomId String
+
+  @@id([userId, roomId])
+}
+
+model RoomsCreated {
+  room   Room   @relation(fields: [roomId], references: [id])
+  roomId String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@id([userId, roomId])
 }

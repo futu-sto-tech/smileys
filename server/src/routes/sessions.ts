@@ -17,7 +17,7 @@ rootRouter.post('/session-exists', async (req: Request, res: Response) => {
 
 rootRouter.post('/create-room', async (req: Request, res: Response) => {
   //data = req.body
-  const room = await roomService.createRoom(req.body)
+  const room = await roomService.createRoom()
   console.log(room)
   res.status(StatusCodes.OK).json(room)
 })
