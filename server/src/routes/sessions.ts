@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express'
 import { sessions } from '../socket-handlers/sessionHandlers'
 import { Error400 } from '../types/error'
 import { StatusCodes } from 'http-status-codes'
+import * as roomService from '../services/roomService'
 
 const rootRouter = Router()
 
@@ -12,6 +13,13 @@ rootRouter.post('/session-exists', async (req: Request, res: Response) => {
   if (!session) throw new Error400('Invalid session code')
 
   res.status(StatusCodes.OK).json(session)
+})
+
+rootRouter.post('/create-room', async (req: Request, res: Response) => {
+  //data = req.body
+  const room = await roomService.createRoom(req.body)
+  console.log(room)
+  res.status(StatusCodes.OK).json(room)
 })
 
 export default rootRouter
