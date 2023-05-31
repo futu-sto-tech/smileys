@@ -19,7 +19,7 @@ export const router = createBrowserRouter(
       <Route path=":roomId" element={<SuspendSessionRoute Component={RoomPage} />} />
       <Route path=":roomId/:gifId" element={<SuspendSessionRoute Component={SelectGifPage} />} />
       <Route path="present/:roomId" element={<SuspendSessionRoute Component={GifPresentationPage} />} />
-      {/* <Route path="*" element={<p>Page not found 😢</p>} /> */}
+      <Route path="*" element={<p>Page not found 😢</p>} />
     </Route>
   )
 )
