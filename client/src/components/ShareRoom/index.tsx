@@ -7,14 +7,14 @@ import { IAppProvider } from '../../types/AppContext'
 interface ShareSessionProps {
   big?: boolean
   onCopied: () => void
+  roomId: string
 }
 
-function ShareRoom({ big, onCopied }: ShareSessionProps) {
-  const { session }: IAppProvider = useContext(AppContext)
+function ShareRoom({ big, onCopied, roomId }: ShareSessionProps) {
   const [hasCopied, setHasCopied] = useState(false)
 
   function handleClick() {
-    navigator.clipboard.writeText(`${window.location.hostname}/${session?.code}`)
+    navigator.clipboard.writeText(`${window.location.hostname}/${roomId}`)
     setHasCopied(true)
     onCopied()
     setTimeout(() => {
@@ -24,7 +24,7 @@ function ShareRoom({ big, onCopied }: ShareSessionProps) {
 
   return (
     <div className={`${styles.container} ${big ? styles.big : styles.small}`}>
-      <p className={styles.url}>{`${window.location.hostname}/${session?.code}`}</p>
+      <p className={styles.url}>{`${window.location.hostname}/${roomId}`}</p>
       {hasCopied ? (
         <p>Copied!</p>
       ) : (
