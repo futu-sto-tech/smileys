@@ -35,7 +35,7 @@ function ParticipantList({
   return (
     <div className={styles.participantContainer}>
       <div>
-        <h1>Participants</h1>
+        <h1 className={styles.participants}>Participants</h1>
         {users.map((user, i) => {
           return (
             <div className={`${styles.nameContainer} ${isCurrentUser(user) ? styles.highlightUser : ''}`} key={i}>
