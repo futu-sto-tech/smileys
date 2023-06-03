@@ -3,6 +3,21 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  p {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 5px;
+  }
+
+  img {
+    margin-bottom: 15px;
+  }
 }
 
 .buttons {

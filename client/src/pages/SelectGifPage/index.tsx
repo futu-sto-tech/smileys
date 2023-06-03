@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
-import styles from './SelectGifPage.module.scss'
+import styles from './index.module.scss'
 import { Button } from '../../components/Button'
 import { IAppProvider } from '../../types/AppContext'
 import { useGifByIds } from '../../hooks/api/useGifByIds'

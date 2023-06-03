@@ -4,4 +4,10 @@
   height: 100%;
   justify-content: center;
   align-items: center;
+
+  p {
+    color: var(--white);
+    font-size: 4rem;
+    font-weight: 600;
+  }
 }

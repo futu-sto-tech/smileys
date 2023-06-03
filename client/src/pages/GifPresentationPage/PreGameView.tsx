@@ -14,7 +14,7 @@ function PreGameView({ startGame, isCreator }: PreGameViewProps) {
           Start
         </Button>
       ) : (
-        <p>Waiting for host to start the game!</p>
+        <p>Waiting for host to start 🏖</p>
       )}
     </div>
   )
