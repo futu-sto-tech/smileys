@@ -154,11 +154,13 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
 }
 
 const addUserToSession = (session: Session, newUser: User) => {
-  const newUsers = session.users.filter((user) => {
-    return user.id !== newUser.id
-  })
-  newUsers.push(newUser)
-  session.users = newUsers
+  if (
+    !session.users.find((user) => {
+      return newUser.id === user.id
+    })
+  ) {
+    session.users.push(newUser)
+  }
 }
 
 const addUserSocket = (ws: any, user: User) => {
