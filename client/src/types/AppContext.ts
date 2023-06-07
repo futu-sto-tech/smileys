@@ -11,7 +11,7 @@ export interface IAppProvider {
   setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
   webSocketState: string
   joinSession: (roomCode: string, navigationCallback?: () => void) => void
-  createSession: (navigationCallback: (roomCode: string) => void) => void
+  createSession: (navigationCallback?: (roomCode: string) => void) => void
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean) => void
   updateSessionPresenter: (presenterId: number) => void
   gifSearchTerm: string

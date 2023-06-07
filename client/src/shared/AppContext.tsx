@@ -69,10 +69,10 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
-  function createSession(navigationCallback: (code: string) => void) {
+  function createSession(navigationCallback?: (code: string) => void) {
     socket.emit('createSession', { user }, (session: Session) => {
       setSession(session)
-      navigationCallback(session.code)
+      navigationCallback && navigationCallback(session.code)
     })
   }
 
