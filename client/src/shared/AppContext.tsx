@@ -5,11 +5,6 @@ import { v4 as uuid } from 'uuid'
 import { IAppProvider } from '../types/AppContext'
 import { ServerError } from '../types/errors'
 
-interface socketEvent {
-  event: string
-  params: {}
-}
-
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
@@ -55,28 +50,34 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     if (!userJSON) {
       return { name: '', id: uuid(), gifId: '' }
     }
-    return JSON.parse(userJSON)
+    return { ...JSON.parse(userJSON), gifId: '' }
   }
 
   function saveUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
   }
 
-  function joinSession(roomCode: string, navigationCallback?: () => void) {
+  function joinSession(roomCode: string, callback?: () => void) {
     socket.emit('joinSession', { code: roomCode, user }, (session: Session) => {
       setSession(session)
-      navigationCallback && navigationCallback()
+      callback && callback()
     })
   }
 
-  function createSession(navigationCallback?: (code: string) => void) {
+  function createSession(callback?: (code: string) => void) {
     socket.emit('createSession', { user }, (session: Session) => {
       setSession(session)
-      navigationCallback && navigationCallback(session.code)
+      callback && callback(session.code)
     })
   }
 
-  function updateSessionUser(updatedUser: User, promoteToCreator?: boolean) {
+  function createSessionWithCode(code: string) {
+    socket.emit('createSessionWithCode', { user, code }, (session: Session) => {
+      setSession(session)
+    })
+  }
+
+  function updateSessionUser(updatedUser: User, promoteToCreator?: boolean, callback?: () => void) {
     saveUser(updatedUser)
     if (!session) return
     setUser(updatedUser)
@@ -85,6 +86,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
       { code: session.code, user: updatedUser, promoteToCreator },
       (session: Session) => {
         setSession(session)
+        callback && callback()
       }
     )
   }
@@ -117,6 +119,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     webSocketState,
     joinSession,
     createSession,
+    createSessionWithCode,
     updateSessionUser,
     updateSessionPresenter,
     gifSearchTerm,

@@ -15,20 +15,19 @@ interface SuspendSessionRouteProps<T extends ComponentWithSessionProps> {
 }
 
 const SuspendSessionRoute = ({ Component, isRoomPage }: SuspendSessionRouteProps<ComponentWithSessionProps>) => {
-  const { session, joinSession, createSession }: IAppProvider = useContext(AppContext)
+  const { session, joinSession, createSessionWithCode }: IAppProvider = useContext(AppContext)
   const { roomId } = useParams()
 
   useEffect(() => {
     if (isRoomPage) joinOrCreateSession()
     else if (roomId) joinSession(roomId)
-  }, [session])
+  }, [])
 
   async function joinOrCreateSession() {
     if (!session && roomId) {
-      console.log('waiting...')
       const { err } = await serverService.checkIfSessionExists(roomId)
       console.log({ err })
-      err ? createSession() : joinSession(roomId)
+      err ? createSessionWithCode(roomId) : joinSession(roomId)
     }
   }
 

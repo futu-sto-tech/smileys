@@ -7,7 +7,7 @@ import EnterNamePage from '../pages/EnterNamePage'
 import ShareRoomPage from '../pages/ShareRoomPage'
 import SelectGifPage from '../pages/SelectGifPage'
 import GifPresentationPage from './GifPresentationPage'
-import SuspendSessionRoute from '../components/ProtectedRouteBySession'
+import SuspendSessionRoute from '../components/SuspendSessionRoute'
 import ErrorPage from './ErrorPage/ErrorPage'
 
 export const router = createBrowserRouter(
