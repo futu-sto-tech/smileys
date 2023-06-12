@@ -5,8 +5,10 @@
   width: 1000px;
 }
 
+$scrollHeight: 1000px;
+
 .scrollMargin {
   width: 100%;
-  height: 300px;
-  margin-top: -200px;
+  height: 100px + $scrollHeight;
+  margin-top: -$scrollHeight;
 }

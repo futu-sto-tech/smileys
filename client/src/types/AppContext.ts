@@ -10,12 +10,14 @@ export interface IAppProvider {
   session?: Session
   setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
   webSocketState: string
-  joinSession: (roomCode: string, navigationCallback?: () => void) => void
-  createSession: (navigationCallback: (roomCode: string) => void) => void
-  updateSessionUser: (updatedUser: User, promoteToCreator?: boolean) => void
+  joinSession: (roomCode: string, callback?: () => void) => void
+  createSession: (callback?: (roomCode: string) => void) => void
+  createSessionWithCode: (code: string) => void
+  updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
   updateSessionPresenter: (presenterId: number) => void
   gifSearchTerm: string
   setGifSearchTerm: React.Dispatch<React.SetStateAction<string>>
   startGame: () => void
+  deleteSession: () => void
   error: ServerError | undefined
 }

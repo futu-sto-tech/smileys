@@ -20,7 +20,6 @@ function RoomPage({ session }: RoomPageProps) {
     if (!user.name) {
       navigate(`/name/${roomId}`)
     }
-    roomId && joinSession(roomId)
   }, [])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

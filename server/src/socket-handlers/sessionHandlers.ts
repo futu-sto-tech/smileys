@@ -36,6 +36,24 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
+  const createSessionWithCode = (data: { user: User; code: string }, callback: any) => {
+    addUserSocket(ws, data.user)
+
+    const session: Session = {
+      id: uuid(),
+      code: data.code,
+      creator: data.user,
+      users: [data.user],
+      gameStarted: false,
+      presenterIndex: 0,
+    }
+    sessions.push(session)
+    ws.join(session.id)
+    if (typeof callback == 'function') {
+      callback(session)
+    }
+  }
+
   const joinSession = (data: { code: string; user: User }, callback: any) => {
     const session = sessions.find((session) => session.code === data.code)
     if (session) {
@@ -65,11 +83,11 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
     session.users[userIndex] = data.user
     if (data.promoteToCreator) session.creator = data.user
+    session.users = session.users.sort((userA, userB) => (!!userA.gifId === !!userB.gifId ? 0 : !!userA.gifId ? -1 : 1))
     sessions[sessionIndex] = session
     if (typeof callback == 'function') {
       callback(session)
     }
-    logSessions()
     ws.to(session.id).emit('sessionUpdated', session)
   }
 
@@ -100,6 +118,18 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       }
     } else {
       ws.send('Invalid session code')
+    }
+  }
+
+  const deleteSession = (data: { code: string }, callback: any) => {
+    const sessionIndex = sessions.findIndex((session) => session.code === data.code)
+    const session = sessions[sessionIndex]
+    sessions = sessions.filter((session) => {
+      return session.code !== data.code
+    })
+    ws.to(session.id).emit('sessionUpdated', undefined)
+    if (typeof callback == 'function') {
+      callback(undefined)
     }
   }
 
@@ -144,21 +174,25 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
 
   ws.on('findMyActiveSessions', findMyActiveSessions)
   ws.on('createSession', createSession)
+  ws.on('createSessionWithCode', createSessionWithCode)
   ws.on('joinSession', joinSession)
   ws.on('updateSessionUser', updateSessionUser)
   ws.on('updateSessionPresenter', updateSessionPresenter)
   ws.on('leaveSession', leaveSession)
+  ws.on('deleteSession', deleteSession)
   // ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)
   ws.on('rejoinSession', rejoinSession)
 }
 
 const addUserToSession = (session: Session, newUser: User) => {
-  const newUsers = session.users.filter((user) => {
-    return user.id !== newUser.id
-  })
-  newUsers.push(newUser)
-  session.users = newUsers
+  if (
+    !session.users.find((user) => {
+      return newUser.id === user.id
+    })
+  ) {
+    session.users.push(newUser)
+  }
 }
 
 const addUserSocket = (ws: any, user: User) => {
