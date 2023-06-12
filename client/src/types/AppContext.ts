@@ -18,5 +18,6 @@ export interface IAppProvider {
   gifSearchTerm: string
   setGifSearchTerm: React.Dispatch<React.SetStateAction<string>>
   startGame: () => void
+  deleteSession: () => void
   error: ServerError | undefined
 }

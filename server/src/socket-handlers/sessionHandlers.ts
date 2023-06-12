@@ -121,6 +121,18 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
+  const deleteSession = (data: { code: string }, callback: any) => {
+    const sessionIndex = sessions.findIndex((session) => session.code === data.code)
+    const session = sessions[sessionIndex]
+    sessions = sessions.filter((session) => {
+      return session.code !== data.code
+    })
+    ws.to(session.id).emit('sessionUpdated', undefined)
+    if (typeof callback == 'function') {
+      callback(undefined)
+    }
+  }
+
   // const disbandSession = (data: { code: Pick<Session, 'code'>; userId: Pick<User, 'id'> }) => {
   //   const sessionIndex = sessions.findIndex((session) => session.code === data.code)
   //   if (sessionIndex > -1) {
@@ -167,6 +179,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   ws.on('updateSessionUser', updateSessionUser)
   ws.on('updateSessionPresenter', updateSessionPresenter)
   ws.on('leaveSession', leaveSession)
+  ws.on('deleteSession', deleteSession)
   // ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)
   ws.on('rejoinSession', rejoinSession)

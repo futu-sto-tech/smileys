@@ -105,6 +105,13 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     })
   }
 
+  function deleteSession() {
+    if (!session) return
+    socket.emit('deleteSession', { code: session.code }, (session: Session | undefined) => {
+      setSession(session)
+    })
+  }
+
   function handleChangedName() {
     saveUser(user)
   }
@@ -125,6 +132,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     gifSearchTerm,
     setGifSearchTerm,
     startGame,
+    deleteSession,
     error,
   }
 
