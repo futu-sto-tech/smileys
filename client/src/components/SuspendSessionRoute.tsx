@@ -20,11 +20,11 @@ const SuspendSessionRoute = ({ Component, isRoomPage }: SuspendSessionRouteProps
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (webSocketState === 'Connected to Websocket') {
+    if (webSocketState === 'Connected to Websocket' && !session) {
       if (isRoomPage) joinOrCreateSession()
       else if (roomId) handleJoinSession(roomId)
     }
-  }, [webSocketState])
+  }, [webSocketState, session])
 
   async function sessionExists(roomId: string) {
     const { err } = await serverService.checkIfSessionExists(roomId)
