@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import { IAppProvider } from '../types/AppContext'
 import AppContext from '../shared/AppContext'
 import { Session } from '../types/types'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as serverService from '../services/server'
 
 interface ComponentWithSessionProps {
@@ -15,20 +15,32 @@ interface SuspendSessionRouteProps<T extends ComponentWithSessionProps> {
 }
 
 const SuspendSessionRoute = ({ Component, isRoomPage }: SuspendSessionRouteProps<ComponentWithSessionProps>) => {
-  const { session, joinSession, createSessionWithCode }: IAppProvider = useContext(AppContext)
+  const { webSocketState, session, joinSession, createSessionWithCode }: IAppProvider = useContext(AppContext)
   const { roomId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (isRoomPage) joinOrCreateSession()
-    else if (roomId) joinSession(roomId)
-  }, [])
+    if (webSocketState === 'Connected to Websocket') {
+      if (isRoomPage) joinOrCreateSession()
+      else if (roomId) handleJoinSession(roomId)
+    }
+  }, [webSocketState])
+
+  async function sessionExists(roomId: string) {
+    const { err } = await serverService.checkIfSessionExists(roomId)
+    return !err
+  }
 
   async function joinOrCreateSession() {
     if (!session && roomId) {
-      const { err } = await serverService.checkIfSessionExists(roomId)
-      console.log({ err })
-      err ? createSessionWithCode(roomId) : joinSession(roomId)
+      const exists = await sessionExists(roomId)
+      exists ? joinSession(roomId) : createSessionWithCode(roomId)
     }
+  }
+
+  async function handleJoinSession(roomId: string) {
+    const exists = await sessionExists(roomId)
+    exists ? joinSession(roomId) : navigate('/')
   }
 
   if (!session) return <p>Loading...</p>
