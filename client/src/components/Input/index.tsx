@@ -7,12 +7,18 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   error?: ApiError
+  style?: {}
 }
 
 function Input(props: InputProps) {
   return (
     <div className={styles.inputWrapper}>
-      <input onChange={props.onChange} className={`${props.className} ${styles.input}`} placeholder={props.placeholder}>
+      <input
+        onChange={props.onChange}
+        className={`${props.className} ${styles.input}`}
+        style={props.style}
+        placeholder={props.placeholder}
+      >
         {props.children}
       </input>
       {props.error && <div className={styles.error}>{props.error.message}</div>}

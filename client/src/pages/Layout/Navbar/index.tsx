@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { SmileyLogo } from '../../../components/CodeTextField/Logos/Logos'
+import { SmileyLogo } from '../../../components/SVGs/Logos'
 import Input from '../../../components/Input'
 import styles from './index.module.scss'
 import { Button } from '../../../components/Button'

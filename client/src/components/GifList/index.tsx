@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import { sortDataOnHeightAga } from './utils'
 import { Button } from '../Button'
 import { InfiniteData } from 'react-query'
+import { TrendingIcon } from '../SVGs/icons'
 
 const COLUMNS = 3
 
@@ -60,6 +61,15 @@ export function GifList({ className, session }: GifListProps) {
 
   return (
     <div>
+      {!gifSearchTerm && (
+        <p className={styles.title}>
+          <span>
+            <TrendingIcon />
+          </span>{' '}
+          Trending Gifs
+        </p>
+      )}
+
       <div className={classNames([className, styles.gifContainer])}>
         {data ? (
           <MasonryGrid items={unpackGifs(data)} columns={COLUMNS}>
