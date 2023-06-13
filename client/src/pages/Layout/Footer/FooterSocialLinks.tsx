@@ -1,12 +1,6 @@
 import styling from './FooterSocialLinks.module.scss'
 import footerStyling from './index.module.scss'
-import {
-  SmileyLogo,
-  InstagramLogo,
-  TikTokLogo,
-  YouTubeLogo,
-  TwitterLogo,
-} from '../../../components/CodeTextField/Logos/Logos'
+import { SmileyLogo, InstagramLogo, TikTokLogo, YouTubeLogo, TwitterLogo } from '../../../components/SVGs/Logos'
 
 const { footerTextStyling } = footerStyling
 const { container, socialLinksContainerStyling, elementMargin } = styling
