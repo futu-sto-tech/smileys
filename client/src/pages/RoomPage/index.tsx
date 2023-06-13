@@ -6,13 +6,13 @@ import styles from './index.module.scss'
 import Input from '../../components/Input'
 import { IAppProvider } from '../../types/AppContext'
 import { Session } from '../../types/types'
-
+import searchIcon from '../../../public/assets/icons/searchIcon.svg'
 interface RoomPageProps {
   session: Session
 }
 
 function RoomPage({ session }: RoomPageProps) {
-  const { joinSession, user, setGifSearchTerm, gifSearchTerm }: IAppProvider = useContext(AppContext)
+  const { user, setGifSearchTerm }: IAppProvider = useContext(AppContext)
   let { roomId } = useParams()
   const navigate = useNavigate()
 
@@ -31,15 +31,20 @@ function RoomPage({ session }: RoomPageProps) {
       <div className={styles.infoContainer}>
         <h1>How are you doing?</h1>
         <p className={styles.subtitle}>Pick a GIF to describe your mood </p>
-        <Input onChange={handleSearch} className={styles.input} placeholder={'Happy, stressful, confusing'}></Input>
+        <Input
+          onChange={handleSearch}
+          className={styles.input}
+          style={{
+            backgroundImage: `url(${searchIcon})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: '1.2rem center',
+            backgroundSize: '2rem',
+            paddingLeft: '40px',
+          }}
+          placeholder={'happy, stressful, confusing'}
+        ></Input>
       </div>
-      {session ? (
-        <GifList className={styles.gifList} session={session}></GifList>
-      ) : (
-        <>
-          <p>Connecting to websocket...</p>
-        </>
-      )}
+      <GifList className={styles.gifList} session={session} />
     </div>
   )
 }
