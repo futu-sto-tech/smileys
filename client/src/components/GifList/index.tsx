@@ -10,9 +10,7 @@ import { useDebounce } from '../../hooks/useDebounce'
 import { GifResult, Session } from '../../types/types'
 import classNames from 'classnames'
 import { sortDataOnHeightAga } from './utils'
-import { Button } from '../Button'
-import { InfiniteData } from 'react-query'
-import { TrendingIcon } from '../SVGs/icons'
+import { TrendingIcon } from '../SVGs/Icons'
 
 const COLUMNS = 3
 
