@@ -40,7 +40,7 @@ const SuspendSessionRoute = ({ Component, isRoomPage }: SuspendSessionRouteProps
 
   async function handleJoinSession(roomId: string) {
     const exists = await sessionExists(roomId)
-    exists ? joinSession(roomId) : navigate('/')
+    exists ? joinSession(roomId) : navigate('/end')
   }
 
   if (!session) return <p>Loading...</p>

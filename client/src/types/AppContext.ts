@@ -14,7 +14,7 @@ export interface IAppProvider {
   createSession: (callback?: (roomCode: string) => void) => void
   createSessionWithCode: (code: string) => void
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
-  updateSessionPresenter: (presenterId: number) => void
+  updateSessionPresenter: (previous?: boolean) => void
   gifSearchTerm: string
   setGifSearchTerm: React.Dispatch<React.SetStateAction<string>>
   startGame: () => void

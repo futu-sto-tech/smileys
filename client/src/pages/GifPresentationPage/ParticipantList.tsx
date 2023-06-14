@@ -1,13 +1,17 @@
 import styles from './ParticipantList.module.scss'
 import { Button } from '../../components/Button'
-import { User } from '../../types/types'
+import { Session, User } from '../../types/types'
+import { IAppProvider } from '../../types/AppContext'
+import { useContext } from 'react'
+import AppContext from '../../shared/AppContext'
 
 interface ParticipantListProps {
   users: User[]
   presenterIndex: number
-  updateSessionPresenter: (index: number) => void
+  updateSessionPresenter: (previous?: boolean) => void
   gameStarted: boolean
   isCreator: boolean
+  session: Session
 }
 
 function ParticipantList({
@@ -16,20 +20,35 @@ function ParticipantList({
   updateSessionPresenter,
   gameStarted,
   isCreator,
+  session,
 }: ParticipantListProps) {
   function isCurrentUser(user: User) {
     return user.id === users[presenterIndex].id
   }
 
-  const isFirstPresenter = presenterIndex <= 0
-  const isLastPresenter = presenterIndex >= users.length - 1
+  function getIsLastPresenter() {
+    if (!session.presentOrder.length) return true
+    if (session.users.filter((user) => !!user.gifId).length > session.presentOrder.length) {
+      return false
+    }
+    if (session.users[presenterIndex].id !== session.presentOrder[session.presentOrder.length - 1].id) {
+      return false
+    }
+    return true
+  }
 
+  const isFirstPresenter = session.presentOrder.length
+    ? session.presentOrder[0].id === session.users[session.presenterIndex].id
+    : true
+  const isLastPresenter = getIsLastPresenter()
+
+  console.log({ presentOrder: session.presentOrder, isFirstPresenter, isLastPresenter })
   function handleNext() {
-    if (!isLastPresenter) updateSessionPresenter(presenterIndex + 1)
+    if (!isLastPresenter) updateSessionPresenter()
   }
 
   function handleBack() {
-    if (!isFirstPresenter) updateSessionPresenter(presenterIndex - 1)
+    if (!isFirstPresenter) updateSessionPresenter(true)
   }
 
   return (

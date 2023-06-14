@@ -29,6 +29,7 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
         presenterIndex={presenterIndex}
         updateSessionPresenter={updateSessionPresenter}
         isCreator={isCreator}
+        session={session}
       />
 
       {isFetching && <Loader />}
