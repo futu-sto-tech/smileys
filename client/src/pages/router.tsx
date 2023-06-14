@@ -9,6 +9,7 @@ import SelectGifPage from '../pages/SelectGifPage'
 import GifPresentationPage from './GifPresentationPage'
 import SuspendSessionRoute from '../components/SuspendSessionRoute'
 import ErrorPage from './ErrorPage/ErrorPage'
+import EndGamePage from './EndGamePage'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
       <Route path=":roomId" element={<SuspendSessionRoute Component={RoomPage} isRoomPage />} />
       <Route path=":roomId/:gifId" element={<SuspendSessionRoute Component={SelectGifPage} />} />
       <Route path="present/:roomId" element={<SuspendSessionRoute Component={GifPresentationPage} />} />
+      <Route path="end" element={<EndGamePage />} />
       <Route path="*" element={<p>Page not found 😢</p>} />
     </Route>
   )
