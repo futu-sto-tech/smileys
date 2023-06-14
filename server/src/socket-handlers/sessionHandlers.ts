@@ -2,50 +2,26 @@ import { Server, Socket } from 'socket.io'
 import { Session, UserSocket, User } from '../types/session'
 import { v4 as uuid } from 'uuid'
 import { Error400 } from '../types/error'
+import _ from 'lodash'
+import { log } from 'console'
 
 export let sessions: Session[] = []
 export let userSockets: UserSocket[] = []
 
 export const registerSessionHandlers = (wss: Server, ws: Socket) => {
-  const findMyActiveSessions = (data: { userId: string }, callback: any) => {
-    const activeSession = sessions
-      .filter((session) => session.gameStarted)
-      .find((session) => session.users.find((user) => user.id === data.userId))
-    if (activeSession) {
-      callback(activeSession.code)
-    } else {
-      callback()
-    }
-  }
-
-  const createSession = (data: { user: User }, callback: any) => {
+  const createSession = (data: { user: User; code: string }, callback: any) => {
     addUserSocket(ws, data.user)
+
+    const user: User = { ...data.user, presented: false }
 
     const session: Session = {
       id: uuid(),
-      code: createUniqueCode(),
-      creator: data.user,
-      users: [data.user],
+      code: data.code ? data.code : createUniqueCode(),
+      creator: user,
+      users: [user],
       gameStarted: false,
       presenterIndex: 0,
-    }
-    sessions.push(session)
-    ws.join(session.id)
-    if (typeof callback == 'function') {
-      callback(session)
-    }
-  }
-
-  const createSessionWithCode = (data: { user: User; code: string }, callback: any) => {
-    addUserSocket(ws, data.user)
-
-    const session: Session = {
-      id: uuid(),
-      code: data.code,
-      creator: data.user,
-      users: [data.user],
-      gameStarted: false,
-      presenterIndex: 0,
+      presentOrder: [],
     }
     sessions.push(session)
     ws.join(session.id)
@@ -56,16 +32,24 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
 
   const joinSession = (data: { code: string; user: User }, callback: any) => {
     const session = sessions.find((session) => session.code === data.code)
-    if (session) {
-      addUserSocket(ws, data.user)
-      addUserToSession(session, data.user)
-      ws.join(session.id)
-      ws.to(session.id).emit('sessionUpdated', session)
-      if (typeof callback == 'function') {
-        callback(session)
-      }
-    } else {
+    if (!session) {
       ws.emit('error', new Error400('Invalid session code').getClientError())
+      return
+    }
+
+    if (
+      !session.users.find((user) => {
+        return user.id === data.user.id
+      })
+    ) {
+      addUserToSession(session, data.user)
+    }
+
+    addUserSocket(ws, data.user)
+    ws.join(session.id)
+    ws.to(session.id).emit('sessionUpdated', session)
+    if (typeof callback == 'function') {
+      callback(session)
     }
   }
 
@@ -84,17 +68,22 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     session.users[userIndex] = data.user
     if (data.promoteToCreator) session.creator = data.user
     session.users = session.users.sort((userA, userB) => (!!userA.gifId === !!userB.gifId ? 0 : !!userA.gifId ? -1 : 1))
-    sessions[sessionIndex] = session
     if (typeof callback == 'function') {
       callback(session)
     }
     ws.to(session.id).emit('sessionUpdated', session)
   }
 
-  const updateSessionPresenter = (data: { code: string; presenterId: number }, callback: any) => {
+  const updateSessionPresenter = (data: { code: string; previous: boolean }, callback: any) => {
     const sessionIndex = sessions.findIndex((session) => session.code === data.code)
-    if (!sessionIndex) ws.send('Invalid session code')
-    sessions[sessionIndex].presenterIndex = data.presenterId
+    const session = sessions[sessionIndex]
+    if (!sessionIndex && session) ws.send('Invalid session code')
+
+    if (data.previous) {
+      getPrevPresenter(session)
+    } else {
+      getNextPresenter(session)
+    }
     ws.to(sessions[sessionIndex].id).emit('sessionUpdated', sessions[sessionIndex])
     if (typeof callback == 'function') {
       callback(sessions[sessionIndex])
@@ -141,16 +130,18 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   //   }
   // }
 
-  const startGame = (data: { code: string; userId: string }, callBack: Function) => {
+  const startGame = (data: { code: string; userId: string }, callback: Function) => {
     const session = sessions.find((session) => session.code === data.code)
     if (!session) return ws.send('Session id not found')
 
     const userIsCreator = session.creator.id === data.userId
     if (!userIsCreator) return ws.send('Only the creator can start the game')
 
+    getNewPresenter(session)
+
     session.gameStarted = true
     ws.to(session.id).emit('gameStarted', session)
-    callBack(session)
+    callback(session)
   }
 
   const rejoinSession = async (data: { userId: string; sessionId: string }, callback?: Function) => {
@@ -172,9 +163,8 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  ws.on('findMyActiveSessions', findMyActiveSessions)
   ws.on('createSession', createSession)
-  ws.on('createSessionWithCode', createSessionWithCode)
+  ws.on('createSessionWithCode', createSession)
   ws.on('joinSession', joinSession)
   ws.on('updateSessionUser', updateSessionUser)
   ws.on('updateSessionPresenter', updateSessionPresenter)
@@ -183,6 +173,44 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   // ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)
   ws.on('rejoinSession', rejoinSession)
+}
+
+const getNextPresenter = (session: Session) => {
+  const presenter = session.users[session.presenterIndex]
+  console.log({ presenter, and: session.presentOrder[session.presentOrder.length - 1] })
+  if (presenter.id === session.presentOrder[session.presentOrder.length - 1].id) {
+    getNewPresenter(session)
+  } else {
+    const currentPresenterOrderIndex = session.presentOrder.findIndex((user) => user.id === presenter.id)
+    const nextPresenter = session.presentOrder[currentPresenterOrderIndex + 1]
+    session.presenterIndex = session.users.findIndex((user) => user.id === nextPresenter.id)
+  }
+}
+
+const getNewPresenter = (session: Session) => {
+  const presenter = _.sample(
+    session.users
+      .filter((user) => !!user.gifId)
+      .filter((user) => {
+        return !session.presentOrder.find((userPresenter) => {
+          return userPresenter.id == user.id
+        })
+      })
+  )
+  if (presenter) {
+    session.presentOrder.push(presenter)
+    const presenterIndex = session.users.findIndex((user) => user.id === presenter.id)
+    session.presenterIndex = presenterIndex !== -1 ? presenterIndex : session.presenterIndex + 1
+  }
+}
+
+const getPrevPresenter = (session: Session) => {
+  const presenter = session.users[session.presenterIndex]
+  const currentPresenterOrderIndex = session.presentOrder.findIndex((user) => user.id === presenter.id)
+  if (currentPresenterOrderIndex) {
+    const previousPresenter = session.presentOrder[currentPresenterOrderIndex - 1]
+    session.presenterIndex = session.users.findIndex((user) => user.id === previousPresenter.id)
+  }
 }
 
 const addUserToSession = (session: Session, newUser: User) => {
