@@ -5,12 +5,14 @@ export interface Session {
   creator: User
   gameStarted: boolean
   presenterIndex: number
+  presentOrder: User[]
 }
 
 export interface User {
   id: string
   name: string
   gifId: string
+  presented: boolean
 }
 
 export interface GifResult {

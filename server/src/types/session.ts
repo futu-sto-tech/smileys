@@ -7,6 +7,7 @@ export interface Session {
   creator: User
   gameStarted: boolean
   presenterIndex: number
+  presentOrder: User[]
 }
 
 export interface UserSocket {
@@ -18,4 +19,5 @@ export interface User {
   id: string
   name: string
   gifId?: string
+  presented: boolean
 }

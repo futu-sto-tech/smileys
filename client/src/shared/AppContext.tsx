@@ -4,6 +4,7 @@ import { Session, User } from '../types/types'
 import { v4 as uuid } from 'uuid'
 import { IAppProvider } from '../types/AppContext'
 import { ServerError } from '../types/errors'
+import { useNavigate } from 'react-router-dom'
 
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
@@ -48,9 +49,11 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   function obtainUser(): User {
     const userJSON = localStorage.getItem('user')
     if (!userJSON) {
-      return { name: '', id: uuid(), gifId: '' }
+      const user = { name: '', id: uuid(), gifId: '', presented: false }
+      localStorage.setItem('user', JSON.stringify(user))
+      return { name: '', id: uuid(), gifId: '', presented: false }
     }
-    return { ...JSON.parse(userJSON), gifId: '' }
+    return { ...JSON.parse(userJSON), gifId: '', presented: false }
   }
 
   function saveUser(user: User) {
@@ -91,9 +94,9 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     )
   }
 
-  function updateSessionPresenter(presenterId: number) {
+  function updateSessionPresenter(previous?: boolean) {
     if (!session) return
-    socket.emit('updateSessionPresenter', { code: session.code, presenterId }, (session: Session) => {
+    socket.emit('updateSessionPresenter', { code: session.code, previous }, (session: Session) => {
       setSession(session)
     })
   }
