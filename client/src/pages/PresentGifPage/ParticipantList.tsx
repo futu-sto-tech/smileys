@@ -4,6 +4,7 @@ import { Session, User } from '../../types/types'
 import { IAppProvider } from '../../types/AppContext'
 import { useContext } from 'react'
 import AppContext from '../../shared/AppContext'
+import ParticipantName from './ParticipantName'
 
 interface ParticipantListProps {
   users: User[]
@@ -55,14 +56,9 @@ function ParticipantList({
     <div className={styles.participantContainer}>
       <div>
         <h1 className={styles.participants}>Participants</h1>
-        {users.map((user, i) => {
-          return (
-            <div className={`${styles.nameContainer} ${isCurrentUser(user) ? styles.highlightUser : ''}`} key={i}>
-              <div style={{ backgroundColor: user.gifId ? '#38B271' : '#E8D213' }} className={styles.statusDot}></div>
-              <p className={styles.name}>{user.name}</p>
-            </div>
-          )
-        })}
+        {users.map((user, i) => (
+          <ParticipantName isCurrentUser={isCurrentUser(user)} user={user} />
+        ))}
       </div>
       {gameStarted && isCreator && (
         <div className={styles.navigationButtonsContainer}>

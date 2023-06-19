@@ -13,29 +13,6 @@
   padding: 15px 15px;
 }
 
-.nameContainer {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.highlightUser {
-  border-radius: 10px;
-  background-color: var(--secondary-gray);
-}
-
-.statusDot {
-  height: 10px;
-  width: 10px;
-  border-radius: 10px;
-  margin-right: 10px;
-}
-
-.name {
-  font-size: 1.6rem;
-  font-weight: 600;
-}
-
 .navigationButtonsContainer {
   display: flex;
   justify-self: flex-end;
