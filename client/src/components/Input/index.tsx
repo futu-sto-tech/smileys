@@ -1,4 +1,4 @@
-import { ApiError, ServerError } from '../../types/errors'
+import { ApiError } from '../../types/errors'
 import styles from './index.module.scss'
 
 interface InputProps {

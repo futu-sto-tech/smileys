@@ -1,10 +1,7 @@
 import styles from './ParticipantList.module.scss'
 import { Button } from '../../components/Button'
 import { Session, User } from '../../types/types'
-import { IAppProvider } from '../../types/AppContext'
-import { useContext } from 'react'
-import AppContext from '../../shared/AppContext'
-import ParticipantName from './ParticipantName'
+import ParticipantListItem from './ParticipantListItem'
 
 interface ParticipantListProps {
   users: User[]
@@ -57,7 +54,7 @@ function ParticipantList({
       <div>
         <h1 className={styles.participants}>Participants</h1>
         {users.map((user, i) => (
-          <ParticipantName isCurrentUser={isCurrentUser(user)} user={user} />
+          <ParticipantListItem isCurrentUser={isCurrentUser(user)} user={user} />
         ))}
       </div>
       {gameStarted && isCreator && (
