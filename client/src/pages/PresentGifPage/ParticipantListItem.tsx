@@ -62,7 +62,6 @@ const ParticipantListItem = ({ user, isCurrentUser, isClientUser, updateSessionU
             <DotDotDotAnimation />
           </>
         )}
-        <p className="text-base font-semibold">{user.name}</p>
       </div>
       {isClientUser && (
         <Button
