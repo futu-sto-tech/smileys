@@ -34,7 +34,8 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
       }
       if (page !== 'HomePage' && page !== 'ShareRoomPage' && !user.name) {
         navigate(`/name/${roomId}`)
-      } else if (page === 'PresentGifPage' && !user.gifId && roomIdRequirements(roomId)) navigate(`/browse/${roomId}`)
+      } else if (page === 'PresentGifPage' && session && !user.gifId && roomIdRequirements(roomId))
+        navigate(`/browse/${roomId}`)
     }
   }
 
