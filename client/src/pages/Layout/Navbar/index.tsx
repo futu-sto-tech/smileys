@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import { SmileyLogo } from '../../../components/SVGs/Logos'
 import Input from '../../../components/Input'
 import styles from './index.module.scss'
@@ -17,6 +17,14 @@ function Navbar() {
   const { user, joinSession }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
   let location = useLocation()
+
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    const lowerCase = e.target.value.toUpperCase()
+    const latinized = lowerCase.replace(/[^A-Z]/, '')
+    if (lowerCase !== latinized) setError(new Error('Unsupported character'))
+    setRoomId(latinized)
+    e.target.value = latinized
+  }
 
   async function handleJoin() {
     const { err, data } = await serverService.checkIfSessionExists(roomId)
@@ -43,13 +51,7 @@ function Navbar() {
   const codeInputContainer = (
     <div className={styles.codeInputContainer}>
       <div className={styles.inputContainerText}>Join your team here</div>
-      <Input
-        placeholder="Enter room code"
-        onChange={(e) => {
-          setRoomId(e.target.value)
-        }}
-        error={error}
-      ></Input>
+      <Input placeholder="Enter room code" onChange={handleInputChange} error={error}></Input>
       <Button onClick={handleJoin} size="large">
         Join
       </Button>
