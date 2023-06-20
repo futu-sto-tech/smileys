@@ -1,18 +1,17 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 
 const loadingContainer = {
-  width: '4rem',
-  height: '4rem',
+  width: '1.5rem',
   display: 'flex',
   justifyContent: 'space-around',
+  alignSelf: 'center',
 }
 const loadingCircle = {
   display: 'block',
-  width: '1rem',
-  height: '1rem',
-  backgroundColor: '#3A36DB',
-  borderRadius: '0.5rem',
+  width: '0.3rem',
+  height: '0.3rem',
+  backgroundColor: '#ffffff',
+  borderRadius: '0.35rem',
 }
 
 const loadingContainerVariants = {
@@ -30,23 +29,22 @@ const loadingContainerVariants = {
 
 const loadingCircleVariants = {
   start: {
-    y: '0%',
+    y: '60%',
   },
   end: {
-    y: '60%',
+    y: ['60%', '0%', '60%', '60%', '60%', '60%'],
   },
 }
 const loadingCircleTransition = {
-  duration: 0.4,
-  yoyo: Infinity,
+  duration: 2,
+  repeat: Infinity,
   ease: 'easeInOut',
 }
 
-const Loader = () => {
+const DotDotDotAnimation = () => {
   return (
     <div>
-      <div className="fixed  w-full min-h-screen z-50 bg-black opacity-30" />
-      <div className="flex fixed w-full justify-center items-center h-screen">
+      <div className="flex fixed justify-center items-center">
         <motion.div style={loadingContainer} variants={loadingContainerVariants} initial="start" animate="end">
           <motion.span
             style={loadingCircle}
@@ -69,4 +67,4 @@ const Loader = () => {
   )
 }
 
-export default Loader
+export default DotDotDotAnimation
