@@ -6,7 +6,6 @@ import styles from './index.module.scss'
 import Input from '../../components/Input'
 import { IAppProvider } from '../../types/AppContext'
 import { Session } from '../../types/types'
-import searchIcon from '../../../public/assets/icons/searchIcon.svg'
 interface RoomPageProps {
   session: Session
 }
@@ -27,7 +26,7 @@ function BrowseGifPage({ session }: RoomPageProps) {
           onChange={handleSearch}
           className={styles.input}
           style={{
-            backgroundImage: `url(${searchIcon})`,
+            backgroundImage: `url(/assets/icons/searchIcon.svg)`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: '1.2rem center',
             backgroundSize: '2rem',
