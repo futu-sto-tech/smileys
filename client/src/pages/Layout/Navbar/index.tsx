@@ -19,17 +19,19 @@ function Navbar() {
   let location = useLocation()
 
   async function handleJoin() {
-    const { err } = await serverService.checkIfSessionExists(roomId)
+    const { err, data } = await serverService.checkIfSessionExists(roomId)
 
     if (err) return setError(err)
+    if (!data) return setError(new Error("Room doesn't exist"))
 
     if (!user.name) {
       navigate(`/name/${roomId}`)
     }
 
-    joinSession(roomId, () => {
-      navigate(`browse/${roomId}`)
-    })
+    data &&
+      joinSession(roomId, () => {
+        navigate(`browse/${roomId}`)
+      })
   }
 
   const cx = classNames({

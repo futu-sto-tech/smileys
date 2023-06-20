@@ -40,8 +40,6 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
 
   function roomIdRequirements(roomId: string | undefined) {
     if (!(page === 'SelectGifPage' || page === 'PresentGifPage' || page === 'BrowseGifPage')) return true
-    console.log({ roomId, length: roomId?.length, latin: latinCharacters(roomId!) })
-
     return !!(roomId && roomId.length >= 4 && roomId.length <= 10 && latinCharacters(roomId))
   }
 
@@ -56,8 +54,8 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
   }
 
   async function sessionExists(roomId: string) {
-    const { err } = await serverService.checkIfSessionExists(roomId)
-    return !err
+    const { data } = await serverService.checkIfSessionExists(roomId)
+    return !!data
   }
 
   async function joinOrCreateSession() {

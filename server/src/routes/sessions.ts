@@ -9,9 +9,7 @@ rootRouter.post('/session-exists', async (req: Request, res: Response) => {
   //data = req.body
   const code = Object.keys(req.body)[0]
   const session = sessions.find((session) => session.code === code)
-  if (!session) throw new Error400('Invalid session code')
-
-  res.status(StatusCodes.OK).json(session)
+  res.status(StatusCodes.OK).json(!!session)
 })
 
 export default rootRouter
