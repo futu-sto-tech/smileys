@@ -4,6 +4,7 @@ import Input from '../../components/Input'
 import { Button } from '../../components/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Tooltip from '../../components/Tooltip'
+import DotDotDotAnimation from './DotDotDotAnimation'
 
 interface ParticipantListItemProps {
   user: User
@@ -53,6 +54,14 @@ const ParticipantListItem = ({ user, isCurrentUser, isClientUser, updateSessionU
     <>
       <div className="flex items-center py-3">
         <div style={{ backgroundColor: user.gifId ? '#38B271' : '#E8D213' }} className="h-4 w-4 rounded mr-5"></div>
+        {user.name ? (
+          <p className="text-base font-semibold">{user.name}</p>
+        ) : (
+          <>
+            <p className="text-base font-semibold pr-[0.3rem]">Joining user</p>
+            <DotDotDotAnimation />
+          </>
+        )}
         <p className="text-base font-semibold">{user.name}</p>
       </div>
       {isClientUser && (

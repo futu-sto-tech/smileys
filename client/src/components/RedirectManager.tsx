@@ -5,7 +5,7 @@ import { Session, User } from '../types/types'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as serverService from '../services/server'
 import NotFoundPage from '../pages/NotFoundPage'
-import Loader from './Loader'
+import Loader from '../pages/PresentGifPage/DotDotDotAnimation'
 
 interface ComponentWithSessionProps {
   session: Session
@@ -45,7 +45,7 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
 
   function gifIdRequirements(gifId: string | undefined) {
     if (!(page === 'SelectGifPage')) return true
-    return !!(gifId && gifId.length === 18)
+    return !!gifId
   }
 
   function latinCharacters(string: string) {
