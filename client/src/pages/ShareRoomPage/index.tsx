@@ -10,14 +10,13 @@ function ShareRoomPage() {
   const [showJoinRoom, setShowJoinRoom] = useState(false)
   const { user }: IAppProvider = useContext(AppContext)
   const { roomId } = useParams()
-  if (!roomId) console.log('Parameter roomId is undefined!')
 
   const navigate = useNavigate()
 
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Your team's room code</h1>
-      <ShareRoom onCopied={() => setShowJoinRoom(true)} big={true} roomId={roomId ? roomId : ''} />
+      <ShareRoom onCopied={() => setShowJoinRoom(true)} big roomId={roomId!} />
       {showJoinRoom && (
         <Button
           className={styles.button}
