@@ -1,7 +1,7 @@
 import styles from './ParticipantList.module.scss'
 import { Button } from '../../components/Button'
 import { Session, User } from '../../types/types'
-import ParticipantListItem from './ParticipantListItem'
+import ParticipantName from './ParticipantName'
 
 interface ParticipantListProps {
   users: User[]
@@ -10,6 +10,8 @@ interface ParticipantListProps {
   gameStarted: boolean
   isCreator: boolean
   session: Session
+  clientUser: User
+  updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
 }
 
 function ParticipantList({
@@ -54,7 +56,7 @@ function ParticipantList({
       <div>
         <h1 className={styles.participants}>Participants</h1>
         {users.map((user, i) => (
-          <ParticipantListItem isCurrentUser={isCurrentUser(user)} user={user} />
+          <ParticipantName isCurrentUser={isCurrentUser(user)} user={user} />
         ))}
       </div>
       {gameStarted && isCreator && (

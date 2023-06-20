@@ -12,7 +12,8 @@ interface GifPresentationPageProps {
 }
 
 function PresentGifPage({ session }: GifPresentationPageProps) {
-  const { user, updateSessionPresenter, startGame }: IAppProvider = useContext(AppContext)
+  const { user, updateSessionPresenter, startGame, updateSessionUser }: IAppProvider = useContext(AppContext)
+
   const { presenterIndex, users, gameStarted } = session
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
   const isCreator = user.id === session.creator.id
@@ -24,6 +25,8 @@ function PresentGifPage({ session }: GifPresentationPageProps) {
   return (
     <div className={styles.container}>
       <ParticipantList
+        clientUser={user}
+        updateSessionUser={updateSessionUser}
         users={users}
         gameStarted={gameStarted}
         presenterIndex={presenterIndex}

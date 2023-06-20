@@ -1,5 +1,6 @@
 import { ApiError } from '../../types/errors'
 import styles from './index.module.scss'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 interface InputProps {
   className?: string
@@ -8,6 +9,7 @@ interface InputProps {
   placeholder?: string
   error?: ApiError
   style?: {}
+  register?: UseFormRegisterReturn
 }
 
 function Input(props: InputProps) {
@@ -18,6 +20,8 @@ function Input(props: InputProps) {
         className={`${props.className} ${styles.input}`}
         style={props.style}
         placeholder={props.placeholder}
+        {...props.register}
+        autoFocus
       >
         {props.children}
       </input>
