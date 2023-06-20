@@ -23,7 +23,7 @@ function ShareRoomPage() {
           className={styles.button}
           onClick={() => {
             if (user.name) {
-              navigate(`/${roomId}`)
+              navigate(`/browse/${roomId}`)
             } else {
               navigate(`/name/${roomId}`)
             }

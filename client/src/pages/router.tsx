@@ -2,14 +2,15 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from '../pages/HomePage'
-import RoomPage from '../pages/RoomPage'
+import BrowseGifPage from '../pages/BrowseGifPage'
 import EnterNamePage from '../pages/EnterNamePage'
 import ShareRoomPage from '../pages/ShareRoomPage'
 import SelectGifPage from '../pages/SelectGifPage'
-import GifPresentationPage from './GifPresentationPage'
-import SuspendSessionRoute from '../components/SuspendSessionRoute'
+import PresentGifPage from '../pages/PresentGifPage'
+import RedirectManager from '../components/RedirectManager'
 import ErrorPage from './ErrorPage/ErrorPage'
 import EndGamePage from './EndGamePage'
+import NotFoundPage from './NotFoundPage'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,11 +18,11 @@ export const router = createBrowserRouter(
       <Route path="/" element={<HomePage />} />
       <Route path="name/:roomId" element={<EnterNamePage />} />
       <Route path="create/:roomId" element={<ShareRoomPage />} />
-      <Route path=":roomId" element={<SuspendSessionRoute Component={RoomPage} isRoomPage />} />
-      <Route path=":roomId/:gifId" element={<SuspendSessionRoute Component={SelectGifPage} />} />
-      <Route path="present/:roomId" element={<SuspendSessionRoute Component={GifPresentationPage} />} />
+      <Route path="browse/:roomId" element={<RedirectManager Component={BrowseGifPage} page="BrowseGifPage" />} />
+      <Route path=":roomId/:gifId" element={<RedirectManager Component={SelectGifPage} page="SelectGifPage" />} />
+      <Route path=":roomId" element={<RedirectManager Component={PresentGifPage} page="PresentGifPage" />} />
       <Route path="end" element={<EndGamePage />} />
-      <Route path="*" element={<p>Page not found 😢</p>} />
+      <Route path="*" element={<RedirectManager Component={NotFoundPage} page="NotFoundPage" />} />
     </Route>
   )
 )

@@ -28,7 +28,7 @@ function Navbar() {
     }
 
     joinSession(roomId, () => {
-      navigate(`/${roomId}`)
+      navigate(`browse/${roomId}`)
     })
   }
 

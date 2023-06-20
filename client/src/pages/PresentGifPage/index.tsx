@@ -11,7 +11,7 @@ interface GifPresentationPageProps {
   session: Session
 }
 
-function GifPresentationPage({ session }: GifPresentationPageProps) {
+function PresentGifPage({ session }: GifPresentationPageProps) {
   const { user, updateSessionPresenter, startGame }: IAppProvider = useContext(AppContext)
   const { presenterIndex, users, gameStarted } = session
   const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
@@ -47,4 +47,4 @@ function GifPresentationPage({ session }: GifPresentationPageProps) {
   )
 }
 
-export default GifPresentationPage
+export default PresentGifPage
