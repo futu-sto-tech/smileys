@@ -20,10 +20,8 @@ function UserControls({ isCreator }: UserControlsProps) {
   }
 
   return (
-    <div className={styles.userControlContainer}>
-      {/* <Button>Button</Button>
-      <Button>Button</Button> */}
-      <Button style={{ display: restrictToCreator }} buttonColor="red" onClick={handleEndSession}>
+    <div style={{ display: restrictToCreator }} className={styles.userControlContainer}>
+      <Button buttonColor="red" onClick={handleEndSession}>
         End Session
       </Button>
     </div>
