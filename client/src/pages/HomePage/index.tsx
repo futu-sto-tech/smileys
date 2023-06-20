@@ -36,7 +36,7 @@ function HomePage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>A fun way for your remote</h1>
+      <h1 className={styles.heading}>A way for your remote</h1>
       <h1 className={`${styles.heading} ${styles.secondRow}`}>
         team to <span className={styles.typeWriter}>{typeWriter}</span>
       </h1>
