@@ -11,16 +11,8 @@ interface RoomPageProps {
   session: Session
 }
 
-function RoomPage({ session }: RoomPageProps) {
-  const { user, setGifSearchTerm }: IAppProvider = useContext(AppContext)
-  let { roomId } = useParams()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!user.name) {
-      navigate(`/name/${roomId}`)
-    }
-  }, [])
+function BrowseGifPage({ session }: RoomPageProps) {
+  const { setGifSearchTerm }: IAppProvider = useContext(AppContext)
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGifSearchTerm(e.target.value)
@@ -49,4 +41,4 @@ function RoomPage({ session }: RoomPageProps) {
   )
 }
 
-export default RoomPage
+export default BrowseGifPage

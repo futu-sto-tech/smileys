@@ -17,7 +17,7 @@ function EnterNamePage() {
     handleChangedName()
     if (!session && roomId) {
       joinSession(roomId, () => {
-        navigate(`/${roomId}`)
+        navigate(`/browse/${roomId}`)
       })
     } else {
       //The session is created with an unnamed user, so the creator has user.name and session.creator updated
@@ -26,7 +26,7 @@ function EnterNamePage() {
       } else {
         updateSessionUser(user, false)
       }
-      navigate(`/${roomId}`)
+      navigate(`/browse/${roomId}`)
     }
   }
 

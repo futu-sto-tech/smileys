@@ -7,12 +7,12 @@ import styles from './index.module.scss'
 import Typewriter from 'typewriter-effect'
 
 function HomePage() {
-  const { user, createSession }: IAppProvider = useContext(AppContext)
+  const { createSession }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
 
   function handleCreate() {
-    createSession((newRoomId) => {
-      navigate(`/create/${newRoomId}`)
+    createSession((roomId) => {
+      navigate(`/create/${roomId}`)
     })
   }
 
