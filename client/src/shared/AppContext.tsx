@@ -63,6 +63,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   function joinSession(roomCode: string, callback?: () => void) {
     socket.emit('joinSession', { code: roomCode, user }, (session: Session) => {
       setSession(session)
+      const clientUser = session.users.find((sessionUser) => sessionUser.id === user.id)
+      if (clientUser && clientUser.gifId) setUser({ ...user, gifId: clientUser.gifId })
       callback && callback()
     })
   }
