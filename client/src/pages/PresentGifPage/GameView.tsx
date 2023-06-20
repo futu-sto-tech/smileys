@@ -1,23 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { GifResult, User } from '../../types/types'
+import { GifResult, User, UserGifsByIdMap } from '../../types/types'
 import styles from './GameView.module.scss'
 import UserControls from './UserControls'
+import GifImages from './GifImages'
 
 interface GameViewProps {
-  activeGif?: GifResult
   currentUser: User
   isCreator: boolean
+  userGifsByIdMap?: UserGifsByIdMap
+  activeGif?: GifResult
 }
 
-function GameView({ activeGif, currentUser, isCreator }: GameViewProps) {
-  const gif = (
-    <div className={styles.gifContainer}>
-      <div className={styles.gifWrapper}>
-        <img height={'430px'} width={'800px'} src={activeGif?.images.original.url} className={styles.gif} />
-      </div>
-    </div>
-  )
-
+function GameView({ currentUser, isCreator, userGifsByIdMap, activeGif }: GameViewProps) {
   const gifNotChosen = (
     <div className={styles.hasNotChosen}>
       <p>{currentUser.name ? currentUser.name : 'This user'} has not chosen a GIF yet! 🥲</p>
@@ -26,7 +19,7 @@ function GameView({ activeGif, currentUser, isCreator }: GameViewProps) {
 
   return (
     <>
-      {activeGif ? gif : gifNotChosen}
+      <GifImages activeGif={activeGif} userGifsByIdMap={userGifsByIdMap} />
       <div className={styles.userControlsWrapper}>
         <UserControls isCreator={isCreator} />
       </div>

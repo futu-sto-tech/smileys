@@ -4,7 +4,7 @@ import AppContext from '../../shared/AppContext'
 import styles from './index.module.scss'
 import { Button } from '../../components/Button'
 import { IAppProvider } from '../../types/AppContext'
-import { useGifByIds } from '../../hooks/api/useGifByIds'
+import { useGetGifs } from '../../hooks/api/useGetGifs'
 
 type Parameters = {
   roomId: string
@@ -15,7 +15,7 @@ function SelectGifPage() {
   const { user, updateSessionUser }: IAppProvider = useContext(AppContext)
   const { roomId, gifId } = useParams<keyof Parameters>() as Parameters
   const navigate = useNavigate()
-  const { isError, data: userGifMap, error, isFetching } = useGifByIds([{ ...user, gifId }])
+  const { isError, data: userGifMap, error, isFetching } = useGetGifs([{ ...user, gifId }])
 
   const activeGif = userGifMap?.get(gifId)
 

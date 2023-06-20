@@ -1,16 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig } from 'axios'
 import { UseQueryResult, useQuery } from 'react-query'
-import { GifResult, User } from '../../types/types'
+import { GifId, GifResult, User, UserGifsByIdMap } from '../../types/types'
 import { GIPHY_URLS } from '../../consts/urls'
 import { GIPHY } from '../../consts/gifs'
 import { handleAxiosMethodGiphy } from '../../utils/handleAxiosMethod'
 
 const { API_KEY, LIMIT, RATING, LANGUAGE } = GIPHY
 
-type GifId = string
-type UserGifByIdMap = Map<GifId, GifResult>
-
-export function useGifByIds(users: User[]): UseQueryResult<UserGifByIdMap> {
+export function useGetGifs(users: User[]): UseQueryResult<UserGifsByIdMap> {
   const ids = users.filter((user) => user.gifId).map((user) => user.gifId)
   const userGifByIdMap = new Map<GifId, GifResult>()
 
@@ -28,7 +25,7 @@ export function useGifByIds(users: User[]): UseQueryResult<UserGifByIdMap> {
     }
 
     const res = await handleAxiosMethodGiphy<{ data: GifResult[] }>(requestConfig)
-    const gifResult = res?.data
+    const gifResult = res.data
 
     ids.forEach((id, i) => {
       userGifByIdMap.set(id, gifResult[i])

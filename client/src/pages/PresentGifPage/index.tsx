@@ -3,9 +3,9 @@ import AppContext from '../../shared/AppContext'
 import styles from './index.module.scss'
 import { Session } from '../../types/types'
 import { IAppProvider } from '../../types/AppContext'
-import { useGifByIds } from '../../hooks/api/useGifByIds'
 import ParticipantList from './ParticipantList'
 import GameWindow from './GameWindow'
+import { useGetGifs } from '../../hooks/api/useGetGifs'
 
 interface GifPresentationPageProps {
   session: Session
@@ -15,7 +15,7 @@ function PresentGifPage({ session }: GifPresentationPageProps) {
   const { user, updateSessionPresenter, startGame, updateSessionUser }: IAppProvider = useContext(AppContext)
 
   const { presenterIndex, users, gameStarted } = session
-  const { isError, data: userGifMap, error, isFetching } = useGifByIds(users)
+  const { isError, data: userGifMap, error, isFetching } = useGetGifs(users)
   const isCreator = user.id === session.creator.id
   const currentUser = users.find((user) => user.id === users[presenterIndex].id)!
 
@@ -44,6 +44,7 @@ function PresentGifPage({ session }: GifPresentationPageProps) {
           startGame={startGame}
           gameStarted={gameStarted}
           activeGif={activeGif}
+          userGifsByIdMap={userGifMap}
         />
       )}
     </div>

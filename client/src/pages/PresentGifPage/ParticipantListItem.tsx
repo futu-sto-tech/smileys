@@ -11,6 +11,7 @@ interface ParticipantListItemProps {
   isClientUser: boolean
   isCurrentUser: boolean
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
+  hasPresented: boolean
 }
 
 type Inputs = {

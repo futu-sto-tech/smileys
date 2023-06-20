@@ -35,6 +35,10 @@ export interface GifResult {
       url: string
       height: number
     }
+    ['480w_still']: {
+      url: string
+      height: number
+    }
   }
   title: string
 }
@@ -47,6 +51,9 @@ export interface GiphyResult {
     offset: number
   }
 }
+
+export type GifId = string
+export type UserGifsByIdMap = Map<GifId, GifResult>
 
 export interface InfiniteGifData {
   pages: GifResult[][]
