@@ -1,6 +1,6 @@
 import styles from './ParticipantList.module.scss'
 import { Button } from '../../components/Button'
-import { Session, User } from '../../types/types'
+import { Session, User, UserGifsByIdMap } from '../../types/types'
 import ParticipantListItem from './ParticipantListItem'
 
 interface ParticipantListProps {
@@ -12,6 +12,8 @@ interface ParticipantListProps {
   isCreator: boolean
   session: Session
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
+  markUserAsPresented: (user: User) => void
+  userGifsByIdMap?: UserGifsByIdMap
 }
 
 function ParticipantList({
@@ -23,6 +25,7 @@ function ParticipantList({
   isCreator,
   session,
   updateSessionUser,
+  markUserAsPresented,
 }: ParticipantListProps) {
   function isCurrentUser(user: User) {
     return user.id === users[presenterIndex].id
@@ -45,6 +48,7 @@ function ParticipantList({
   const isLastPresenter = getIsLastPresenter()
 
   function handleNext() {
+    markUserAsPresented(users[presenterIndex])
     if (!isLastPresenter) updateSessionPresenter()
   }
 
@@ -62,6 +66,7 @@ function ParticipantList({
         <h1 className={styles.participants}>Participants</h1>
         {users.map((user, i) => (
           <ParticipantListItem
+            key={`user-${user.gifId}`}
             user={user}
             isClientUser={isClientUser(user, clientUser)}
             updateSessionUser={updateSessionUser}

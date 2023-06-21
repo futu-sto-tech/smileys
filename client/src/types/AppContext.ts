@@ -15,6 +15,7 @@ export interface IAppProvider {
   createSessionWithCode: (code: string) => void
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
   updateSessionPresenter: (previous?: boolean) => void
+  markUserAsPresented: (user: User) => void
   gifSearchTerm: string
   setGifSearchTerm: React.Dispatch<React.SetStateAction<string>>
   startGame: () => void

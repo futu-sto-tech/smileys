@@ -19,5 +19,6 @@ export interface User {
   id: string
   name: string
   gifId?: string
-  presented: boolean
+  gifThumbnailUrl?: string
+  hasPresented: boolean
 }

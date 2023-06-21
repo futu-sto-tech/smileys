@@ -10,13 +10,7 @@ interface GameViewProps {
   activeGif?: GifResult
 }
 
-function GameView({ currentUser, isCreator, userGifsByIdMap, activeGif }: GameViewProps) {
-  const gifNotChosen = (
-    <div className={styles.hasNotChosen}>
-      <p>{currentUser.name ? currentUser.name : 'This user'} has not chosen a GIF yet! 🥲</p>
-    </div>
-  )
-
+function GameView({ isCreator, userGifsByIdMap, activeGif }: GameViewProps) {
   return (
     <>
       <GifImages activeGif={activeGif} userGifsByIdMap={userGifsByIdMap} />

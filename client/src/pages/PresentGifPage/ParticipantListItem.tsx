@@ -11,7 +11,6 @@ interface ParticipantListItemProps {
   isClientUser: boolean
   isCurrentUser: boolean
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
-  hasPresented: boolean
 }
 
 type Inputs = {
@@ -53,10 +52,10 @@ const ParticipantListItem = ({ user, isCurrentUser, isClientUser, updateSessionU
 
   const Name = () => (
     <>
-      <div className="flex items-center py-3">
+      <div className="flex grow overflow-hidden items-center py-3 w-full">
         <div style={{ backgroundColor: user.gifId ? '#38B271' : '#E8D213' }} className="h-4 w-4 rounded mr-5"></div>
         {user.name ? (
-          <p className="text-base font-semibold">{user.name}</p>
+          <p className="text-base font-semibold truncate w-full">{user.name}</p>
         ) : (
           <>
             <p className="text-base font-semibold pr-[0.3rem]">Joining user</p>
@@ -64,20 +63,27 @@ const ParticipantListItem = ({ user, isCurrentUser, isClientUser, updateSessionU
           </>
         )}
       </div>
-      {isClientUser && (
-        <Button
-          className="opacity-30 hover:opacity-100"
-          style={{ padding: '8px 8px' }}
-          onClick={() => setIsEditing(true)}
-        >
-          <i className="fa-solid fa-pen text-gray-200"></i>
-        </Button>
-      )}
+
+      <div className="flex gap-2 items-center pl-2">
+        {' '}
+        {isClientUser && (
+          <Button
+            className="opacity-30 hover:opacity-100"
+            style={{ padding: '8px 8px' }}
+            onClick={() => setIsEditing(true)}
+          >
+            <i className="fa-solid fa-pen text-gray-200"></i>
+          </Button>
+        )}
+        {user.hasPresented && <img className="rounded" src={user.gifThumbnailUrl} height={33.5}></img>}
+      </div>
     </>
   )
 
   return (
-    <div className={`flex items-center justify-between p-[1rem] rounded ${isCurrentUser && 'bg-secondary-gray'}`}>
+    <div
+      className={`flex items-center justify-between p-[1rem] rounded ${isCurrentUser && 'bg-secondary-gray'} w-full`}
+    >
       {isEditing ? <EditName /> : <Name />}
     </div>
   )

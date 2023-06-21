@@ -16,6 +16,7 @@ function GifImages({ userGifsByIdMap, activeGif }: GifImagesProps) {
       <div className={styles.gifWrapper}>
         {gifs.map((gif) => (
           <img
+            key={`image-${gif.id}`}
             height={'430px'}
             width={'800px'}
             src={gif.images.original.url}

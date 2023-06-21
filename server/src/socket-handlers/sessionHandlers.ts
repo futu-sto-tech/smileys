@@ -3,7 +3,6 @@ import { Session, UserSocket, User } from '../types/session'
 import { v4 as uuid } from 'uuid'
 import { Error400 } from '../types/error'
 import _ from 'lodash'
-import { log } from 'console'
 
 export let sessions: Session[] = []
 export let userSockets: UserSocket[] = []
@@ -12,7 +11,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   const createSession = (data: { user: User; code: string }, callback: any) => {
     addUserSocket(ws, data.user)
 
-    const user: User = { ...data.user, presented: false }
+    const user: User = { ...data.user, hasPresented: false }
 
     const session: Session = {
       id: uuid(),
@@ -59,18 +58,24 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       ws.send('Invalid session code')
       return
     }
+
     let session = sessions[sessionIndex]
+
     const userIndex = session.users.findIndex((user) => user.id === data.user.id)
     if (userIndex === -1) {
       ws.send('Invalid user')
       return
     }
     session.users[userIndex] = data.user
+
     if (data.promoteToCreator) session.creator = data.user
+
     session.users = session.users.sort((userA, userB) => (!!userA.gifId === !!userB.gifId ? 0 : !!userA.gifId ? -1 : 1))
+
     if (typeof callback == 'function') {
       callback(session)
     }
+
     ws.to(session.id).emit('sessionUpdated', session)
   }
 
@@ -177,7 +182,6 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
 
 const getNextPresenter = (session: Session) => {
   const presenter = session.users[session.presenterIndex]
-  console.log({ presenter, and: session.presentOrder[session.presentOrder.length - 1] })
   if (presenter.id === session.presentOrder[session.presentOrder.length - 1].id) {
     getNewPresenter(session)
   } else {

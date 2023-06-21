@@ -12,7 +12,8 @@ interface GifPresentationPageProps {
 }
 
 function PresentGifPage({ session }: GifPresentationPageProps) {
-  const { user, updateSessionPresenter, startGame, updateSessionUser }: IAppProvider = useContext(AppContext)
+  const { user, updateSessionPresenter, startGame, updateSessionUser, markUserAsPresented }: IAppProvider =
+    useContext(AppContext)
 
   const { presenterIndex, users, gameStarted } = session
   const { isError, data: userGifMap, error, isFetching } = useGetGifs(users)
@@ -25,6 +26,7 @@ function PresentGifPage({ session }: GifPresentationPageProps) {
   return (
     <div className={styles.container}>
       <ParticipantList
+        markUserAsPresented={markUserAsPresented}
         clientUser={user}
         updateSessionUser={updateSessionUser}
         users={users}
@@ -33,6 +35,7 @@ function PresentGifPage({ session }: GifPresentationPageProps) {
         updateSessionPresenter={updateSessionPresenter}
         isCreator={isCreator}
         session={session}
+        userGifsByIdMap={userGifMap}
       />
 
       {isFetching && <Loader />}

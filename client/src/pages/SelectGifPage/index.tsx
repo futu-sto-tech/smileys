@@ -18,6 +18,7 @@ function SelectGifPage() {
   const { isError, data: userGifMap, error, isFetching } = useGetGifs([{ ...user, gifId }])
 
   const activeGif = userGifMap?.get(gifId)
+  const gifThumbnailUrl = activeGif?.images['480w_still'].url || ''
 
   return (
     <div className={styles.container}>
@@ -41,7 +42,7 @@ function SelectGifPage() {
         </Button>
         <Button
           onClick={() => {
-            updateSessionUser({ ...user, gifId })
+            updateSessionUser({ ...user, gifId, gifThumbnailUrl })
             navigate(`/${roomId}`)
           }}
         >

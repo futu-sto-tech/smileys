@@ -49,11 +49,11 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   function obtainUser(): User {
     const userJSON = localStorage.getItem('user')
     if (!userJSON) {
-      const user = { name: '', id: uuid(), gifId: '', presented: false }
+      const user = { name: '', id: uuid(), gifId: '', gifThumbnailUrl: '', hasPresented: false }
       localStorage.setItem('user', JSON.stringify(user))
-      return { name: '', id: uuid(), gifId: '', presented: false }
+      return user
     }
-    return { ...JSON.parse(userJSON), gifId: '', presented: false }
+    return { ...JSON.parse(userJSON), gifId: '', hasPresented: false }
   }
 
   function saveUser(user: User) {
@@ -80,6 +80,10 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     socket.emit('createSessionWithCode', { user, code }, (session: Session) => {
       setSession(session)
     })
+  }
+
+  function markUserAsPresented(user: User) {
+    updateSessionUser({ ...user, hasPresented: true }, false)
   }
 
   function updateSessionUser(updatedUser: User, promoteToCreator?: boolean, callback?: () => void) {
@@ -134,6 +138,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     createSessionWithCode,
     updateSessionUser,
     updateSessionPresenter,
+    markUserAsPresented,
     gifSearchTerm,
     setGifSearchTerm,
     startGame,
