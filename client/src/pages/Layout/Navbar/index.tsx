@@ -45,7 +45,10 @@ function Navbar() {
   const cx = classNames({
     [`${styles.navbarContainer}`]: true,
     [`${styles.homeLayout}`]: location && location.pathname === '/',
-    [`${styles.creationLayout}`]: location && location.pathname.includes('/create'),
+    [`${styles.logo_centered}`]: location && location.pathname.includes('/create'),
+    [`${styles.logo_centered}`]: location && location.pathname.includes('/browse'),
+    //  18 is the length of the characters in the giphy api url
+    [`${styles.logo_centered}`]: location && location.pathname.match(/.+\/.{18}$/),
   })
 
   const codeInputContainer = (
