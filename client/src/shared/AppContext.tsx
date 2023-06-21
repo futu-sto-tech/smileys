@@ -16,8 +16,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
 
-  console.log({ session, user })
-
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Connected')

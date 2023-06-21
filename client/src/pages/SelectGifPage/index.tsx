@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppContext from '../../shared/AppContext'
 import styles from './index.module.scss'
@@ -19,6 +19,10 @@ function SelectGifPage() {
 
   const activeGif = userGifMap?.get(gifId)
   const gifThumbnailUrl = activeGif?.images['480w_still'].url || ''
+
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0 })
+  // }, [])
 
   return (
     <div className={styles.container}>
