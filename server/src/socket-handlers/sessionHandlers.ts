@@ -11,7 +11,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   const createSession = (data: { user: User; code: string }, callback: any) => {
     addUserSocket(ws, data.user)
 
-    const user: User = { ...data.user, hasPresented: false }
+    const user: User = { ...data.user }
 
     const session: Session = {
       id: uuid(),

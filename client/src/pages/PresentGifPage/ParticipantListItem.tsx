@@ -11,6 +11,7 @@ interface ParticipantListItemProps {
   isClientUser: boolean
   isCurrentUser: boolean
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
+  hasPresented: boolean
 }
 
 type Inputs = {
@@ -23,7 +24,13 @@ const inputRequirements = {
   maxLength: { value: 20, message: 'Name cannot be longer than 18 characters' },
 }
 
-const ParticipantListItem = ({ user, isCurrentUser, isClientUser, updateSessionUser }: ParticipantListItemProps) => {
+const ParticipantListItem = ({
+  user,
+  isCurrentUser,
+  isClientUser,
+  updateSessionUser,
+  hasPresented,
+}: ParticipantListItemProps) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const {
@@ -75,7 +82,13 @@ const ParticipantListItem = ({ user, isCurrentUser, isClientUser, updateSessionU
             <i className="fa-solid fa-pen text-gray-200"></i>
           </Button>
         )}
-        {user.hasPresented && <img className="rounded" src={user.gifThumbnailUrl} height={33.5}></img>}
+        {
+          <img
+            className={`rounded opacity-${hasPresented ? '100' : '0'}`}
+            src={user.gifThumbnailUrl}
+            height={33.5}
+          ></img>
+        }
       </div>
     </>
   )

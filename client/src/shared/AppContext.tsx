@@ -16,6 +16,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
 
+  console.log({ session, user })
+
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Connected')
@@ -49,11 +51,11 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   function obtainUser(): User {
     const userJSON = localStorage.getItem('user')
     if (!userJSON) {
-      const user = { name: '', id: uuid(), gifId: '', gifThumbnailUrl: '', hasPresented: false }
+      const user = { name: '', id: uuid(), gifId: '', gifThumbnailUrl: '' }
       localStorage.setItem('user', JSON.stringify(user))
       return user
     }
-    return { ...JSON.parse(userJSON), gifId: '', hasPresented: false }
+    return { ...JSON.parse(userJSON), gifId: '' }
   }
 
   function saveUser(user: User) {
@@ -80,10 +82,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     socket.emit('createSessionWithCode', { user, code }, (session: Session) => {
       setSession(session)
     })
-  }
-
-  function markUserAsPresented(user: User) {
-    updateSessionUser({ ...user, hasPresented: true }, false)
   }
 
   function updateSessionUser(updatedUser: User, promoteToCreator?: boolean, callback?: () => void) {
@@ -138,7 +136,6 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
     createSessionWithCode,
     updateSessionUser,
     updateSessionPresenter,
-    markUserAsPresented,
     gifSearchTerm,
     setGifSearchTerm,
     startGame,

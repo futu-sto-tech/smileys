@@ -12,7 +12,6 @@ interface ParticipantListProps {
   isCreator: boolean
   session: Session
   updateSessionUser: (updatedUser: User, promoteToCreator?: boolean, callback?: () => void) => void
-  markUserAsPresented: (user: User) => void
   userGifsByIdMap?: UserGifsByIdMap
 }
 
@@ -25,7 +24,6 @@ function ParticipantList({
   isCreator,
   session,
   updateSessionUser,
-  markUserAsPresented,
 }: ParticipantListProps) {
   function isCurrentUser(user: User) {
     return user.id === users[presenterIndex].id
@@ -48,7 +46,6 @@ function ParticipantList({
   const isLastPresenter = getIsLastPresenter()
 
   function handleNext() {
-    markUserAsPresented(users[presenterIndex])
     if (!isLastPresenter) updateSessionPresenter()
   }
 
@@ -60,12 +57,20 @@ function ParticipantList({
     return user.id === clientUser.id
   }
 
+  function userHasPresented(user: User) {
+    return (
+      !!session.presentOrder.find((presentedUser) => presentedUser.id === user.id) &&
+      session.users[presenterIndex].id !== user.id
+    )
+  }
+
   return (
     <div className={styles.participantContainer}>
       <div>
         <h1 className={styles.participants}>Participants</h1>
         {users.map((user, i) => (
           <ParticipantListItem
+            hasPresented={userHasPresented(user)}
             key={`user-${user.gifId}`}
             user={user}
             isClientUser={isClientUser(user, clientUser)}

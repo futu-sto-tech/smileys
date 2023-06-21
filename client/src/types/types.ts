@@ -13,7 +13,6 @@ export interface User {
   name: string
   gifId: string
   gifThumbnailUrl: string
-  hasPresented: boolean
 }
 
 export interface GifResult {
