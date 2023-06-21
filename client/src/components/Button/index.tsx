@@ -7,10 +7,11 @@ type ButtonSize = 'small' | 'medium' | 'large'
 export interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   buttonColor?: ButtonColor
   size?: ButtonSize
+  isLoading?: boolean
 }
 
 export function Button(props: ButtonProps) {
-  const { buttonColor, size, ...nativeProps } = props
+  const { buttonColor, size, isLoading, children, ...nativeProps } = props
 
   const cx = classNames([
     `${styles.button}`,
@@ -21,7 +22,7 @@ export function Button(props: ButtonProps) {
 
   return (
     <button {...nativeProps} className={cx}>
-      {props.children}
+      {isLoading ? <span className="loading loading-spinner "></span> : children}
     </button>
   )
 }

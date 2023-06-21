@@ -1,17 +1,22 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import AppContext from '../../shared/AppContext'
 import { Button } from '../../components/Button'
 import { IAppProvider } from '../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.scss'
 import Typewriter from 'typewriter-effect'
+import { set } from 'lodash'
 
 function HomePage() {
   const { createSession }: IAppProvider = useContext(AppContext)
+  const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate()
 
   function handleCreate() {
+    setIsLoading(true)
     createSession((roomId) => {
+      setIsLoading(false)
       navigate(`/create/${roomId}`)
     })
   }
@@ -43,7 +48,14 @@ function HomePage() {
       <h2>
         Create your own room to make your meetings less informal and build better connections in your virtual team.
       </h2>
-      <Button size="large" className={styles.createAnewRoomButton} onClick={handleCreate}>
+      <Button
+        buttonColor={isLoading ? 'gray' : 'green'}
+        disabled={isLoading}
+        size="large"
+        className={`${styles.createAnewRoomButton}`}
+        onClick={handleCreate}
+        isLoading={isLoading}
+      >
         Create a room
       </Button>
       <img className={styles.laptop} src="../../assets/images/laptop.png" />
