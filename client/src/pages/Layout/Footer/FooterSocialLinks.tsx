@@ -12,14 +12,15 @@ function FooterSocialLinks() {
         <SmileyLogo />
       </div>
       <div className={`${socialLinksContainerStyling} ${elementMargin}`}>
-        <TwitterLogo />
-        <InstagramLogo />
-        <YouTubeLogo />
-        <TikTokLogo />
-      </div>
-      <div className={footerTextStyling}>
-        <p>Smileys is a</p>
-        <p>Futurice product.</p>
+        <a href="https://twitter.com/futurice">
+          <TwitterLogo />
+        </a>
+        <a href="https://www.instagram.com/futurice/">
+          <InstagramLogo />
+        </a>
+        <a href="https://www.youtube.com/@Futurice-Official">
+          <YouTubeLogo />
+        </a>
       </div>
     </div>
   )
