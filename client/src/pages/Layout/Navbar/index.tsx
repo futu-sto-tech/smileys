@@ -31,15 +31,16 @@ function Navbar() {
 
     if (err) return setError(err)
     if (!data) return setError(new Error("Room doesn't exist"))
+    console.log({ user })
 
     if (!user.name) {
       navigate(`/name/${roomId}`)
+    } else {
+      data &&
+        joinSession(roomId, () => {
+          navigate(`/browse/${roomId}`)
+        })
     }
-
-    data &&
-      joinSession(roomId, () => {
-        navigate(`browse/${roomId}`)
-      })
   }
 
   const cx = classNames({
@@ -56,7 +57,7 @@ function Navbar() {
   const codeInputContainer = (
     <div className={styles.codeInputContainer}>
       <div className={styles.inputContainerText}>Join your team here</div>
-      <Input placeholder="Enter room code" onChange={handleInputChange} error={error}></Input>
+      <Input placeholder="Enter room code" onChange={handleInputChange} error={error} onEnter={handleJoin}></Input>
       <Button onClick={handleJoin} size="large">
         Join
       </Button>
