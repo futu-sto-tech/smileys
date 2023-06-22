@@ -32,7 +32,6 @@ function EndGamePage() {
     'https://media.giphy.com/media/xUA7aR5A5KCsZFgqK4/giphy.gif',
     'https://media.giphy.com/media/MNmyTin5qt5LSXirxd/giphy.gif',
     'https://media.giphy.com/media/vvbGMpbhZMcHSsD50w/giphy.gif',
-    'https://media.giphy.com/media/joSNxeswxuc74Juo8X/giphy.gif',
     'https://media.giphy.com/media/oGO1MPNUVbbk4/giphy.gif',
     'https://media.giphy.com/media/pNpONEEg3pLIQ/giphy.gif',
     'https://media.giphy.com/media/8UF0EXzsc0Ckg/giphy.gif',
