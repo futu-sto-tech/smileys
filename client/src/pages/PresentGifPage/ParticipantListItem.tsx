@@ -61,14 +61,9 @@ const ParticipantListItem = ({
     <>
       <div className="flex grow overflow-hidden items-center py-3 w-full">
         <div style={{ backgroundColor: user.gifId ? '#38B271' : '#E8D213' }} className="h-4 w-4 rounded mr-5"></div>
-        {user.name ? (
-          <p className="text-base font-semibold truncate w-full">{user.name}</p>
-        ) : (
-          <>
-            <p className="text-base font-semibold pr-[0.3rem]">Joining user</p>
-            <DotDotDotAnimation />
-          </>
-        )}
+        <p className="text-base font-semibold truncate pr-[0.5rem]">{user.name ? user.name : 'Joining user'}</p>
+
+        {!user.gifId && <DotDotDotAnimation className="self-end pb-[0.5rem]" />}
       </div>
 
       <div className="flex gap-2 items-center pl-2">
