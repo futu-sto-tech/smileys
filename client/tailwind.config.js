@@ -19,6 +19,8 @@ export default {
     fontSize: {
       sm: '0.8rem',
       base: '1.6rem',
+      md: '2rem',
+      lg: '2.4rem',
     },
     borderRadius: {
       none: '0',

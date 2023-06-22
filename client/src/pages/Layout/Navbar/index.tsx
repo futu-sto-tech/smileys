@@ -48,6 +48,7 @@ function Navbar() {
     [`${styles.logo_centered}`]:
       (location && location.pathname.includes('/create')) ||
       location.pathname.includes('/browse') ||
+      location.pathname.includes('/end') ||
       //  18 is the length of the characters in the giphy api url
       location.pathname.match(/.+\/.{18}$/),
   })
