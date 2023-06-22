@@ -26,9 +26,9 @@ function ShareRoom({ big, onCopied, roomId }: ShareSessionProps) {
     <div className={`${styles.container} ${big ? styles.big : styles.small}`}>
       <p className={styles.url}>{`${window.location.hostname}/${roomId}`}</p>
       {hasCopied ? (
-        <p>Copied!</p>
+        <p className="text-center h-[3.5rem] w-[10rem] pt-1.5">Copied!</p>
       ) : (
-        <Button buttonColor="black" onClick={handleClick}>
+        <Button buttonColor="black" onClick={handleClick} className="h-[3.5rem]">
           Copy link
         </Button>
       )}
