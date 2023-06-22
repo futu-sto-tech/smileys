@@ -41,6 +41,7 @@ function EnterNamePage() {
           onChange={(e) => {
             setUser({ ...user, name: e.target.value })
           }}
+          onEnter={handleContinue}
         ></Input>
         <Button onClick={handleContinue}>Continue</Button>
       </div>
