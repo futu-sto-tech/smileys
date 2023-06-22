@@ -5,7 +5,7 @@ import { Session, User } from '../types/types'
 import { useNavigate, useParams } from 'react-router-dom'
 import * as serverService from '../services/server'
 import NotFoundPage from '../pages/NotFoundPage'
-import Loader from '../pages/PresentGifPage/DotDotDotAnimation'
+import DotDotDotAnimation from '../pages/PresentGifPage/DotDotDotAnimation'
 
 interface ComponentWithSessionProps {
   session: Session
@@ -72,7 +72,7 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
   }
 
   if (!roomIdRequirements(roomId) || !gifIdRequirements(gifId)) return <NotFoundPage />
-  else if (!session) return <Loader />
+  else if (!session) return <DotDotDotAnimation />
 
   return <Component session={session}></Component>
 }

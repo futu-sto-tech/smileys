@@ -41,10 +41,14 @@ const loadingCircleTransition = {
   ease: 'easeInOut',
 }
 
-const DotDotDotAnimation = () => {
+interface DotDotDotAnimationProps {
+  className?: string
+}
+
+const DotDotDotAnimation = (props: DotDotDotAnimationProps) => {
   return (
-    <div>
-      <div className="flex fixed justify-center items-center">
+    <div className={props.className}>
+      <div className="flex justify-center items-center">
         <motion.div style={loadingContainer} variants={loadingContainerVariants} initial="start" animate="end">
           <motion.span
             style={loadingCircle}
