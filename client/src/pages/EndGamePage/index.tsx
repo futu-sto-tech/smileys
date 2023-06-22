@@ -4,28 +4,7 @@ import Confetti from 'react-confetti'
 import { useEffect, useRef, useState } from 'react'
 
 function EndGamePage() {
-  const [seconds, setSeconds] = useState(0)
-  const [randomValue, setRandomValue] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1)
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [])
-
-  useEffect(() => {
-    const changeTimer = setInterval(() => {
-      setRandomValue(Math.round(Math.random() * 2 - 1))
-    }, 2000)
-
-    return () => clearInterval(changeTimer)
-  }, [])
-
   const navigate = useNavigate()
-
-  const confettiHalfWidth = 100
 
   const endGameGifs = [
     'https://media.giphy.com/media/DffShiJ47fPqM/giphy.gif',
