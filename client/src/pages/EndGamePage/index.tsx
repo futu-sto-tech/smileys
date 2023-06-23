@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import Confetti from 'react-confetti'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
 function EndGamePage() {
   const navigate = useNavigate()
