@@ -1,15 +1,23 @@
-import { Server, Socket } from 'socket.io'
+import { Socket } from 'socket.io'
 import { Session, UserSocket, User } from '../types/session'
 import { v4 as uuid } from 'uuid'
 import { Error400 } from '../types/error'
 import _ from 'lodash'
+import {
+  addUserSocket,
+  createUniqueCode,
+  addUserToSession,
+  getPrevPresenter,
+  getNextPresenter,
+  getNewPresenter,
+} from './utils'
 
 export let sessions: Session[] = []
 export let userSockets: UserSocket[] = []
 
-export const registerSessionHandlers = (wss: Server, ws: Socket) => {
+export const registerSessionHandlers = (ws: Socket) => {
   const createSession = (data: { user: User; code: string }, callback: any) => {
-    addUserSocket(ws, data.user)
+    addUserSocket(ws, userSockets, data.user)
 
     const user: User = { ...data.user }
 
@@ -44,7 +52,7 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
       addUserToSession(session, data.user)
     }
 
-    addUserSocket(ws, data.user)
+    addUserSocket(ws, userSockets, data.user)
     ws.join(session.id)
     ws.to(session.id).emit('sessionUpdated', session)
     if (typeof callback == 'function') {
@@ -127,14 +135,6 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
     }
   }
 
-  // const disbandSession = (data: { code: Pick<Session, 'code'>; userId: Pick<User, 'id'> }) => {
-  //   const sessionIndex = sessions.findIndex((session) => session.code === data.code)
-  //   if (sessionIndex > -1) {
-  //     wss.in(sessions[sessionIndex].id).emit('sessionUpdated', null)
-  //     sessions.splice(sessionIndex, 1)
-  //   }
-  // }
-
   const startGame = (data: { code: string; userId: string }, callback: Function) => {
     const session = sessions.find((session) => session.code === data.code)
     if (!session) return ws.send('Session id not found')
@@ -175,98 +175,6 @@ export const registerSessionHandlers = (wss: Server, ws: Socket) => {
   ws.on('updateSessionPresenter', updateSessionPresenter)
   ws.on('leaveSession', leaveSession)
   ws.on('deleteSession', deleteSession)
-  // ws.on('disbandSession', disbandSession)
   ws.on('startGame', startGame)
   ws.on('rejoinSession', rejoinSession)
-}
-
-const getNextPresenter = (session: Session) => {
-  const presenter = session.users[session.presenterIndex]
-  if (presenter.id === session.presentOrder[session.presentOrder.length - 1].id) {
-    getNewPresenter(session)
-  } else {
-    const currentPresenterOrderIndex = session.presentOrder.findIndex((user) => user.id === presenter.id)
-    const nextPresenter = session.presentOrder[currentPresenterOrderIndex + 1]
-    session.presenterIndex = session.users.findIndex((user) => user.id === nextPresenter.id)
-  }
-}
-
-const getNewPresenter = (session: Session) => {
-  const presenter = _.sample(
-    session.users
-      .filter((user) => !!user.gifId)
-      .filter((user) => {
-        return !session.presentOrder.find((userPresenter) => {
-          return userPresenter.id == user.id
-        })
-      })
-  )
-  if (presenter) {
-    session.presentOrder.push(presenter)
-    const presenterIndex = session.users.findIndex((user) => user.id === presenter.id)
-    session.presenterIndex = presenterIndex !== -1 ? presenterIndex : session.presenterIndex + 1
-  }
-}
-
-const getPrevPresenter = (session: Session) => {
-  const presenter = session.users[session.presenterIndex]
-  const currentPresenterOrderIndex = session.presentOrder.findIndex((user) => user.id === presenter.id)
-  if (currentPresenterOrderIndex) {
-    const previousPresenter = session.presentOrder[currentPresenterOrderIndex - 1]
-    session.presenterIndex = session.users.findIndex((user) => user.id === previousPresenter.id)
-  }
-}
-
-const addUserToSession = (session: Session, newUser: User) => {
-  if (
-    !session.users.find((user) => {
-      return newUser.id === user.id
-    })
-  ) {
-    session.users.push(newUser)
-  }
-}
-
-const addUserSocket = (ws: any, user: User) => {
-  const newUserSockets = userSockets.filter((userSocket) => {
-    return userSocket.user.id !== user.id
-  })
-  newUserSockets.push({
-    socket: ws,
-    user: user,
-  })
-  userSockets = newUserSockets
-}
-
-const logSessions = () => {
-  for (const session of sessions) {
-    console.log(
-      `code=${session.code}, users=${session.users.map((user) => user.name)}, gameStarted=${session.gameStarted} id=${
-        session.id
-      }`
-    )
-  }
-}
-
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-const createCode = (): string => {
-  let code = ''
-  for (let i = 0; i < 4; i++) {
-    const randomIndex = Math.floor(Math.random() * ALPHABET.length)
-    code = code.concat(ALPHABET[randomIndex])
-  }
-  return code
-}
-
-const createUniqueCode = (): string => {
-  let code = createCode()
-  while (
-    sessions.find((session) => {
-      return session.code == code
-    })
-  ) {
-    code = createCode()
-  }
-  return code
 }

@@ -1,3 +1,7 @@
+import { Server } from 'socket.io'
+
+export type WebSocketServer = Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>
+
 export interface ServerToClientEvents {
   noArg: () => void
   basicEmit: (a: number, b: string, c: Buffer) => void

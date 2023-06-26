@@ -5,11 +5,9 @@ import { Server, Socket } from 'socket.io'
 import { Express } from 'express'
 import { networkInterfaces } from 'os'
 import { registerSessionHandlers } from '../socket-handlers/sessionHandlers'
-import { ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData } from '../types/websocket'
 import { Server as HttpServer, createServer as createHttpServer } from 'http'
 import { createApp } from './createApp'
-
-type WebSocketServer = Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>
+import { WebSocketServer } from '../types/websocket'
 
 export async function startServer(): Promise<{ httpServer: HttpServer; webSocketServer: WebSocketServer }> {
   const app = createApp()
@@ -42,7 +40,7 @@ async function startWebSocketServer(server: HttpServer): Promise<WebSocketServer
   wss.on('connection', (ws: Socket) => {
     clients.push(ws)
     console.log('Connected:', ws.id.substring(0, 3))
-    registerSessionHandlers(wss, ws)
+    registerSessionHandlers(ws)
 
     ws.on('disconnect', () => {
       console.log('Disconnected:', ws.id.substring(0, 3))
