@@ -1,0 +1,19 @@
+# fly.toml app configuration file generated for smileys-production on 2023-06-26T15:06:36+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "smileys-production"
+primary_region = "arn"
+
+[env]
+  ENVIRONMENT = "DEVELOPMENT"
+  ORIGIN = "*"
+  PORT = "8020"
+
+[http_service]
+  internal_port = 8020
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
