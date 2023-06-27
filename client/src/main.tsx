@@ -5,7 +5,6 @@ import { RouterProvider } from 'react-router-dom'
 import { AppProvider } from './shared/AppContext'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { router } from './pages/router'
-import Layout from './pages/Layout'
 
 const queryClient = new QueryClient()
 

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
-export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
+export const AppProvider = ({ children }: { children: JSX.Element | React.ReactElement[] }) => {
   const [user, setUser] = useState<User>(obtainUser())
   const [error, setError] = useState<ServerError>()
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
