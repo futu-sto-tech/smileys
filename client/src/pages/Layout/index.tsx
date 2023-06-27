@@ -5,6 +5,7 @@ import NavBar from './Navbar'
 import ResolutionNotSupported from './ResolutionNotSupported'
 import useResolutionSupported from '../../hooks/useResolutionSupported'
 import { useEffect } from 'react'
+import CookieBanner from '../../components/CookieBanner'
 
 const { navStyle, footerStyle, contentStyle, mainStyle } = styling
 
@@ -22,13 +23,16 @@ function Layout() {
   }, [location])
 
   return (
-    <main className={mainStyle}>
-      <NavBar />
-      <div className={contentStyle}>
-        <Outlet />
-      </div>
-      <Footer />
-    </main>
+    <>
+      <CookieBanner />
+      <main className={mainStyle}>
+        <NavBar />
+        <div className={contentStyle}>
+          <Outlet />
+        </div>
+        <Footer />
+      </main>
+    </>
   )
 }
 
