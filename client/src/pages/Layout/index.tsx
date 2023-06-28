@@ -25,6 +25,10 @@ function Layout() {
   const [allowTracking, _] = useLocalStorage<boolean>('allowTracking', false)
 
   useEffect(() => {
+    if (allowTracking && TRACKING_ID) ReactGA.initialize(TRACKING_ID)
+  }, [])
+
+  useEffect(() => {
     if (allowTracking && TRACKING_ID) ReactGA.send({ hitType: 'pageview', page: window.location.pathname })
     window.scrollTo({ top: 0 })
   }, [location])

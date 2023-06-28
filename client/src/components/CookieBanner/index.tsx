@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import useLocalStorage from 'use-local-storage'
 import { Button } from '../Button'
+import { TRACKING_ID } from '../../consts/envs'
+import ReactGA from 'react-ga4'
 
 enum showBannerStates {
   Unset = 'unset',
@@ -22,6 +24,7 @@ const CookieBanner: React.FC<{}> = () => {
 
   function handleAccept() {
     setAllowTracking(true)
+    ReactGA.initialize(TRACKING_ID)
     setShowCookieBanner(showBannerStates.Hide)
     localStorage.setItem('showCookieBanner', showBannerStates.Hide)
   }
