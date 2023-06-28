@@ -1,5 +1,5 @@
 /* existing imports */
-import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from '../pages/HomePage'
 import BrowseGifPage from '../pages/BrowseGifPage'
@@ -11,18 +11,34 @@ import RedirectManager from '../components/RedirectManager'
 import ErrorPage from './ErrorPage/ErrorPage'
 import EndGamePage from './EndGamePage'
 import NotFoundPage from './NotFoundPage'
+import { useEffect, useRef } from 'react'
 
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
-      <Route path="/" element={<HomePage />} />
-      <Route path="name/:roomId" element={<EnterNamePage />} />
-      <Route path="create/:roomId" element={<ShareRoomPage />} />
-      <Route path="browse/:roomId" element={<RedirectManager Component={BrowseGifPage} page="BrowseGifPage" />} />
-      <Route path=":roomId/:gifId" element={<RedirectManager Component={SelectGifPage} page="SelectGifPage" />} />
-      <Route path=":roomId" element={<RedirectManager Component={PresentGifPage} page="PresentGifPage" />} />
-      <Route path="end" element={<EndGamePage />} />
-      <Route path="*" element={<RedirectManager Component={NotFoundPage} page="NotFoundPage" />} />
-    </Route>
+interface CustomRouterProps {
+  setRouter: Function
+}
+
+function CustomRouter({ setRouter }: CustomRouterProps) {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="name/:roomId" element={<EnterNamePage />} />
+        <Route path="create/:roomId" element={<ShareRoomPage />} />
+        <Route path="browse/:roomId" element={<RedirectManager Component={BrowseGifPage} page="BrowseGifPage" />} />
+        <Route path=":roomId/:gifId" element={<RedirectManager Component={SelectGifPage} page="SelectGifPage" />} />
+        <Route path=":roomId" element={<RedirectManager Component={PresentGifPage} page="PresentGifPage" />} />
+        <Route path="end" element={<EndGamePage />} />
+        <Route path="*" element={<RedirectManager Component={NotFoundPage} page="NotFoundPage" />} />
+      </Route>
+    )
   )
-)
+  const routerRef = useRef(router)
+
+  useEffect(() => {
+    setRouter(routerRef.current)
+  }, [router])
+
+  return <RouterProvider router={router} />
+}
+
+export default CustomRouter

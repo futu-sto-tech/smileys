@@ -4,12 +4,12 @@ import { Session, User } from '../types/types'
 import { v4 as uuid } from 'uuid'
 import { IAppProvider } from '../types/AppContext'
 import { ServerError } from '../types/errors'
-import { useNavigate } from 'react-router-dom'
+import { RouteObject, Router } from 'react-router-dom'
 
 const AppContext = createContext<any>(null)
 const socket = io(import.meta.env.VITE_SERVER_ADDRESS)
 
-export const AppProvider = ({ children }: { children: JSX.Element | undefined }) => {
+export const AppProvider = ({ children, router }: { children: JSX.Element | undefined; router: any }) => {
   const [user, setUser] = useState<User>(obtainUser())
   const [error, setError] = useState<ServerError>()
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
@@ -70,6 +70,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | undefined })
   }
 
   function createSession(callback?: (code: string) => void) {
+    console.log(router)
+    if (router) router.navigate('/end')
     socket.emit('createSession', { user }, (session: Session) => {
       setSession(session)
       callback && callback(session.code)
