@@ -9,6 +9,7 @@ const GoogleAnalytics = () => {
   const [allowTracking, _] = useLocalStorage<boolean>('allowTracking', false)
 
   useEffect(() => {
+    console.log('Yeah boi')
     ReactGA.send({ hitType: 'pageview', page: window.location.pathname })
   }, [location])
 

@@ -6,6 +6,7 @@ import ResolutionNotSupported from './ResolutionNotSupported'
 import useResolutionSupported from '../../hooks/useResolutionSupported'
 import { useEffect } from 'react'
 import CookieBanner from '../../components/CookieBanner'
+import GoogleAnalytics from '../../components/GoogleAnalytics'
 
 const { navStyle, footerStyle, contentStyle, mainStyle } = styling
 
@@ -25,6 +26,7 @@ function Layout() {
   return (
     <>
       <CookieBanner />
+      <GoogleAnalytics />
       <main className={mainStyle}>
         <NavBar />
         <div className={contentStyle}>
