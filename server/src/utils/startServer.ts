@@ -56,7 +56,7 @@ async function startWebSocketServer(server: HttpServer): Promise<WebSocketServer
   return wss
 }
 
-function getLocalIPAdress(): string | undefined {
+export function getLocalIPAdress(): string | undefined {
   const nets = networkInterfaces()
   let localAddr: string
 

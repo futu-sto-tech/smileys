@@ -1,4 +1,4 @@
-import { startServer } from './utils/startServer'
+import { startServer } from '../src/utils/startServer'
 
 export const init = async () => {
   try {

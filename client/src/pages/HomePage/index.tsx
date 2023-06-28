@@ -5,7 +5,6 @@ import { IAppProvider } from '../../types/AppContext'
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.scss'
 import Typewriter from 'typewriter-effect'
-import { set } from 'lodash'
 
 function HomePage() {
   const { createSession }: IAppProvider = useContext(AppContext)
@@ -55,6 +54,7 @@ function HomePage() {
         className={`${styles.createAnewRoomButton}`}
         onClick={handleCreate}
         isLoading={isLoading}
+        data-testid="first-create-room-button"
       >
         Create a room
       </Button>
