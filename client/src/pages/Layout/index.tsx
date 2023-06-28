@@ -25,6 +25,7 @@ function Layout() {
   return (
     <>
       <CookieBanner />
+      <GoogleAnalytics />
       <main className={mainStyle}>
         <NavBar />
         <div className={contentStyle}>
