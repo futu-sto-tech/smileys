@@ -6,7 +6,7 @@ test('host completes a session without participants', async ({ page }) => {
 
   // Act & Assert
   await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'Avvisa' }).click()
+  await page.getByRole('button', { name: 'Accept' }).click()
   await page.getByTestId('first-create-room-button').click()
   await expect(page.getByRole('heading', { name: "Your team's room code", exact: true })).toBeVisible()
   await page.getByRole('button', { name: 'Copy link' }).click()
