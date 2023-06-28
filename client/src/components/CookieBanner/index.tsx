@@ -24,7 +24,7 @@ const CookieBanner: React.FC<{}> = () => {
 
   function handleAccept() {
     setAllowTracking(true)
-    ReactGA.initialize(TRACKING_ID)
+    TRACKING_ID && ReactGA.initialize(TRACKING_ID)
     setShowCookieBanner(showBannerStates.Hide)
     localStorage.setItem('showCookieBanner', showBannerStates.Hide)
   }
