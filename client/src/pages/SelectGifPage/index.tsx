@@ -20,10 +20,6 @@ function SelectGifPage() {
   const activeGif = userGifMap?.get(gifId)
   const gifThumbnailUrl = activeGif?.images['480w_still'].url || ''
 
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0 })
-  // }, [])
-
   return (
     <div className={styles.container}>
       <h1>Select this GIF?</h1>

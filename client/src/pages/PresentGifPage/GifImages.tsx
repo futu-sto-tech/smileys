@@ -21,6 +21,7 @@ function GifImages({ userGifsByIdMap, activeGif }: GifImagesProps) {
             width={'800px'}
             src={gif.images.original.url}
             className={`${styles.gif} ${isActiveGif(gif) ? '' : 'opacity-0'}`}
+            data-testid="user-gif"
           />
         ))}
       </div>

@@ -60,9 +60,10 @@ export function SelectableGif({ original_url, downsampled_url, id, height, sessi
                 onLoad={() => {
                   setIsLoading(false)
                 }}
+                data-testid="selectable-gif"
               />
             ) : (
-              <img src={original_url} className={styles.gif} alt={`GIPHY ${id}`} />
+              <img data-testid="selectable-gif" src={original_url} className={styles.gif} alt={`GIPHY ${id}`} />
             )}
           </>
         )}

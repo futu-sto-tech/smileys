@@ -7,7 +7,8 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\"",
-    "test": "jest --watchAll --coverage --coverageReporters=text"
+    "test": "jest --watchAll --coverage --coverageReporters=text",
+    "ptest": "npx playwright test --reporter=line"
   },
   "author": "",
   "license": "ISC",
