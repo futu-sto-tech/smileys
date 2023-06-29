@@ -8,14 +8,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { IAppProvider } from '../../types/AppContext'
 
 function EnterNamePage() {
-  const { handleChangedName, user, setUser, joinSession, session, updateSessionUser }: IAppProvider =
+  const { handleChangedName, user, setUser, joinSession, session, sessionEnded, updateSessionUser }: IAppProvider =
     useContext(AppContext)
   let { roomId } = useParams()
   const navigate = useNavigate()
 
   function handleContinue() {
     handleChangedName()
-    if (!session && roomId) {
+    if (!session && !sessionEnded && roomId) {
       joinSession(roomId, () => {
         navigate(`/browse/${roomId}`)
       })

@@ -17,25 +17,38 @@ interface RedirectManagerProps<T extends ComponentWithSessionProps> {
 }
 
 const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWithSessionProps>) => {
-  const { webSocketState, session, joinSession, createSessionWithCode, user }: IAppProvider = useContext(AppContext)
+  const { webSocketState, session, joinSession, createSessionWithCode, user, sessionEnded }: IAppProvider =
+    useContext(AppContext)
   const { roomId, gifId } = useParams()
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (!session && !sessionEnded) handleJoinSession()
     redirect(webSocketState, session, roomId, user)
   }, [webSocketState, session])
 
+  function handleJoinSession() {
+    if (
+      (page === 'BrowseGifPage' || page === 'SelectGifPage' || page === 'PresentGifPage') &&
+      roomIdRequirements(roomId)
+    ) {
+      joinOrCreateSession()
+    }
+  }
+
   function redirect(webSocketState: string, session: Session | undefined, roomId: string | undefined, user: User) {
-    if (webSocketState === 'Connected to Websocket' && !session) {
-      if (page === 'BrowseGifPage' && roomIdRequirements(roomId)) joinOrCreateSession()
-      //RoomId could be undefined if the user inputs url .../present/ etc.
-      if (page === 'SelectGifPage' || page === 'PresentGifPage') {
-        if (roomIdRequirements(roomId)) handleJoinSession(roomId!)
-      }
+    console.log('redirect')
+    if (webSocketState === 'Connected to Websocket') {
+      if (sessionEnded) navigate('/end')
+
       if (page !== 'HomePage' && page !== 'ShareRoomPage' && !user.name) {
         navigate(`/name/${roomId}`)
-      } else if (page === 'PresentGifPage' && session && !user.gifId && roomIdRequirements(roomId))
+      }
+      console.log({ page, gifid: user.gifId, roomId, roomIdRequirements: roomIdRequirements(roomId), session })
+      if (page === 'PresentGifPage' && session && !user.gifId && roomIdRequirements(roomId)) {
+        console.log('im in there dog')
         navigate(`/browse/${roomId}`)
+      }
     }
   }
 
@@ -60,15 +73,8 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
   }
 
   async function joinOrCreateSession() {
-    if (!session) {
-      const exists = await sessionExists(roomId!)
-      exists ? joinSession(roomId!) : createSessionWithCode(roomId!)
-    }
-  }
-
-  async function handleJoinSession(roomId: string) {
-    const exists = await sessionExists(roomId)
-    exists ? joinSession(roomId) : navigate('/end')
+    const exists = await sessionExists(roomId!)
+    exists ? joinSession(roomId!) : createSessionWithCode(roomId!)
   }
 
   if (!roomIdRequirements(roomId) || !gifIdRequirements(gifId)) return <NotFoundPage />

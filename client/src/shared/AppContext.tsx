@@ -15,6 +15,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
   const [gifSearchTerm, setGifSearchTerm] = useState<string>('')
   const [webSocketState, setWebSocketState] = useState<string>('Loading Websocket...')
   const [session, setSession] = useState<Session>()
+  const [gameEnded, setGameEnded] = useState(false)
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -27,11 +28,10 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
     socket.on('sessionUpdated', (session) => {
       setSession(session)
     })
-    // socket.on('gameStarted', () => {
-    //   if (sessionRef.current) {
-    //
-    //   }
-    // })
+    socket.on('sessionDeleted', () => {
+      setGameEnded(true)
+      setSession(session)
+    })
     socket.on('disconnect', () => {
       setWebSocketState('Disconnected from Websocket')
     })
@@ -111,6 +111,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
   }
 
   function deleteSession() {
+    setGameEnded(true)
     if (!session) return
     socket.emit('deleteSession', { code: session.code }, (session: Session | undefined) => {
       setSession(session)
@@ -128,6 +129,8 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
     socket,
     session,
     setSession,
+    sessionEnded: gameEnded,
+    setSessionEnded: setGameEnded,
     webSocketState,
     joinSession,
     createSession,

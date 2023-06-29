@@ -129,7 +129,7 @@ export const registerSessionHandlers = (ws: Socket) => {
     sessions = sessions.filter((session) => {
       return session.code !== data.code
     })
-    ws.to(session.id).emit('sessionUpdated', undefined)
+    ws.to(session.id).emit('sessionDeleted', undefined)
     if (typeof callback == 'function') {
       callback(undefined)
     }
