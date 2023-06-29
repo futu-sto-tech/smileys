@@ -32,7 +32,8 @@ function EnterNamePage() {
 
   return (
     <div className={styles.container}>
-      <h1>Hey, welcome to your team's smileys session!</h1>
+      <h1 className="mb-[20px]">Hey, welcome to your team's smileys session!</h1>
+
       <p>Your name will be visible to other participants.</p>
       <div className={styles.nameForm}>
         <Input

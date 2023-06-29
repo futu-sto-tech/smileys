@@ -50,6 +50,7 @@ function Navbar() {
       (location && location.pathname.includes('/create')) ||
       location.pathname.includes('/browse') ||
       location.pathname.includes('/end') ||
+      location.pathname.includes('/name') ||
       //  18 is the length of the characters in the giphy api url
       location.pathname.match(/.+\/.{18}$/),
   })
