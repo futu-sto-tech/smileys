@@ -5,6 +5,7 @@ import { Button } from '../../components/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import Tooltip from '../../components/Tooltip'
 import DotDotDotAnimation from './DotDotDotAnimation'
+import { nameInputValidation } from '../../configs/inputValidations'
 
 interface ParticipantListItemProps {
   user: User
@@ -16,12 +17,6 @@ interface ParticipantListItemProps {
 
 type Inputs = {
   changeNameInput: string
-}
-
-const inputRequirements = {
-  required: { value: true, message: 'Name cannot be empty' },
-  minLength: { value: 1, message: 'Name must be at least 4 characters' },
-  maxLength: { value: 20, message: 'Name cannot be longer than 18 characters' },
 }
 
 const ParticipantListItem = ({
@@ -51,7 +46,7 @@ const ParticipantListItem = ({
       displayArrow={false}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex items-center">
-        <Input register={register('changeNameInput', inputRequirements)} style={{ padding: '8px 10px' }}></Input>
+        <Input register={register('changeNameInput', nameInputValidation)} style={{ padding: '8px 10px' }}></Input>
         <Button className="ml-4">Save</Button>
       </form>
     </Tooltip>

@@ -4,8 +4,7 @@ import { ServerError } from './errors'
 
 export interface IAppProvider {
   user: User
-  setUser: React.Dispatch<React.SetStateAction<User>>
-  handleChangedName: Function
+  handleChangedName: (name: string) => void
   socket: Socket
   session?: Session
   setSession: React.Dispatch<React.SetStateAction<Session | undefined>>

@@ -56,7 +56,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
     return { ...JSON.parse(userJSON), gifId: '' }
   }
 
-  function saveUser(user: User) {
+  function saveUserToLocalSorage(user: User) {
     localStorage.setItem('user', JSON.stringify(user))
   }
 
@@ -83,7 +83,7 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
   }
 
   function updateSessionUser(updatedUser: User, promoteToCreator?: boolean, callback?: () => void) {
-    saveUser(updatedUser)
+    saveUserToLocalSorage(updatedUser)
     if (!session) return
     setUser(updatedUser)
     socket.emit(
@@ -118,13 +118,13 @@ export const AppProvider = ({ children }: { children: JSX.Element | React.ReactE
     })
   }
 
-  function handleChangedName() {
-    saveUser(user)
+  function handleChangedName(name?: string) {
+    setUser({ ...user, name: name || '' })
+    saveUserToLocalSorage(user)
   }
 
   const providers: IAppProvider = {
     user,
-    setUser,
     handleChangedName,
     socket,
     session,
