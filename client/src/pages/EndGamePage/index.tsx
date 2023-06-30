@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import Confetti from 'react-confetti'
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
+import AppContext from '../../shared/AppContext'
+import { IAppProvider } from '../../types/AppContext'
 
 function EndGamePage() {
+  const { setSessionEnded }: IAppProvider = useContext(AppContext)
   const navigate = useNavigate()
 
   const endGameGifs = [
@@ -36,6 +39,7 @@ function EndGamePage() {
         <Button
           className="mt-10"
           onClick={() => {
+            setSessionEnded(false)
             navigate('/')
           }}
         >

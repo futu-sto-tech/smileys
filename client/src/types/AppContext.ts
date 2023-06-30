@@ -8,6 +8,8 @@ export interface IAppProvider {
   socket: Socket
   session?: Session
   setSession: React.Dispatch<React.SetStateAction<Session | undefined>>
+  sessionEnded: boolean
+  setSessionEnded: React.Dispatch<React.SetStateAction<boolean>>
   webSocketState: string
   joinSession: (roomCode: string, callback?: () => void) => void
   createSession: (callback?: (roomCode: string) => void) => void

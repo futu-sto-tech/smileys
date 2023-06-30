@@ -121,9 +121,9 @@ const CookieBanner: React.FC<{}> = () => {
 
                 <div className={styles.buttons_container}>
                   <div className={styles.button_spacing}>
-                    <Button onClick={handleDecline}>Avvisa</Button>
+                    <Button onClick={handleDecline}>Decline</Button>
                   </div>
-                  <Button onClick={handleAccept}>Acceptera</Button>
+                  <Button onClick={handleAccept}>Accept</Button>
                 </div>
               </div>
             </div>

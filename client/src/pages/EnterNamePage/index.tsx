@@ -14,7 +14,8 @@ type Inputs = {
 }
 
 function EnterNamePage() {
-  const { handleChangedName, user, joinSession, session, updateSessionUser }: IAppProvider = useContext(AppContext)
+  const { handleChangedName, user, joinSession, session, sessionEnded, updateSessionUser }: IAppProvider =
+    useContext(AppContext)
 
   const {
     register,
@@ -33,7 +34,7 @@ function EnterNamePage() {
   }, [name])
 
   const onSubmit: SubmitHandler<Inputs> = () => {
-    if (!session && roomId) {
+    if (!session && !sessionEnded && roomId) {
       joinSession(roomId, () => {
         navigate(`/browse/${roomId}`)
       })
