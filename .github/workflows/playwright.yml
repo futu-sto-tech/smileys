@@ -25,7 +25,7 @@ jobs:
       - name: NPM Install
         run: npm install
       - name: Start frontend server
-        run: npm run start
+        run: npm run dev
       - name: Move back to server directory
         run: cd ../server
       - name: Run Playwright tests
