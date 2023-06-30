@@ -22,6 +22,8 @@ jobs:
         run: npx playwright install --with-deps
       - name: Move to frontend directory
         run: cd ../client
+      - name: NPM Install
+        run: npm install
       - name: Start frontend server
         run: npm run start
       - name: Move back to server directory
