@@ -20,6 +20,12 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: Move to frontend directory
+        run: cd ../client
+      - name: Start frontend server
+        run: npm run start
+      - name: Move back to server directory
+        run: cd ../server
       - name: Run Playwright tests
         run: npx playwright test --reporter=line
         env:
