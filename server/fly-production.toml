@@ -7,7 +7,7 @@ app = "smileys-production"
 primary_region = "arn"
 
 [env]
-  ENVIRONMENT = "DEVELOPMENT"
+  ENVIRONMENT = "PRODUCTION"
   ORIGIN = "*"
   PORT = "8020"
 

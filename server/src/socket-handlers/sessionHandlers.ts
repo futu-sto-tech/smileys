@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io'
 import { Session, UserSocket, User } from '../types/session'
 import { v4 as uuid } from 'uuid'
-// import { Error400 } from '../types/error'
+import { Error400 } from '../types/error'
 import _ from 'lodash'
 import {
   addUserSocket,
@@ -40,8 +40,7 @@ export const registerSessionHandlers = (ws: Socket) => {
   const joinSession = (data: { code: string; user: User }, callback: any) => {
     const session = sessions.find((session) => session.code === data.code)
     if (!session) {
-      // ws.emit('error', new Error400('Invalid session code').getClientError())
-      ws.emit('error')
+      ws.emit('error', new Error400('Invalid session code').getClientError())
       return
     }
 
