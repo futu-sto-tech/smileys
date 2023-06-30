@@ -2,6 +2,7 @@ import styles from './ParticipantList.module.scss'
 import { Button } from '../../components/Button'
 import { Session, User, UserGifsByIdMap } from '../../types/types'
 import ParticipantListItem from './ParticipantListItem'
+import { useEffect } from 'react'
 
 interface ParticipantListProps {
   users: User[]
@@ -66,45 +67,49 @@ function ParticipantList({
 
   return (
     <div className={styles.participantContainer}>
-      <div>
+      <div className="flex flex-col overflow-auto">
         <h1 className={styles.participants}>Participants</h1>
-        {users.map((user, i) => (
-          <ParticipantListItem
-            hasPresented={userHasPresented(user)}
-            key={`user-${user.gifId}`}
-            user={user}
-            isClientUser={isClientUser(user, clientUser)}
-            updateSessionUser={updateSessionUser}
-            isCurrentUser={isCurrentUser(user)}
-          />
-        ))}
+        <div className="flex flex-col overflow-auto">
+          {users.map((user, i) => (
+            <ParticipantListItem
+              hasPresented={userHasPresented(user)}
+              key={`user-${user.gifId}`}
+              user={user}
+              isClientUser={isClientUser(user, clientUser)}
+              updateSessionUser={updateSessionUser}
+              isCurrentUser={isCurrentUser(user)}
+            />
+          ))}
+        </div>
       </div>
 
-      {gameStarted && isCreator && (
-        <div className={styles.navigationButtonsContainer}>
-          <Button buttonColor={isFirstPresenter ? 'gray' : 'white'} onClick={handleBack}>
-            <img
-              src="../../../../assets/icons/arrowLeft.svg"
-              alt="back"
-              style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
-              height={10}
-              width={10}
-            />{' '}
-            Back
-          </Button>
-
-          <Button buttonColor={isLastPresenter ? 'gray' : 'white'} onClick={handleNext}>
-            Next{' '}
-            <img
-              src="../../../../assets/icons/arrowRight.svg"
-              alt="next"
-              style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
-              height={10}
-              width={10}
-            />
-          </Button>
-        </div>
-      )}
+      <div className={styles.navigationButtonsContainer}>
+        {gameStarted && isCreator && (
+          <>
+            {' '}
+            <Button buttonColor={isFirstPresenter ? 'gray' : 'white'} onClick={handleBack}>
+              <img
+                src="../../../../assets/icons/arrowLeft.svg"
+                alt="back"
+                style={isFirstPresenter ? {} : { filter: 'brightness(0)' }}
+                height={10}
+                width={10}
+              />{' '}
+              Back
+            </Button>
+            <Button buttonColor={isLastPresenter ? 'gray' : 'white'} onClick={handleNext}>
+              Next{' '}
+              <img
+                src="../../../../assets/icons/arrowRight.svg"
+                alt="next"
+                style={isLastPresenter ? {} : { filter: 'brightness(0)' }}
+                height={10}
+                width={10}
+              />
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   )
 }
