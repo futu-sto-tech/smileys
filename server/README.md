@@ -1,6 +1,6 @@
 # Smileys Server
 
-Smileys Server provides a Rest API and WebSockets for Futurice Smileys project.
+Smileys Server provides a Rest API and WebSockets for Futurice Smileys project. The server side uses NodeJS and is hosted on Fly. The owner of the fly account is smileys.futurice@gmail.com
 
 ## Getting Started
 
@@ -19,6 +19,8 @@ Create a file named .env and get the contents from 1password and run
     npm run dev
 
 ### Deploy
+
+There are two environments, the stable production environment, which only the production client environment points to, and the development environment which all staging client environments points to.
 
 Deploy Development
 
