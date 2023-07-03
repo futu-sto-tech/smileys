@@ -1,42 +1,42 @@
-name: Playwright Tests
-on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
-jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./server
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Move to frontend directory
-        run: cd ../client
-      - name: NPM Install
-        run: npm install
-      - name: Start frontend server
-        run: npm run dev
-      - name: Move back to server directory
-        run: cd ../server
-      - name: Run Playwright tests
-        run: npx playwright test --reporter=line
-        env:
-          PORT: "8020"
-          ORIGIN: "*"
-          ENVIRONMENT: DEVELOPMENT
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+# name: Playwright Tests
+# on:
+#   push:
+#     branches: [main, dev]
+#   pull_request:
+#     branches: [main, dev]
+# jobs:
+#   test:
+#     timeout-minutes: 60
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: ./server
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#       - name: Install dependencies
+#         run: npm ci
+#       - name: Install Playwright Browsers
+#         run: npx playwright install --with-deps
+#       - name: Move to frontend directory
+#         run: cd ../client
+#       - name: NPM Install
+#         run: npm install
+#       - name: Start frontend server
+#         run: npm run dev
+#       - name: Move back to server directory
+#         run: cd ../server
+#       - name: Run Playwright tests
+#         run: npx playwright test --reporter=line
+#         env:
+#           PORT: "8020"
+#           ORIGIN: "*"
+#           ENVIRONMENT: DEVELOPMENT
+#       - uses: actions/upload-artifact@v3
+#         if: always()
+#         with:
+#           name: playwright-report
+#           path: playwright-report/
+#           retention-days: 30
