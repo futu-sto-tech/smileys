@@ -1,13 +1,3 @@
-.preGameContainer {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    color: var(--white);
-    font-size: 4rem;
-    font-weight: 600;
-  }
+.background {
+  background: linear-gradient(45deg, #f2e173 11.46%, #fff 43.14%, #b3cc75 98.44%), #fff;
 }

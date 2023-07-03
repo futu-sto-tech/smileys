@@ -10,9 +10,18 @@ interface GameWindowProps {
   currentUser: User
   userGifsByIdMap?: UserGifsByIdMap
   activeGif?: GifResult
+  code: string
 }
 
-function GameWindow({ gameStarted, startGame, isCreator, currentUser, userGifsByIdMap, activeGif }: GameWindowProps) {
+function GameWindow({
+  gameStarted,
+  startGame,
+  isCreator,
+  currentUser,
+  userGifsByIdMap,
+  activeGif,
+  code,
+}: GameWindowProps) {
   return (
     <div className={styles.gameWindowContainer}>
       {gameStarted ? (
@@ -23,7 +32,7 @@ function GameWindow({ gameStarted, startGame, isCreator, currentUser, userGifsBy
           userGifsByIdMap={userGifsByIdMap}
         />
       ) : (
-        <PreGameView isCreator={isCreator} startGame={startGame} />
+        <PreGameView code={code} isCreator={isCreator} startGame={startGame} />
       )}
     </div>
   )

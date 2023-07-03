@@ -14,7 +14,7 @@ interface GifPresentationPageProps {
 function PresentGifPage({ session }: GifPresentationPageProps) {
   const { user, updateSessionPresenter, startGame, updateSessionUser }: IAppProvider = useContext(AppContext)
 
-  const { presenterIndex, users, gameStarted } = session
+  const { presenterIndex, users, gameStarted, code } = session
   const { isError, data: userGifMap, error, isFetching } = useGetGifs(users)
   const isCreator = user.id === session.creator.id
   const currentUser = users.find((user) => user.id === users[presenterIndex].id)!
@@ -46,6 +46,7 @@ function PresentGifPage({ session }: GifPresentationPageProps) {
           gameStarted={gameStarted}
           activeGif={activeGif}
           userGifsByIdMap={userGifMap}
+          code={code}
         />
       )}
     </div>

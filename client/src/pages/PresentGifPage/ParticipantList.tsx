@@ -73,7 +73,7 @@ function ParticipantList({
           {users.map((user, i) => (
             <ParticipantListItem
               hasPresented={userHasPresented(user)}
-              key={`user-${user.gifId}`}
+              key={`user-${user.gifId}-${i}`}
               user={user}
               isClientUser={isClientUser(user, clientUser)}
               updateSessionUser={updateSessionUser}

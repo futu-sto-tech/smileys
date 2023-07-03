@@ -7,7 +7,7 @@ function NotFoundPage() {
 
   return (
     <div className={styles.container}>
-      <p>Page not found 😢</p>
+      <p className="text-xl font-bold">Page not found 😢</p>
       <Button
         style={{ marginTop: 200 }}
         onClick={() => {

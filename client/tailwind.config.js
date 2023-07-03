@@ -17,10 +17,12 @@ export default {
   plugins: [require('daisyui')],
   theme: {
     fontSize: {
-      sm: '0.8rem',
+      sm: '1.2rem',
       base: '1.6rem',
       md: '2rem',
       lg: '2.4rem',
+      xl: '2.8rem',
+      ['2xl']: '3.2rem',
     },
     borderRadius: {
       none: '0',
@@ -35,8 +37,6 @@ export default {
         'primary-green': 'var(--primary-green)',
         'primary-transparent-green': 'var(--primary-transparent-green)',
         'background-green': 'var(--background-green)',
-        white: 'var(--white)',
-        black: 'var(--black)',
         'primary-gray': 'var(--primary-gray)',
         'secondary-gray': 'var(--secondary-gray)',
         'primary-red': 'var(--primary-red)',
