@@ -23,7 +23,7 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
             <ListItem>
               <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">1.</div>
               <p className="font-bold text-base">
-                Invite your team:{' '}
+                Invite your team by sharing this link:{' '}
                 <a className="text-blue-800" href={`${window.location.hostname}/${code}`}>
                   {`${window.location.hostname}/${code}`}
                 </a>
