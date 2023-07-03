@@ -33,13 +33,18 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
               <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">2.</div>
               <p className="font-bold text-base mr-2">Share your screen using your favourite video tool</p>
               <a href="https://meet.google.com/" target="_blank">
-                <img src="/assets/images/gmeet.png" alt="google meet logo" />
+                <img
+                  className="mr-[4px] mt-[3px]"
+                  src="/assets/images/gmeet.png"
+                  height="18px"
+                  alt="google meet logo"
+                />
               </a>
               <a href="https://pwa.zoom.us/wc/" target="_blank">
-                <img className="ml-1" height={'33px'} src="/assets/images/zoom.png" alt="" />
+                <img className=" mr-[1px] mt-[3px]" height="18px" src="/assets/images/zoom.png" alt="" />
               </a>
               <a href="https://teams.microsoft.com/" target="_blank">
-                <img className="ml-1" src="/assets/images/teams.png" alt="" />
+                <img className="ml-[1px] mt-[3px]" height="18px" src="/assets/images/teams.png" alt="" />
               </a>
             </ListItem>
             <ListItem>
