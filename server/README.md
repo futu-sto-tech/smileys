@@ -1,6 +1,6 @@
 # Smileys Server
 
-Smileys Server provides a Rest API and WebSockets for Futurice Smileys project. The server side uses NodeJS and is hosted on Fly JS. The owner of the fly account is smileys.futurice@gmail.com
+Smileys Server provides a Rest API and WebSockets for Futurice Smileys project. The server side uses NodeJS and is hosted on Fly. The owner of the fly account is smileys.futurice@gmail.com
 
 ## Getting Started
 
