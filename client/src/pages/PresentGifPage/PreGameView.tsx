@@ -17,7 +17,7 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
     <div className="flex w-full h-full justify-center items-center p-[15px]">
       {isCreator ? (
         <div className={`${styles.background} flex flex-col bg-white h-full w-full rounded px-[40px] py-[20px]`}>
-          <h1 className="text-xl">You're running this session!</h1>
+          <h1 className="text-md">You're running this session!</h1>
           <h2 className="text-base mb-[12.5px]">Next you might want to ...</h2>
           <div className="flex flex-col gap-[10px]">
             <ListItem>
