@@ -1,4 +1,5 @@
 import { Button } from '../../components/Button'
+import Tooltip from '../../components/Tooltip'
 import styles from './PreGameView.module.scss'
 
 interface PreGameViewProps {
@@ -12,7 +13,10 @@ const ListItem = ({ children }: { children: React.ReactNode }) => (
 )
 
 function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
-  console.log(code)
+    const handleCopy = () => {
+      navigator.clipboard.writeText(`${window.location.hostname}/${code}`)
+    }
+
   return (
     <div className="flex w-full h-full justify-center items-center p-[15px]">
       {isCreator ? (
@@ -24,9 +28,9 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
               <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">1.</div>
               <p className="font-bold text-base">
                 Invite your team by sharing this link:{' '}
-                <a className="text-blue-800" href={`${window.location.hostname}/${code}`}>
-                  {`${window.location.hostname}/${code}`}
-                </a>
+                <Tooltip content='Copied' triggerOnClick>
+                  <span className="text-blue-800 cursor-pointer" onClick={handleCopy}>{`${window.location.hostname}/${code}`}</span>
+                </Tooltip>
               </p>
             </ListItem>
             <ListItem>
