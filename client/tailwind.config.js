@@ -38,6 +38,7 @@ export default {
         'primary-transparent-green': 'var(--primary-transparent-green)',
         'background-green': 'var(--background-green)',
         'primary-gray': 'var(--primary-gray)',
+        'primary-gray-opacity': 'var(--primary-gray-opacity)',
         'secondary-gray': 'var(--secondary-gray)',
         'primary-red': 'var(--primary-red)',
         'background-beige': 'var(--background-beige)',

@@ -30,9 +30,9 @@ function EndGamePage() {
         initialVelocityX={{ min: -7, max: 7 }}
         style={{ zIndex: 0 }}
       />
-      <div className="flex flex-col p-20 pb-10 items-center bg-gray-50 rounded shadow-lg z-10">
-        <h1>Thanks for joining!</h1>
-        <p className="text-md pb-10">
+      <div className="flex flex-col p-20 pb-10 items-center bg-primary-gray rounded shadow-lg z-10">
+        <h1 className="text-white">Thanks for joining!</h1>
+        <p className="text-white text-md pb-10">
           Now go kick ass and chew bubble gum <span className="text-lg">🍬</span>
         </p>
         <img height={400} src={randomGifUrlRef.current} alt="" />
