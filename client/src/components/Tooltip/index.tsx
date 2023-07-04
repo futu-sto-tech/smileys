@@ -7,10 +7,11 @@ interface TooltipProps {
   displayArrow?: boolean
   triggerOnClick?: boolean
   triggerOnHover?: boolean
+  open?: boolean
 }
 
-const Tooltip = ({ children, content, displayArrow = true, triggerOnClick, triggerOnHover }: TooltipProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+const Tooltip = ({ children, content, displayArrow = true, triggerOnClick, triggerOnHover, open }: TooltipProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(!!open)
   const handleOnClick = () => {
     if (!isOpen) {
       setIsOpen(true)
