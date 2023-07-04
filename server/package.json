@@ -20,6 +20,8 @@
     "express-async-errors": "^3.1.1",
     "http-status-codes": "^2.2.0",
     "lodash": "^4.17.21",
+    "mongodb": "^5.6.0",
+    "mongoose": "^7.3.1",
     "socket.io": "^4.6.1",
     "ts-node": "^10.9.1",
     "uuid": "^9.0.0"

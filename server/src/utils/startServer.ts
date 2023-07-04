@@ -8,12 +8,23 @@ import { registerSessionHandlers } from '../socket-handlers/sessionHandlers'
 import { Server as HttpServer, createServer as createHttpServer } from 'http'
 import { createApp } from './createApp'
 import { WebSocketServer } from '../types/websocket'
+import * as mongoose from 'mongoose'
 
 export async function startServer(): Promise<{ httpServer: HttpServer; webSocketServer: WebSocketServer }> {
   const app = createApp()
+  const db = startDatabase()
   const server = await startHttpServer(app)
   const wss = await startWebSocketServer(server)
   return { httpServer: server, webSocketServer: wss }
+}
+
+async function startDatabase() {
+  try {
+    await mongoose.connect(`${process.env.DATABASE_URL}`)
+    console.log('Connected to Mongoose')
+  } catch (error) {
+    console.log('Could not connect to Mongoose')
+  }
 }
 
 async function startHttpServer(app: Express): Promise<HttpServer> {

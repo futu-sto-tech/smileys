@@ -6,7 +6,8 @@ import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import { logError } from '../middleware/error/logError'
 import { returnError } from '../middleware/error/returnError'
-import rootRouter from '../routes/sessions'
+import sessionsRouter from '../routes/sessions'
+import feedbackRouter from '../routes/feedback'
 
 export function createApp(): Express {
   const app: Express = express()
@@ -17,7 +18,8 @@ export function createApp(): Express {
   app.get('/', (req: Request, res: Response) => {
     res.send('Express + TypeScript server running')
   })
-  app.use('/', rootRouter)
+  app.use('/', sessionsRouter)
+  app.use('/', feedbackRouter)
   app.use(logError)
   app.use(returnError)
   return app
