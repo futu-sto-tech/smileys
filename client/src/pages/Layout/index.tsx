@@ -9,6 +9,7 @@ import CookieBanner from '../../components/CookieBanner'
 import useLocalStorage from 'use-local-storage'
 import { TRACKING_ID } from '../../consts/envs'
 import ReactGA from 'react-ga4'
+import FeedbackForm from '../../components/Feedback'
 
 const { navStyle, footerStyle, contentStyle, mainStyle } = styling
 
@@ -37,6 +38,7 @@ function Layout() {
     <>
       <CookieBanner />
       <main className={mainStyle}>
+        <FeedbackForm />
         <NavBar />
         <div className={contentStyle}>
           <Outlet />

@@ -1,12 +1,13 @@
 interface SmileyLogoProps {
   className?: string
-  color?: 'black' | 'white'
+  color?: 'black' | 'white' | string
+  height?: number
 }
 
-export function SmileyLogo({ className, color = 'white' }: SmileyLogoProps) {
+export function SmileyLogo({ className, color = 'white', height = 40 }: SmileyLogoProps) {
   return (
     <div className={className}>
-      <svg width="125" height="45" viewBox="0 0 251 91" fill={color} xmlns="http://www.w3.org/2000/svg">
+      <svg width="125" height={height} viewBox="0 0 251 91" fill={color} xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"

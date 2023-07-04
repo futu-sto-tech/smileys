@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import * as serverService from '../../../services/server'
 import { ApiError } from '../../../types/errors'
+import FeedbackForm from '../../../components/Feedback'
 
 function Navbar() {
   const [roomId, setRoomId] = useState('')
@@ -31,7 +32,6 @@ function Navbar() {
 
     if (err) return setError(err)
     if (!data) return setError(new Error("Room doesn't exist"))
-    console.log({ user })
 
     if (!user.name) {
       navigate(`/name/${roomId}`)
@@ -42,6 +42,8 @@ function Navbar() {
         })
     }
   }
+
+  const showFeedbackForm = location.pathname.match(/\/.{4}$/)
 
   const cx = classNames({
     [`${styles.navbarContainer}`]: true,
@@ -70,6 +72,7 @@ function Navbar() {
       <Link to="/">
         <SmileyLogo color="black" className={styles.smileysLogo} />
       </Link>
+      {showFeedbackForm && <FeedbackForm />}
       {location && location.pathname === '/' ? codeInputContainer : null}
     </nav>
   )
