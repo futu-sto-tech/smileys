@@ -4,11 +4,13 @@ import { SmileyLogo } from '../SVGs/Logos'
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { SERVER_URLS } from '../../consts/urls'
+import { Button } from '../Button'
 
 interface FeedbackFormProps {}
 
 const FeedbackForm: FunctionComponent<FeedbackFormProps> = () => {
   const [open, setOpen] = useState(false)
+  const [submittedFeedback, setSubmittedFeedback] = useState(false)
 
   const sendFeedback = useMutation((feedbackData: any) => {
     return axios.post(SERVER_URLS.SEND_FEEDBACK, feedbackData)
@@ -16,17 +18,30 @@ const FeedbackForm: FunctionComponent<FeedbackFormProps> = () => {
 
   const onSubmit = (event: any) => {
     const data = { feedback: event.target[0].value, mail: event.target[1].value }
-    setOpen(false)
     sendFeedback.mutate(data)
+    setSubmittedFeedback(true)
+  }
+
+  const onClose = () => {
+    setOpen(false)
+    setSubmittedFeedback(false)
   }
 
   const Modal = () => (
     // Background
     <div className="fixed flex items-center justify-center inset-0 bg-black/50 z-40">
-      <div className="bg-primary-gray p-10 rounded z-50">
-        <span className="text-base">We love feedback! 💛</span>
-        <Form onSubmit={onSubmit} />
-      </div>
+      {!submittedFeedback ? (
+        <div className="bg-primary-gray p-10 rounded z-50">
+          <span className="text-base">We love feedback! 💛</span>
+          <Form onSubmit={onSubmit} onClose={onClose} />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-10 items-center bg-primary-gray py-10 px-[100px] rounded z-50">
+          <div className="text-lg">Thanks for your feedback! 🙏</div>
+          <img height={400} src="https://media.giphy.com/media/cdNSp4L5vCU7aQrYnV/giphy.gif" alt="" />
+          <Button onClick={onClose}>Close</Button>
+        </div>
+      )}
     </div>
   )
 
@@ -46,7 +61,10 @@ const FeedbackForm: FunctionComponent<FeedbackFormProps> = () => {
           </div>
         </div>
         <div className="relative mt-[10px]">
-          <span className="text-base font-light underline opacity-80" onClick={() => setOpen(true)}>
+          <span
+            className="text-base font-light underline opacity-80 hover:cursor-pointer"
+            onClick={() => setOpen(true)}
+          >
             Send feedback
           </span>
           {open && <Modal />}

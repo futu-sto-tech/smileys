@@ -4,9 +4,10 @@ import { FormEvent } from 'react'
 
 interface FormProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void
+  onClose: () => void
 }
 
-const FormDemo = ({ onSubmit }: FormProps) => (
+const FormDemo = ({ onSubmit, onClose }: FormProps) => (
   <Form.Root className="w-[360px]" onSubmit={onSubmit}>
     <Form.Field className="grid mb-[10px]" name="feedback">
       <div className="flex items-baseline justify-between">
@@ -46,6 +47,7 @@ const FormDemo = ({ onSubmit }: FormProps) => (
       <Button
         style={{ backgroundColor: 'red' }}
         className="text-white box-border w-full text-violet11 shadow-blackA7 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none  focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+        onClick={onClose}
       >
         Cancel
       </Button>
