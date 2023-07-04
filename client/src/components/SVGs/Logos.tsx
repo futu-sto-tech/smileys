@@ -27,9 +27,9 @@ export function FuturiceLogo({ className, color = 'white' }: SmileyLogoProps) {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        width="150px"
-        height="60px"
-        viewBox="100 0 900 320"
+        width="160px"
+        height="40px"
+        viewBox="100 120 900 100"
         fill={color}
       >
         <path
