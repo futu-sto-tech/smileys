@@ -1,11 +1,10 @@
 .containerStyling {
-  height: 200px;
+  height: 250px;
   width: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   flex-grow: 1;
-  padding-top: 40px;
 
   color: var(--white);
   background-color: var(--background-green);
