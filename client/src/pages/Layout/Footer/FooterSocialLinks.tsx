@@ -7,7 +7,7 @@ const { container, socialLinksContainerStyling, elementMargin } = styling
 
 function FooterSocialLinks() {
   return (
-    <div className={`${container} ${elementMargin}`}>
+    <div className={`${container}`}>
       <div className={elementMargin}>
         <SmileyLogo />
       </div>
