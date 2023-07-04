@@ -1,13 +1,23 @@
-import { FunctionComponent, useState } from 'react'
+import { FormEvent, FunctionComponent, useState } from 'react'
 import Form from './FeedbackForm'
 import { SmileyLogo } from '../SVGs/Logos'
+import { useMutation } from 'react-query'
+import axios from 'axios'
+import { SERVER_URLS } from '../../consts/urls'
 
 interface FeedbackFormProps {}
 
 const FeedbackForm: FunctionComponent<FeedbackFormProps> = () => {
   const [open, setOpen] = useState(false)
-  const onSubmit = () => {
+
+  const sendFeedback = useMutation((feedbackData: any) => {
+    return axios.post(SERVER_URLS.SEND_FEEDBACK, feedbackData)
+  })
+
+  const onSubmit = (event: any) => {
+    const data = { feedback: event.target[0].value, mail: event.target[1].value }
     setOpen(false)
+    sendFeedback.mutate(data)
   }
 
   const Modal = () => (

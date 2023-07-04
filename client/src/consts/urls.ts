@@ -8,7 +8,7 @@ const BASE_SERVER_URL = VITE_SERVER_ADDRESS
 
 export const SERVER_URLS = {
   SESSION_EXISTS: BASE_SERVER_URL + 'session-exists',
-  SEND_FEEDBACK: BASE_SERVER_URL + 'session-exists',
+  SEND_FEEDBACK: BASE_SERVER_URL + 'feedback',
 }
 
 export const GIPHY_URLS = {

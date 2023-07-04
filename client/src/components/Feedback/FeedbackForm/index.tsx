@@ -1,8 +1,9 @@
 import * as Form from '@radix-ui/react-form'
 import { Button } from '../../Button'
+import { FormEvent } from 'react'
 
 interface FormProps {
-  onSubmit: () => void
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void
 }
 
 const FormDemo = ({ onSubmit }: FormProps) => (
