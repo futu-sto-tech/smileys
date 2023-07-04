@@ -22,7 +22,7 @@ test('host completes a session without participants', async ({ page }) => {
     .first()
     .click()
 
-  const clicksOnChooseGifAndLeavesLobby = await page.getByRole('button', { name: 'Choose Gif' }).click()
+  const clicksOnChooseGifAndLeavesLobby = await page.getByRole('button', { name: 'Choose' }).click()
   const checksIfnameIsCorrect = await expect(page.getByText(userName)).toBeVisible()
   const startsTheGame = await page.getByRole('button', { name: 'Start' }).click()
   const checksIfGifIsDisplayed = await expect(page.getByTestId('user-gif')).toBeVisible()
