@@ -10,7 +10,7 @@ primary_region = "arn"
   ENVIRONMENT = "PRODUCTION"
   ORIGIN = "*"
   PORT = "8020"
-  DATABASE_URL=mongodb+srv://smileysfuturice:rGIXYwBzVmki0mUf@smileys.hhpox1q.mongodb.net/Production?retryWrites=true&w=majority
+  DATABASE_URL = "mongodb+srv://smileysfuturice:rGIXYwBzVmki0mUf@smileys.hhpox1q.mongodb.net/Production?retryWrites=true&w=majority"
 
 [http_service]
   internal_port = 8020
