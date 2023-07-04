@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import { Button } from '../../components/Button'
 import { IAppProvider } from '../../types/AppContext'
 import { useGetGifs } from '../../hooks/api/useGetGifs'
+import Spinner from '../../components/Spinner/Spinner'
 
 type Parameters = {
   roomId: string
@@ -24,6 +25,7 @@ function SelectGifPage() {
     <div className={styles.container}>
       <h1>Select this GIF?</h1>
       <p>Pick a GIF to share with your team during this week's smileys session</p>
+
       {!isFetching &&
         activeGif &&
         (activeGif.images.original.width / activeGif.images.original.height < 2 ? (
@@ -31,24 +33,29 @@ function SelectGifPage() {
         ) : (
           <img src={activeGif.images.original.url} width={1000} className={styles.gif} />
         ))}
-      <div className={styles.buttons}>
-        <Button
-          className={styles.rightButton}
-          onClick={(e) => {
-            navigate(-1)
-          }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={() => {
-            updateSessionUser({ ...user, gifId, gifThumbnailUrl })
-            navigate(`/${roomId}`)
-          }}
-        >
-          Choose Gif
-        </Button>
-      </div>
+
+      {!isFetching && (
+        <div className={styles.buttons}>
+          <Button
+            className={styles.rightButton}
+            onClick={(e) => {
+              navigate(-1)
+            }}
+          >
+            Back
+          </Button>
+
+          <Button
+            onClick={() => {
+              updateSessionUser({ ...user, gifId, gifThumbnailUrl })
+              navigate(`/${roomId}`)
+            }}
+          >
+            Choose
+          </Button>
+        </div>
+      )}
+      {isFetching && <Spinner />}
     </div>
   )
 }

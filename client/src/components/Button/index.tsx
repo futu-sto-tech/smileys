@@ -22,7 +22,7 @@ export function Button(props: ButtonProps) {
 
   return (
     <button {...nativeProps} className={cx}>
-      {isLoading ? <span className="loading loading-spinner "></span> : children}
+      {isLoading ? <span className="loading loading-spinner"></span> : children}
     </button>
   )
 }
