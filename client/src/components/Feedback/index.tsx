@@ -5,12 +5,14 @@ import { useMutation } from 'react-query'
 import axios from 'axios'
 import { SERVER_URLS } from '../../consts/urls'
 import { Button } from '../Button'
+import useListenKeyDown from '../../hooks/useListenKeyDown'
 
 interface FeedbackFormProps {}
 
 const FeedbackForm: FunctionComponent<FeedbackFormProps> = () => {
   const [open, setOpen] = useState(false)
   const [submittedFeedback, setSubmittedFeedback] = useState(false)
+  useListenKeyDown('Escape', () => setOpen(false))
 
   const sendFeedback = useMutation((feedbackData: any) => {
     return axios.post(SERVER_URLS.SEND_FEEDBACK, feedbackData)
@@ -22,24 +24,28 @@ const FeedbackForm: FunctionComponent<FeedbackFormProps> = () => {
     setSubmittedFeedback(true)
   }
 
-  const onClose = () => {
+  const closeFeedback = () => {
     setOpen(false)
     setSubmittedFeedback(false)
   }
 
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) closeFeedback()
+  }
+
   const Modal = () => (
     // Background
-    <div className="fixed flex items-center justify-center inset-0 bg-black/50 z-40">
+    <div onClick={handleModalClick} className="fixed flex items-center justify-center inset-0 bg-black/50 z-40">
       {!submittedFeedback ? (
         <div className="bg-primary-gray p-10 rounded z-50">
           <span className="text-base">We love feedback! 💛</span>
-          <Form onSubmit={onSubmit} onClose={onClose} />
+          <Form onSubmit={onSubmit} onClose={closeFeedback} />
         </div>
       ) : (
         <div className="flex flex-col gap-10 items-center bg-primary-gray py-10 px-[100px] rounded z-50">
           <div className="text-lg">Thanks for your feedback! 🙏</div>
           <img height={400} src="https://media.giphy.com/media/cdNSp4L5vCU7aQrYnV/giphy.gif" alt="" />
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={closeFeedback}>Close</Button>
         </div>
       )}
     </div>
