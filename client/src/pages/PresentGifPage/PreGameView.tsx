@@ -28,7 +28,7 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
               <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">1.</div>
               <p className="font-bold text-base">
                 Invite your team by sharing this link:{' '}
-                <Tooltip content='Copied' triggerOnClick>
+                <Tooltip content={<p>Copied!</p>} triggerOnClick>
                   <span className="text-blue-800 cursor-pointer" onClick={handleCopy}>{`${window.location.hostname}/${code}`}</span>
                 </Tooltip>
               </p>

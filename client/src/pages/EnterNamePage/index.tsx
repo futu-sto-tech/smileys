@@ -57,7 +57,7 @@ function EnterNamePage() {
       <div className={styles.nameForm}>
         <Tooltip
           open={!!errors.changeNameInput}
-          content={errors.changeNameInput ? errors.changeNameInput.message! : ''}
+          content={errors.changeNameInput ? <p>{errors.changeNameInput.message!}</p> : <p></p>}
           displayArrow={false}
         >
           <form onSubmit={handleSubmit(onSubmit)} className="flex items-center">

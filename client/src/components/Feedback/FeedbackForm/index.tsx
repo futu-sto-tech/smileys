@@ -1,6 +1,8 @@
 import * as Form from '@radix-ui/react-form'
 import { Button } from '../../Button'
 import { FormEvent } from 'react'
+import Tooltip from '../../Tooltip'
+import { DATA_STORAGE_PRACTICES } from './consent'
 
 interface FormProps {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void
@@ -8,7 +10,7 @@ interface FormProps {
 }
 
 const FormDemo = ({ onSubmit, onClose }: FormProps) => (
-  <Form.Root className="w-[360px]" onSubmit={onSubmit}>
+  <Form.Root className="w-[360px] z-40" onSubmit={onSubmit}>
     <Form.Field className="grid mb-[10px]" name="feedback">
       <div className="flex items-baseline justify-between">
         <Form.Label className="text-[15px] font-light leading-[35px] text-white">
@@ -43,6 +45,15 @@ const FormDemo = ({ onSubmit, onClose }: FormProps) => (
         />
       </Form.Control>
     </Form.Field>
+    <p>
+      By submitting your email address, you acknowledge and consent to our{' '}
+      {
+        <Tooltip content={DATA_STORAGE_PRACTICES} triggerOnHover>
+          <span className="font-bold cursor-pointer text-blue-400">data storage practices</span>
+        </Tooltip>
+      }
+      .
+    </p>
     <div className="flex justify-between">
       <Button
         style={{ backgroundColor: 'red' }}
