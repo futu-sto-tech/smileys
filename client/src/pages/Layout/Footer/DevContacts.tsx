@@ -13,7 +13,7 @@ function DevContacts() {
       <p className={'text-base'}>Have questions or feedback?</p>
       <p className={'text-base'}>
         Contact us at{' '}
-        <Tooltip triggerOnClick content={'Copied!'}>
+        <Tooltip triggerOnClick content={<p>Copied!</p>}>
           <span
             className={'text-base cursor-pointer underline'}
             onClick={() => {
