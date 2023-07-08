@@ -43,6 +43,10 @@ function Navbar() {
     }
   }
 
+  // Remove after bug is fixed
+  // Bug: End page -> click on logo -> Create new session -> App navigates to /end 
+  const isOnEndPage = location.pathname.includes('/end');
+
   const showFeedbackForm = location.pathname.match(/\/.{4}$/)
 
   const cx = classNames({
@@ -69,7 +73,7 @@ function Navbar() {
 
   return (
     <nav className={cx}>
-      <Link to="/">
+      <Link to={isOnEndPage ? '' : '/'}>
         <SmileyLogo color="black" className={styles.smileysLogo} />
       </Link>
       {showFeedbackForm && <FeedbackForm />}

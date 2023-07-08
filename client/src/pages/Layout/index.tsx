@@ -20,7 +20,6 @@ interface LayoutProps {
 function Layout() {
   const location = useLocation()
   const resolutionSupported = useResolutionSupported(1000)
-  if (!resolutionSupported) return <ResolutionNotSupported />
 
   // Google analytics
   const [allowTracking, _] = useLocalStorage<boolean>('allowTracking', false)
@@ -33,6 +32,8 @@ function Layout() {
     if (allowTracking && TRACKING_ID) ReactGA.send({ hitType: 'pageview', page: window.location.pathname })
     window.scrollTo({ top: 0 })
   }, [location])
+
+  if (!resolutionSupported) return <ResolutionNotSupported />
 
   return (
     <>
