@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import styles from './index.module.scss'
-import { Button } from '../Button'
 import CopyButton from '../CopyButton'
 
 interface ShareSessionProps {
