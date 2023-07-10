@@ -51,22 +51,22 @@ function EnterNamePage() {
 
   return (
     <div className={styles.container}>
-      <h1 className="mb-[20px]">Hey, welcome to your team's smileys session!</h1>
+      <h1>Welcome!</h1>
+      <p className='text-[18px] mb-[30px] text-center'>Your name will be visible to other participants.</p>
 
-      <p>Your name will be visible to other participants.</p>
       <div className={styles.nameForm}>
         <Tooltip
           open={!!errors.changeNameInput}
           content={errors.changeNameInput ? <p>{errors.changeNameInput.message!}</p> : <p></p>}
           displayArrow={false}
         >
-          <form onSubmit={handleSubmit(onSubmit)} className="flex items-center">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex">
             <Input
               register={register('changeNameInput', nameInputValidation)}
               className={styles.input}
               placeholder={'Enter your name'}
             ></Input>
-            <Button>Continue</Button>
+            <Button className='ml-[10px]'>Continue</Button>
           </form>
         </Tooltip>
       </div>

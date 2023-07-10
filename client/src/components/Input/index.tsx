@@ -11,6 +11,7 @@ interface InputProps {
   error?: ApiError
   style?: {}
   register?: UseFormRegisterReturn
+  id?: string
 }
 
 function Input(props: InputProps) {
@@ -28,6 +29,7 @@ function Input(props: InputProps) {
         className={`${props.className} ${styles.input}`}
         style={props.style}
         placeholder={props.placeholder}
+        id={props.id}
         {...props.register}
         autoFocus
       >
