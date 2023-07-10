@@ -17,20 +17,18 @@ function ShareRoomPage() {
     <div className={styles.container}>
       <h1 className={styles.header}>Your team's room code</h1>
       <ShareRoom onCopied={() => setShowJoinRoom(true)} big roomId={roomId!} />
-      {showJoinRoom && (
-        <Button
-          className={styles.button}
-          onClick={() => {
-            if (user.name) {
-              navigate(`/browse/${roomId}`)
-            } else {
-              navigate(`/name/${roomId}`)
-            }
-          }}
-        >
-          Join room!
-        </Button>
-      )}
+      <Button
+        className={styles.button}
+        onClick={() => {
+          if (user.name) {
+            navigate(`/browse/${roomId}`)
+          } else {
+            navigate(`/name/${roomId}`)
+          }
+        }}
+      >
+        Join room!
+      </Button>
       <div className={styles.joinRoom}></div>
     </div>
   )
