@@ -13,9 +13,9 @@ const ListItem = ({ children }: { children: React.ReactNode }) => (
 )
 
 function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
-    const handleCopy = () => {
-      navigator.clipboard.writeText(`${window.location.hostname}/${code}`)
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(`${window.location.hostname}/${code}`)
+  }
 
   return (
     <div className="flex w-full h-full justify-center items-center p-[15px]">
@@ -25,16 +25,19 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
           <h2 className="text-base mb-[12.5px]">Next you might want to ...</h2>
           <div className="flex flex-col gap-[10px]">
             <ListItem>
-              <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">1.</div>
+              <div className="font-bold text-base">1.</div>
               <p className="font-bold text-base">
                 Invite your team by sharing this link:{' '}
                 <Tooltip content={<p>Copied!</p>} triggerOnClick>
-                  <span className="text-blue-800 cursor-pointer" onClick={handleCopy}>{`${window.location.hostname}/${code}`}</span>
+                  <span
+                    className="text-blue-800 cursor-pointer"
+                    onClick={handleCopy}
+                  >{`${window.location.hostname}/${code}`}</span>
                 </Tooltip>
               </p>
             </ListItem>
             <ListItem>
-              <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">2.</div>
+              <div className="font-bold text-base">2.</div>
               <p className="font-bold text-base mr-2">Share your screen using your favourite video tool</p>
               <a href="https://meet.google.com/" target="_blank">
                 <img
@@ -52,7 +55,7 @@ function PreGameView({ startGame, isCreator, code }: PreGameViewProps) {
               </a>
             </ListItem>
             <ListItem>
-              <div className="font-bold border-solid text-base py-[2px] px-[9px] rounded">3.</div>
+              <div className="font-bold text-base">3.</div>
               <p className="font-bold text-base">Start the session</p>
             </ListItem>
             <Button onClick={startGame}>Start</Button>
