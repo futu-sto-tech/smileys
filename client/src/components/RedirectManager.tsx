@@ -37,16 +37,13 @@ const RedirectManager = ({ Component, page }: RedirectManagerProps<ComponentWith
   }
 
   function redirect(webSocketState: string, session: Session | undefined, roomId: string | undefined, user: User) {
-    console.log('redirect')
     if (webSocketState === 'Connected to Websocket') {
       if (sessionEnded) navigate('/end')
 
       if (page !== 'HomePage' && page !== 'ShareRoomPage' && !user.name) {
         navigate(`/name/${roomId}`)
       }
-      console.log({ page, gifid: user.gifId, roomId, roomIdRequirements: roomIdRequirements(roomId), session })
       if (page === 'PresentGifPage' && session && !user.gifId && roomIdRequirements(roomId)) {
-        console.log('im in there dog')
         navigate(`/browse/${roomId}`)
       }
     }
