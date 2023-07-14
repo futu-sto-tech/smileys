@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import * as serverService from '../../../services/server'
 import { ApiError } from '../../../types/errors'
-import FeedbackForm from '../../../components/Feedback'
+import Feedback from '../../../components/Feedback'
 
 function Navbar() {
   const [roomId, setRoomId] = useState('')
@@ -46,9 +46,6 @@ function Navbar() {
   // Remove after bug is fixed
   // Bug: End page -> click on logo -> Create new session -> App navigates to /end
   const isOnEndPage = location.pathname.includes('/end')
-  console.log('isOnEndPage', isOnEndPage)
-
-  const showFeedbackForm = location.pathname.match(/\/.{4}$/)
 
   const cx = classNames({
     [`${styles.navbarContainer}`]: true,
@@ -75,13 +72,18 @@ function Navbar() {
   return (
     <nav className={cx}>
       {isOnEndPage ? (
-        <SmileyLogo color="black" className={styles.smileysLogo} />
-      ) : (
-        <Link to={isOnEndPage ? '' : '/'}>
+        <div className="flex items-start">
           <SmileyLogo color="black" className={styles.smileysLogo} />
-        </Link>
+          <Feedback />
+        </div>
+      ) : (
+        <div className="flex items-start">
+          <Link to={'/'}>
+            <SmileyLogo color="black" className={styles.smileysLogo} />
+          </Link>
+          <Feedback />
+        </div>
       )}
-      {showFeedbackForm && <FeedbackForm />}
       {location && location.pathname === '/' ? codeInputContainer : null}
     </nav>
   )
