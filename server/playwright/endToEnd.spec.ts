@@ -12,7 +12,6 @@ test('host completes a session without participants', async ({ page }) => {
     page.getByRole('heading', { name: "Your team's room code", exact: true })
   ).toBeVisible()
 
-  const copiesLink = await page.getByRole('button', { name: 'Copy link' }).click()
   const clicksOnJoinRoom = await page.getByRole('button', { name: 'Join room!' }).click()
   const fillsUsername = await page.getByRole('textbox').fill(userName)
   const clicksOnContine = await page.getByRole('button', { name: 'Continue' }).click()
