@@ -21,7 +21,6 @@ export function sortDataOnHeight(data: GifResult[], columns: number) {
 
     let sortedColumnHeights = columnHeights.sort()
 
-    console.log({ sortedColumnHeights })
     const indexArray = columnHeights.map((height) => {
       const pop = sortedColumnHeights.indexOf(height)
       sortedColumnHeights[sortedColumnHeights.indexOf(height)] = -1
@@ -32,7 +31,6 @@ export function sortDataOnHeight(data: GifResult[], columns: number) {
     sortedRow.forEach((gifResult, index) => {
       columnHeights[index] += Number(gifResult.images.fixed_width.height)
     })
-    console.log({ sortedColumnHeights, indexArray, sortedRow, columnHeights })
     sortedData.push(...sortedRow)
   })
   //sortedData.push(...data.slice(Math.floor(data.length / columns)))
